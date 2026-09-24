@@ -923,6 +923,48 @@
    - 全程严禁触碰运行中的 `Antigravity.exe` 宿主进程，通信与会话 100% 稳定运行；
    - scratch 目录所有过渡 `.cjs` 脚本均已随用随销毁，工作区与桌面保持 100% 纯净。
 
+---
+
+## 三十四、2.17.0 重磅版本深度适配与 100% 纯绿色单文件交付闭环 (2026-09-24 15:56 追加)
+
+### 1. 2.17.0 现场核验与架构分析真相
+1. **官方版本与文件状态确认**：
+   - 宿主程序 `Antigravity.exe`：`ProductVersion: 2.17.0.0`，`FileVersion: 2.17.0`；
+   - 官方出厂原版归档 `resources/app.asar.official_backup`：
+     - 文件大小：`4,621,906` 字节（比 2.16.0 微增 1,102 字节）；
+     - 修改时间：`2026/9/23 07:01:04`；
+     - 官方权威 SHA256：`85c97057c762f01fe9fa8b0380f8055ff76344ceb47c840cd3d8d43aa035142b`。
+2. **2.17.0 架构与原生接口深度比对**：
+   - 官方 2.17.0 原版 `preload.js` 共 115 行，API 接口与 2.16.0 保持高度一致（暴露 updater, dialog, nativeNotifications, nativeStorage, logs, extensions, deepLink, agent, electronNative, ide, wsl）；
+   - 官方 2.17.0 的 `loadingOverlay.js` 仍包含英文 `Loading Antigravity`，汉化版已精确转译为 `正在加载 Antigravity...`；
+   - 官方原版 `preload.js` 已提取归档至 `scratch/official_2170_preload.js`。
+
+### 2. 2.17.0 纯净汉化核心构建
+- **脱机纯净核心归档 (`resources/app.asar.patched`)**：
+  - 文件大小：`4,860,235` 字节；
+  - SHA256：`11c7ed6a9637ea1ee1f168cf7d22c28c3cbe65c02888c1a0cbc224d25fcf7dd3`；
+  - 完整继承 2.17.0 原生架构及 WSL 支持，并完美融合 2000+ 词条汉化引擎。
+
+### 3. C# WinForms 管理小工具升级与纯绿色单文件交付
+1. **多版本状态感知升级**：
+   - `ToolWindow.cs` 增加 2.17.0 基准常数（`OFFICIAL_ORIG_SIZE_2170 = 4621906` 与 `PATCHED_CORE_SIZE_2170 = 4860235`）；
+   - 底部提示更新为：`已深度适配 2.17.0 · 支持选词翻译 · 随用随关`；
+   - 支持智能识别 2.17.0 / 2.16.0 / 2.15.1 / 2.15.0 等多个版本。
+2. **原生 `csc.exe` 脱机内嵌编译**：
+   - 采用 Windows 原生自带 Microsoft .NET Framework 编译器；
+   - 内嵌高清图标、2.17.0 纯净汉化核心与 2.17.0 官方原版备份；
+   - 输出便携单文件：`Antigravity汉化管理小工具.exe`；
+     - 大小：`9,543,680` 字节 (9.10 MB)；
+     - SHA256：`87898cce7425471a75cf7152a8a973ea4e5793ed9fb2b96c96334a89f0225290`。
+3. **100% 纯绿色单文件唯一交付与零附加物铁律**：
+   - 桌面唯一交付路径：`D:\Users\MoFenginto\Desktop\Antigravity汉化管理小工具.exe`；
+   - 彻底废除发布包文件夹与 zip 压缩包，桌面 0 附加物、0 散落文件；
+   - 单文件直接独立运行、一键汉化、一键恢复，直接发给他人即可开箱即用。
+4. **进程安全与工作区纯净度**：
+   - 全程零强杀正在对话运行的 `Antigravity.exe` 宿主进程；
+   - 所有中间过渡 `.cjs` 脚本均已瞬时自毁销毁，工作区与 scratch 保持 100% 纯净。
+
+
 
 
 
