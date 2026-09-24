@@ -1,0 +1,68 @@
+Manifest-Version: 1.0
+
+Name: AndroidManifest.xml
+SHA-256-Digest: dzg9PlvziiuhN36DrT9rEXxMuHJjqeJvtJw9b75VEBo=
+
+Name: classes.dex
+SHA-256-Digest: jQvvP4s9iAvri7YeYvq8u0xC7LINxiXGV/ys+swcqQc=
+
+Name: res/anim/scale_anim.xml
+SHA-256-Digest: rp+sSqq8gna/WfJh71QRuNnyhdOWwLIfLzGXYfvaaI0=
+
+Name: res/drawable/btn_primary.xml
+SHA-256-Digest: z91byd98U4qnAd1o/sR7Pv2eo9LNWmkvrYncdvcyiec=
+
+Name: res/drawable/button_background.xml
+SHA-256-Digest: 4BaLBOh88D+QovLF7vDjZrhcqOSEHDj6vmsA4RIVhn8=
+
+Name: res/drawable/ic_launcher.png
+SHA-256-Digest: G+hcxlNthBCs2Pt250DA+Pu9yruTktsytaQqpkmaDdw=
+
+Name: res/drawable/lezilaoba.xml
+SHA-256-Digest: xOqVFemvTtJxIh3mHakydYNrj2+tKcn/Ubo4pXTgHxQ=
+
+Name: res/drawable/lmwd.xml
+SHA-256-Digest: eKEW1L87g0WWOPmiM+aHT6neli90N3AdeB6mM+r7OcA=
+
+Name: res/drawable/main_bg.xml
+SHA-256-Digest: dlbevijJlYC0WqsDdl34gvNeW6UVE6msj9rx7ysOPa4=
+
+Name: res/drawable/panel_bg.xml
+SHA-256-Digest: JwUXv1+w74FBQlzcsNp3bP8Mki+n5T0IBaVU+x+4RtI=
+
+Name: res/drawable/rounded_corners.xml
+SHA-256-Digest: zcmP+xIqvdp8aArFFPo9PCAXC2Rh/P5Hz2bjCjpYdVE=
+
+Name: res/drawable/rounded_corners1.xml
+SHA-256-Digest: eKEW1L87g0WWOPmiM+aHT6neli90N3AdeB6mM+r7OcA=
+
+Name: res/drawable/shurk.xml
+SHA-256-Digest: w4nyj1J9mEUoYBO1g7Za4S96TFgt/m/PhOL2z8b9CuU=
+
+Name: res/layout-v21/filter_activity.xml
+SHA-256-Digest: 9jdD8bYZ6qUoKY57gkaE/Wt7lLxaYzTntftNddmWq/8=
+
+Name: res/layout/activity_agent.xml
+SHA-256-Digest: Wrer663OJqpUzizT3+0Pll9q4KkmPzOPxbDmKZ/tRVc=
+
+Name: res/layout/activity_main.xml
+SHA-256-Digest: 0i3Az+QVMc8bCwPDvdqKEBqgWd1NXsqNAwZZzVqs/So=
+
+Name: res/layout/activity_webview.xml
+SHA-256-Digest: U2BvhY3N9Ml9OyodkluEJZqPr/PNxA0reajogRqtUOY=
+
+Name: res/layout/dialog_file_input.xml
+SHA-256-Digest: ePoK+nxqTHO1exaDVqK+2GiyVYMijnstf4qUKOZtbRM=
+
+Name: res/layout/dialog_manual_query.xml
+SHA-256-Digest: uRk+7tAyyFI8zPpCYwY9dZVmJQU5hcyFxR/T4oc6iE8=
+
+Name: res/layout/filter_activity.xml
+SHA-256-Digest: IjcTZCrnAM24Dy6pyA1kGfP/9aBNbHUXxf82i8tWuLw=
+
+Name: res/layout/tag_item.xml
+SHA-256-Digest: 3SQHtYdNbLS33ecVc4gEj6/SaDuRMcEjq5voPOzXaEw=
+
+Name: resources.arsc
+SHA-256-Digest: 2CFsKCFd1TQCNf32U1PYX7bCP09k1zdUjKxfjlv5vnc=
+
