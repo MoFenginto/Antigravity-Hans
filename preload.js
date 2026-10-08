@@ -75,6 +75,7 @@ const agentAPI = {
 };
 const electronNativeAPI = {
     getZoomLevel: () => electron_1.webFrame.getZoomFactor(),
+    getPathForFile: (file) => electron_1.webUtils.getPathForFile(file),
     setTitleBarOverlay: (options) => electron_1.ipcRenderer.invoke('window:set-title-bar-overlay', options),
     minimize: () => electron_1.ipcRenderer.invoke('window:minimize'),
     maximize: () => electron_1.ipcRenderer.invoke('window:maximize'),
@@ -93,6 +94,8 @@ const electronNativeAPI = {
     },
     openExternal: (url) => electron_1.ipcRenderer.invoke('shell:open-external', url),
     revealInFilePicker: (path) => electron_1.ipcRenderer.invoke('shell:reveal-in-file-picker', path),
+    showContextMenu: (items) => electron_1.ipcRenderer.invoke('window:show-context-menu', items),
+    closeContextMenu: () => electron_1.ipcRenderer.invoke('window:close-context-menu'),
 };
 const ideAPI = {
     isInstalled: () => electron_1.ipcRenderer.invoke('ide:is-installed'),
@@ -113,6 +116,9 @@ electron_1.contextBridge.exposeInMainWorld('electronNative', electronNativeAPI);
 electron_1.contextBridge.exposeInMainWorld('ide', ideAPI);
 electron_1.contextBridge.exposeInMainWorld('wsl', wslAPI);
 
+
+
+/* __ANTIGRAVITY_ZH_ENGINE_V2__ */
 try {
     const fs_1 = require("fs");
     const path_1 = require("path");

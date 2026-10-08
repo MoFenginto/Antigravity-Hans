@@ -983,6 +983,44 @@
    - 大小：`9,545,216` 字节 (9.10 MB)；
    - SHA256：`c6002d908cd903dc404f331777283ed0cd738f80d1347baddeb801a529c77b1f`。
 
+---
+
+## 三十六、2.21.1 架构深度适配与 Google Material Design 3 卡片风高级 UI 重构 (2026-10-08 追加)
+
+### 1. 2.21.1 现场核验与官方新特性剖析
+1. **官方版本与文件状态确认**：
+   - 宿主程序 `Antigravity.exe`：已升级确认版本为 `2.21.1 (2.21.1.0)`；
+   - 官方出厂原版归档 `resources/app.asar.official_backup`：
+     - 文件大小：`4,633,502` 字节；
+     - 修改时间：`2026/10/8 06:04:42`；
+     - 官方权威 SHA256：`d075e5d9ff01f8806016aa88c39bf1429f068a941fdbe46147d8409843e62113`。
+2. **2.21.1 底层 API 新增与架构保护**：
+   - 官方 2.21.1 的 `preload.js` 从 115 行扩充至 118 行（`5,409` 字节），在 `electronNativeAPI` 中新增三大关键原生接口：
+     - `getPathForFile: (file) => electron_1.webUtils.getPathForFile(file)`（支持拖拽文件获取绝对物理路径）；
+     - `showContextMenu: (items) => electron_1.ipcRenderer.invoke('window:show-context-menu', items)`（原生右键上下文菜单呼出）；
+     - `closeContextMenu: () => electron_1.ipcRenderer.invoke('window:close-context-menu')`（原生右键上下文菜单关闭）；
+   - 启动遮罩 `loadingOverlay.js` 升级为官方原生 SVG Logo 呼吸动效（`logo-pulse`），彻底消除英文文案；
+   - 汉化核心融合官方 2.21.1 全部原生新 API，确保右键菜单与拖拽功能 100% 完好无损。
+3. **2.21.1 纯净脱机汉化核心构建**：
+   - 归档路径：`resources/app.asar.patched`；
+   - 文件大小：`4,871,860` 字节；
+   - SHA256：`20d3d375e40962c71a0a1c07d7c346c8f54ff48ee5a673aabeb8f1c22764658c`；
+   - 当前客户端活跃核心 `resources/app.asar` 已原子同步生效为 4,871,860 字节，`zhTranslationBridge` 命中为 `true`。
+
+### 2. 管理小工具 Google Material Design 3 卡片风高级 UI 重构
+1. **全套 Google M3 现代桌面美学**：
+   - 采用深邃沉浸的 Google Dark Theme（底色 `#131314`），窗口舒展升级为 `460 x 420`；
+   - 全自绘圆角卡片架构（`M3Card`），采用 14px 圆角平滑路径与 `#303236` 微边框；
+   - 顶部 Header 卡片包含品牌标题、副标题与自绘动态药丸状态胶囊（`M3PillBadge`，薄荷绿高亮 `● 中文已生效`）；
+   - 操作卡片包含 Google 标志性浅蓝高亮按钮（`#A8C7FA`，文字沉稳深蓝 `#041E49`）与轮廓次按钮（`#2D2F32`）；
+   - 高级设置卡片包含清晰的“选词浮动翻译”与“版本更新自愈守护”双开关及说明副文本。
+2. **原生 `csc.exe` 单文件脱机编译交付**：
+   - 输出单一便携程序：`D:\Users\MoFenginto\Desktop\Antigravity汉化管理小工具.exe`；
+   - 文件大小：`9,574,400` 字节 (9.13 MB)；
+   - SHA256：`ec3f642215cdaa9219fb6deda889c259dc6fedf8270f6c2fe87a23d3895d1a95`；
+   - 100% 纯绿色单文件交付，桌面 0 附加物、0 散落文件夹与压缩包。
+
+
 
 
 
