@@ -10185,67 +10185,62 @@ try {
       // 3. 未命中整句规则则严格原样返回，绝对严禁用 includes 子串切割造成夹生饭！
       return value;
     }
-
-        function shouldSkip(node) {
+    function shouldSkip(node) {
       if (!node) return true;
       const element = node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement;
       if (!element) return false;
 
-      // 1. 保护代码块、编辑器、输入框与终端
+      // 1. 快速标签跳过
       const tagName = element.tagName ? element.tagName.toLowerCase() : '';
       if (tagName === 'script' || tagName === 'style' || tagName === 'code' || tagName === 'pre') {
+        return true;
+      }
+
+      // 2. 核心代码块、终端、正文容器（快速匹配直接整树剪枝）
+      if (element.matches && element.matches('.monaco-editor, .terminal, .xterm, .markdown-body, [data-testid="user-input-step"], [contenteditable="true"]')) {
         return true;
       }
       if (element.closest('.monaco-editor, .monaco-mouse-cursor-text, .cursor-edit, .terminal, .xterm, pre, code')) {
         return true;
       }
 
-      // 2. 【核心用户数据免触区】左侧会话历史列表条目、历史记录弹窗条目、用户会话标题 100% 绝对跳过！
-      // 坚决杜绝任何用户自定义的英文会话名称被篡改或半截污染！
+      // 3. 【核心用户数据免触区】左侧会话历史列表条目、历史记录弹窗条目、用户会话标题 100% 绝对跳过！
       if (element.closest('[data-testid*="conversation-row"], [data-testid*="history-item"], [data-testid*="session-item"]')) {
         if (!element.closest('button, [role="button"], [role="menu"], [role="menuitem"], [role="dialog"]')) {
           return true;
         }
       }
 
-      // 3. 保护用户技术文档、产物抽屉与大型 Markdown 正文
+      // 4. 保护用户技术文档、产物抽屉与大型 Markdown 正文
       if (element.closest('.markdown-body, .markdown-content, [data-testid*="markdown"], [data-testid*="artifact"], .artifact-viewer, .artifact-view, .artifact-drawer, .prose, article')) {
         if (!element.closest('.artifact-card, button, [role="button"], .review-button')) {
           return true;
         }
       }
 
-      // 4. 保护正在输入的文本域与编辑框
-      if (node.nodeType === Node.TEXT_NODE) {
-        if (element.closest('[contenteditable="true"], [contenteditable=""], input, textarea')) {
-          return true;
-        }
-      } else if (node.nodeType === Node.ELEMENT_NODE) {
-        const parent = node.parentElement;
-        if (parent && parent.closest('[contenteditable="true"], [contenteditable=""], input, textarea')) {
-          return true;
-        }
+      // 5. 保护正在输入的文本域与编辑框
+      if (element.closest('[contenteditable="true"], [contenteditable=""], input, textarea')) {
+        return true;
       }
 
-      // 5. 保护登录认证与向导区域
+      // 6. 保护登录认证与向导区域
       if (element.closest('[data-testid="login-container"], [data-testid="welcome-screen"], .login-screen, [data-testid="ide-install-wizard"]')) {
         return true;
       }
 
-      // 6. 保护用户自己的提问气泡内容与消息流正文
+      // 7. 保护用户自己的提问气泡内容与消息流正文（极速放行控制条，整树拦截只读流）
       if (element.closest('[data-testid="user-input-step"], [aria-label="User message"], [aria-label="用户消息"]')) {
         return true;
       }
       if (element.closest('[data-testid*="chat-message"], [data-testid*="turn"], [data-testid*="step"], [role="log"]')) {
-        // 如果是元素节点，只要自身不是只读正文容器，就允许深入探索子节点
         if (node.nodeType === Node.ELEMENT_NODE) {
-          if (element.matches && element.matches('.markdown-body, pre, code, .terminal, .monaco-editor')) {
+          if (element.matches && element.matches('.markdown-body, pre, code, .terminal, .monaco-editor, [data-testid="user-input-step"]')) {
             return true;
           }
           return false;
         }
 
-        // 如果是文本节点：必须处于步骤条头部、审查栏或按钮内方可放行
+        // 文本节点：仅放行步骤条折叠头、审查栏与控制按钮
         if (element.closest('button, [role="button"], .files-changed-header, .review-button, [class*="min-h-8"], [class*="select-none"], [data-testid*="collapsible"], [data-testid*="compact"], [data-testid*="step"] > div:first-child')) {
           if (!element.closest('.monaco-editor, .terminal, .xterm, pre, code')) {
             return false;
@@ -10254,14 +10249,13 @@ try {
         return true;
       }
 
-      // 7. 【核心交互组件白名单绝对放行】输入框占位符、斜杠菜单、下拉选项、审查栏、按钮绝不跳过！
+      // 8. 【核心交互组件白名单绝对放行】
       if (element.closest('[data-mention-menu], [role="listbox"], [role="menu"], [role="dialog"], [role="tooltip"], [role="combobox"], [role="option"], .files-changed-header, .review-button, p.pointer-events-none, [data-placeholder], button, [role="button"], [data-testid*="collapsible"], [data-testid*="compact"], [data-radix-popper-content-wrapper], [data-radix-menu-content], [role="menuitem"], [class*="context-menu"]')) {
         return false;
       }
 
       return false;
     }
-
     // ========================================================================
     // 【核心架构】纯净异步非侵入式观察器 (Zero-Prototype-Pollution Observer)
     // 彻底剔除所有 DOM 原型链篡改，绝不干扰 React 虚拟 DOM 内部机制，会话加载 0 卡死
@@ -10272,13 +10266,19 @@ try {
     // ========================================================================
     function translateElement(element) {
       try {
-        if (!element || !element.getAttribute) return;
-        for (const attr of ['aria-label', 'title', 'placeholder', 'alt']) {
+        if (!element || !element.hasAttributes || !element.hasAttributes()) return;
+        const attrs = ['aria-label', 'title', 'placeholder', 'alt'];
+        for (let i = 0; i < attrs.length; i++) {
+          const attr = attrs[i];
+          if (!element.hasAttribute(attr)) continue;
           const value = element.getAttribute(attr);
           if (!value || !/[A-Za-z]/.test(value)) continue;
+          if (element.__zh_last_attr_val && element.__zh_last_attr_val[attr] === value) continue;
           const translated = translate(value);
           if (translated !== value) {
             element.setAttribute(attr, translated);
+            if (!element.__zh_last_attr_val) element.__zh_last_attr_val = {};
+            element.__zh_last_attr_val[attr] = translated;
           }
         }
       } catch (e) {}
@@ -10288,7 +10288,7 @@ try {
       try {
         if (!el || el.children.length > 0) return;
         const tc = el.textContent;
-        if (tc && /(?:Commit|提交)\s+\d+\s+file\s+changes?\s+to/i.test(tc)) {
+        if (tc && tc.indexOf('file change') !== -1) {
           const fixed = tc.replace(/(?:Commit|提交)\s+(\d+)\s+file\s+changes?\s+to/i, '提交 $1 项文件更改至');
           if (el.textContent !== fixed) {
             el.textContent = fixed;
@@ -10330,32 +10330,30 @@ try {
         const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT, {
           acceptNode: function(node) {
             if (shouldSkip(node)) {
-              return NodeFilter.FILTER_REJECT; // 关键：彻底剪掉整个聊天流子树，绝不递归几万个子孙节点！
+              return NodeFilter.FILTER_REJECT;
             }
             return NodeFilter.FILTER_ACCEPT;
           }
         });
         let node = walker.nextNode();
         while (node) {
-          if (!shouldSkip(node)) {
-            if (node.nodeType === Node.TEXT_NODE) {
-              const val = node.nodeValue;
-              if (val && /[A-Za-z]/.test(val)) {
-                if (!(node.__zh_done && node.__zh_last_val === val)) {
-                  const translated = translate(val);
-                  if (translated !== val) {
-                    node.nodeValue = translated;
-                    node.__zh_last_val = translated;
-                    if (!/[A-Za-z]/.test(translated)) {
-                      node.__zh_done = true;
-                    }
+          if (node.nodeType === Node.TEXT_NODE) {
+            const val = node.nodeValue;
+            if (val && /[A-Za-z]/.test(val)) {
+              if (!(node.__zh_done && node.__zh_last_val === val)) {
+                const translated = translate(val);
+                if (translated !== val) {
+                  node.nodeValue = translated;
+                  node.__zh_last_val = translated;
+                  if (!/[A-Za-z]/.test(translated)) {
+                    node.__zh_done = true;
                   }
                 }
               }
-            } else if (node.nodeType === Node.ELEMENT_NODE) {
-              translateElement(node);
-              checkCompositeElement(node);
             }
+          } else if (node.nodeType === Node.ELEMENT_NODE) {
+            translateElement(node);
+            checkCompositeElement(node);
           }
           node = walker.nextNode();
         }
@@ -10426,7 +10424,10 @@ try {
       if (pendingNodes.length === 0) return;
       const batch = pendingNodes.splice(0, pendingNodes.length);
       for (let i = 0; i < batch.length; i++) {
-        translateNode(batch[i]);
+        const target = batch[i];
+        if (target && target.isConnected) {
+          translateNode(target);
+        }
       }
     }
 
@@ -10492,12 +10493,22 @@ try {
               const m = mutations[i];
               if (m.type === 'childList') {
                 for (let j = 0; j < m.addedNodes.length; j++) {
-                  pendingNodes.push(m.addedNodes[j]);
+                  const node = m.addedNodes[j];
+                  if (!node) continue;
+                  // 入口级光速熔断：若是纯只读正文、代码块、终端、用户输入气泡，0 毫秒丢弃，不进队列！
+                  if (node.nodeType === Node.ELEMENT_NODE) {
+                    if (node.matches && node.matches('.markdown-body, .monaco-editor, .terminal, .xterm, pre, code, [data-testid="user-input-step"]')) {
+                      continue;
+                    }
+                  }
+                  pendingNodes.push(node);
                   hasAdded = true;
                 }
               } else if (m.type === 'attributes') {
                 const target = m.target;
-                translateElement(target);
+                if (target && target.isConnected) {
+                  translateElement(target);
+                }
               }
             }
             if (hasAdded && !rafScheduled) {
