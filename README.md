@@ -56,6 +56,36 @@ If this project helps you, please consider giving it a **Star** on the top right
 
 # 中文文档
 
+## 界面与汉化效果实录 (Showcase)
+
+<p align="center">
+  <b>Antigravity 官方客户端 100% 全量纯中文界面实录</b><br>
+  <img src="assets/demo_client_ui.png" alt="Antigravity 客户端全中文界面实录" width="880" style="border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.25);" />
+</p>
+
+<table align="center" style="margin: 0 auto;">
+  <tr>
+    <td align="center">
+      <b>汉化控制中心 (双模驱动 · 8GB大内存防崩溃)</b><br>
+      <img src="assets/demo_manager_dashboard.png" alt="汉化控制中心" width="380" />
+    </td>
+    <td align="center">
+      <b>词条自定义中心 (免重启即时热生效)</b><br>
+      <img src="assets/demo_dictionary_editor.png" alt="词条自定义中心" width="380" />
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <b>关于与致谢支持 (YunLingHUI 版权所有 · 冰阔乐赞赏)</b><br>
+      <img src="assets/demo_about_sponsor.png" alt="关于与致谢支持" width="420" />
+    </td>
+  </tr>
+</table>
+
+---
+
+---
+
 ## 一、项目背景与痛点终结
 
 Google Antigravity 是一款顶尖的智能体原生（Agentic）桌面开发客户端。目前官方仅提供纯英文交互界面，由于其前端架构基于极为复杂的 React 虚拟 DOM、流式 Protobuf 消息和 Monaco 核心代码编辑器，传统汉化方案常常面临严重困境：
