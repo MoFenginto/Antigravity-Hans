@@ -1670,29 +1670,29 @@ namespace AntigravityHansManager
             Controls.Add(panelAbout);
 
             // ====================================================================
-            // 5. 底部固定状态提示栏 (双端对齐：左版权，右静默赞赏链接)
+            // 5. 底部固定状态提示栏 (上下层叠居中：上为请喝冰阔乐，下为版权声明)
             // ====================================================================
-            lblTip = new Label();
-            lblTip.Text = "© 2026 作者自主研发版权所有 · 永久免费 · 严禁倒卖商用";
-            lblTip.Font = new Font("Microsoft YaHei UI", 8.5f);
-            lblTip.ForeColor = Color.FromArgb(107, 114, 128);
-            lblTip.BackColor = Color.FromArgb(16, 17, 20);
-            lblTip.Location = new Point(20, 665);
-            lblTip.Size = new Size(420, 24);
-            lblTip.TextAlign = ContentAlignment.MiddleLeft;
-            Controls.Add(lblTip);
-
             btnSponsorFooter = new Label();
             btnSponsorFooter.Text = "[ 请作者喝瓶冰阔乐 ]";
-            btnSponsorFooter.Font = new Font("Microsoft YaHei UI", 8.5f, FontStyle.Bold);
+            btnSponsorFooter.Font = new Font("Microsoft YaHei UI", 9f, FontStyle.Bold);
             btnSponsorFooter.ForeColor = Color.FromArgb(245, 158, 11);
             btnSponsorFooter.BackColor = Color.FromArgb(16, 17, 20);
-            btnSponsorFooter.Location = new Point(445, 665);
-            btnSponsorFooter.Size = new Size(175, 24);
-            btnSponsorFooter.TextAlign = ContentAlignment.MiddleRight;
+            btnSponsorFooter.Location = new Point(20, 646);
+            btnSponsorFooter.Size = new Size(600, 22);
+            btnSponsorFooter.TextAlign = ContentAlignment.MiddleCenter;
             btnSponsorFooter.Cursor = Cursors.Hand;
             btnSponsorFooter.Click += (s, e) => SwitchTab(2);
             Controls.Add(btnSponsorFooter);
+
+            lblTip = new Label();
+            lblTip.Text = "© 2026 作者自主研发版权所有 · 永久免费 · 严禁倒卖商用";
+            lblTip.Font = new Font("Microsoft YaHei UI", 8.2f);
+            lblTip.ForeColor = Color.FromArgb(107, 114, 128);
+            lblTip.BackColor = Color.FromArgb(16, 17, 20);
+            lblTip.Location = new Point(20, 672);
+            lblTip.Size = new Size(600, 20);
+            lblTip.TextAlign = ContentAlignment.MiddleCenter;
+            Controls.Add(lblTip);
         }
 
         private void SwitchTab(bool isControl)
