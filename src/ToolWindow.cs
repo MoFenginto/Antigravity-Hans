@@ -1092,6 +1092,7 @@ namespace AntigravityHansManager
         private Label lblCopyrightHeader;
         private Label lblCopyrightBody;
         private Label btnSponsorFooter;
+        private M3Button btnOpenGitHub;
 
         // 面板一：汉化控制中心控件
         private M3Card cardSafeMode;
@@ -1611,11 +1612,11 @@ namespace AntigravityHansManager
 
             cardSponsor = new M3Card();
             cardSponsor.Location = new Point(0, 0);
-            cardSponsor.Size = new Size(600, 310);
+            cardSponsor.Size = new Size(600, 275);
 
             picSponsor = new PictureBox();
-            picSponsor.Location = new Point(200, 16);
-            picSponsor.Size = new Size(200, 200);
+            picSponsor.Location = new Point(215, 12);
+            picSponsor.Size = new Size(170, 170);
             picSponsor.SizeMode = PictureBoxSizeMode.Zoom;
             picSponsor.BackColor = Color.FromArgb(25, 26, 30);
             picSponsor.Image = ExtractEmbeddedImage("sponsor_qr_png");
@@ -1625,8 +1626,8 @@ namespace AntigravityHansManager
             lblSponsorQuote.Font = new Font("Microsoft YaHei UI", 12f, FontStyle.Bold);
             lblSponsorQuote.ForeColor = Color.FromArgb(245, 158, 11);
             lblSponsorQuote.BackColor = Color.FromArgb(25, 26, 30);
-            lblSponsorQuote.Location = new Point(0, 226);
-            lblSponsorQuote.Size = new Size(600, 28);
+            lblSponsorQuote.Location = new Point(0, 192);
+            lblSponsorQuote.Size = new Size(600, 26);
             lblSponsorQuote.TextAlign = ContentAlignment.MiddleCenter;
 
             lblSponsorDesc = new Label();
@@ -1634,8 +1635,8 @@ namespace AntigravityHansManager
             lblSponsorDesc.Font = new Font("Microsoft YaHei UI", 8.5f);
             lblSponsorDesc.ForeColor = Color.FromArgb(156, 163, 175);
             lblSponsorDesc.BackColor = Color.FromArgb(25, 26, 30);
-            lblSponsorDesc.Location = new Point(0, 260);
-            lblSponsorDesc.Size = new Size(600, 22);
+            lblSponsorDesc.Location = new Point(0, 222);
+            lblSponsorDesc.Size = new Size(600, 20);
             lblSponsorDesc.TextAlign = ContentAlignment.MiddleCenter;
 
             cardSponsor.Controls.Add(picSponsor);
@@ -1644,11 +1645,11 @@ namespace AntigravityHansManager
             panelAbout.Controls.Add(cardSponsor);
 
             cardCopyright = new M3Card();
-            cardCopyright.Location = new Point(0, 320);
-            cardCopyright.Size = new Size(600, 180);
+            cardCopyright.Location = new Point(0, 285);
+            cardCopyright.Size = new Size(600, 215);
 
             lblCopyrightHeader = new Label();
-            lblCopyrightHeader.Text = "版权与使用许可声明";
+            lblCopyrightHeader.Text = "作者版权归属与项目官方主页";
             lblCopyrightHeader.Font = new Font("Microsoft YaHei UI", 9.5f, FontStyle.Bold);
             lblCopyrightHeader.ForeColor = Color.FromArgb(243, 244, 246);
             lblCopyrightHeader.BackColor = Color.FromArgb(25, 26, 30);
@@ -1656,15 +1657,27 @@ namespace AntigravityHansManager
             lblCopyrightHeader.Size = new Size(560, 20);
 
             lblCopyrightBody = new Label();
-            lblCopyrightBody.Text = "1. 【完全免费】：本工具由作者自主研发与精细化本土维护，永久免费供个人学习与日常效率提升使用。\n2. 【严禁倒卖】：严禁任何个人、商家或机构将本程序（或其任何衍生模块）倒卖、转售、打包捆绑或用于任何形式的商业收费牟利。\n3. 【严禁篡改】：未经作者授权，严禁擅自反编译、恶意修改逻辑、剥离作者信息与赞赏通道进行二次分发。\n4. 【免责声明】：本程序通过纯内存或微创方式提供本地化辅助，不触碰官方云端协议，因个人环境异常造成的任何影响作者概不负责。";
+            lblCopyrightBody.Text = "开发者 / 维护者：YunLingHUI (GitHub: MoFenginto)\n1. 【完全免费】：本工具由 YunLingHUI 自主研发与维护，永久免费供个人开发者学习与日常效率提升使用。\n2. 【严禁倒卖】：严禁任何个人、商家或机构将本程序（或其任何衍生模块）倒卖、转售、打包捆绑或用于任何形式的商业收费牟利。\n3. 【严禁篡改】：未经作者授权，严禁擅自反编译、恶意修改逻辑、剥离作者信息与赞赏通道进行二次分发。\n4. 【免责声明】：本程序通过纯内存或微创方式提供辅助，不触碰官方云端协议，因个人环境异常造成的任何影响作者概不负责。";
             lblCopyrightBody.Font = new Font("Microsoft YaHei UI", 8.2f);
             lblCopyrightBody.ForeColor = Color.FromArgb(156, 163, 175);
             lblCopyrightBody.BackColor = Color.FromArgb(25, 26, 30);
-            lblCopyrightBody.Location = new Point(16, 38);
-            lblCopyrightBody.Size = new Size(568, 130);
+            lblCopyrightBody.Location = new Point(16, 34);
+            lblCopyrightBody.Size = new Size(568, 125);
+
+            btnOpenGitHub = new M3Button();
+            btnOpenGitHub.Text = "访问 GitHub 官方主页 (点个 Star 支持)";
+            btnOpenGitHub.IsPrimary = true;
+            btnOpenGitHub.Location = new Point(160, 168);
+            btnOpenGitHub.Size = new Size(280, 36);
+            btnOpenGitHub.Click += (s, e) => {
+                try {
+                    Process.Start("https://github.com/MoFenginto/Antigravity-Hans");
+                } catch {}
+            };
 
             cardCopyright.Controls.Add(lblCopyrightHeader);
             cardCopyright.Controls.Add(lblCopyrightBody);
+            cardCopyright.Controls.Add(btnOpenGitHub);
             panelAbout.Controls.Add(cardCopyright);
 
             Controls.Add(panelAbout);
@@ -1685,7 +1698,7 @@ namespace AntigravityHansManager
             Controls.Add(btnSponsorFooter);
 
             lblTip = new Label();
-            lblTip.Text = "© 2026 作者自主研发版权所有 · 永久免费 · 严禁倒卖商用";
+            lblTip.Text = "© 2026 YunLingHUI (MoFenginto) 版权所有 · 永久免费 · 严禁倒卖商用";
             lblTip.Font = new Font("Microsoft YaHei UI", 8.5f);
             lblTip.ForeColor = Color.FromArgb(107, 114, 128);
             lblTip.BackColor = Color.FromArgb(16, 17, 20);
