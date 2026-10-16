@@ -59,13 +59,13 @@ If this project helps you, please consider giving it a **Star** on the top right
 ## 界面与汉化效果实录 (Showcase)
 
 <p align="center">
-  <b>Antigravity 官方客户端 100% 全量纯中文工作区实录 (隐私已脱敏)</b><br>
-  <img src="assets/demo_client_ui.png" alt="Antigravity 客户端全中文工作区实录" width="880" style="border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.25);" />
+  <b>Antigravity 官方客户端 100% 全量纯中文工作区实录 (隐私已严格打码)</b><br>
+  <img src="assets/439f5b5c-9e8a-41cc-bae5-9bb290449724.png" alt="Antigravity 客户端全中文工作区实录" width="880" style="border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.25);" />
 </p>
 
 <p align="center">
-  <b>Antigravity 官方客户端二级设置与高深权限全量汉化实录</b><br>
-  <img src="assets/demo_settings_ui.png" alt="Antigravity 客户端设置面板全中文实录" width="880" style="border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.25);" />
+  <b>Antigravity 官方客户端二级设置与高深权限全量汉化实录 (隐私已严格打码)</b><br>
+  <img src="assets/05666f74-4216-4d1c-9434-61ab89489521.png" alt="Antigravity 客户端设置面板全中文实录" width="880" style="border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.25);" />
 </p>
 
 <table align="center" style="margin: 0 auto;">
@@ -88,7 +88,6 @@ If this project helps you, please consider giving it a **Star** on the top right
 </table>
 
 ---
-
 ## 一、项目背景与痛点终结
 
 Google Antigravity 是一款顶尖的智能体原生（Agentic）桌面开发客户端。目前官方仅提供纯英文交互界面，由于其前端架构基于极为复杂的 React 虚拟 DOM、流式 Protobuf 消息和 Monaco 核心代码编辑器，传统汉化方案常常面临严重困境：
