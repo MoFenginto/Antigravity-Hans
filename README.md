@@ -59,8 +59,13 @@ If this project helps you, please consider giving it a **Star** on the top right
 ## 界面与汉化效果实录 (Showcase)
 
 <p align="center">
-  <b>Antigravity 官方客户端 100% 全量纯中文界面实录</b><br>
-  <img src="assets/demo_client_ui.png" alt="Antigravity 客户端全中文界面实录" width="880" style="border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.25);" />
+  <b>Antigravity 官方客户端 100% 全量纯中文工作区实录 (隐私已脱敏)</b><br>
+  <img src="assets/demo_client_ui.png" alt="Antigravity 客户端全中文工作区实录" width="880" style="border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.25);" />
+</p>
+
+<p align="center">
+  <b>Antigravity 官方客户端二级设置与高深权限全量汉化实录</b><br>
+  <img src="assets/demo_settings_ui.png" alt="Antigravity 客户端设置面板全中文实录" width="880" style="border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.25);" />
 </p>
 
 <table align="center" style="margin: 0 auto;">
@@ -81,8 +86,6 @@ If this project helps you, please consider giving it a **Star** on the top right
     </td>
   </tr>
 </table>
-
----
 
 ---
 
