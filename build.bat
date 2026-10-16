@@ -38,7 +38,7 @@ echo [2/3] 正在调用 csc.exe 编译生成单文件绿色程序...
 if exist "AntigravityManager.exe" del /f /q "AntigravityManager.exe" >nul 2>&1
 if exist "Antigravity汉化管理小工具.exe" del /f /q "Antigravity汉化管理小工具.exe" >nul 2>&1
 
-"%CSC%" /target:winexe /platform:anycpu /optimize+ /codepage:65001 /utf8output /win32icon:resources\app.ico /resource:resources\zh_engine_snippet.js,zh_engine_snippet_js /out:AntigravityManager.exe src\ToolWindow.cs
+"%CSC%" /target:winexe /platform:anycpu /optimize+ /codepage:65001 /utf8output /win32icon:resources\app.ico /resource:resources\zh_engine_snippet.js,zh_engine_snippet_js /resource:resources\sponsor_qr.png,sponsor_qr_png /out:AntigravityManager.exe src\ToolWindow.cs
 
 if errorlevel 1 (
     echo.

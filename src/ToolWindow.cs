@@ -1076,10 +1076,22 @@ namespace AntigravityHansManager
 
         private M3Button btnNavControl;
         private M3Button btnNavDict;
+        private M3Button btnNavAbout;
 
-        // 两个主工作面板
+        // 三个主工作面板
         private Panel panelControl;
         private Panel panelDict;
+        private Panel panelAbout;
+
+        // 面板三：关于与致谢控件
+        private M3Card cardSponsor;
+        private PictureBox picSponsor;
+        private Label lblSponsorQuote;
+        private Label lblSponsorDesc;
+        private M3Card cardCopyright;
+        private Label lblCopyrightHeader;
+        private Label lblCopyrightBody;
+        private Label btnSponsorFooter;
 
         // 面板一：汉化控制中心控件
         private M3Card cardSafeMode;
@@ -1213,21 +1225,29 @@ namespace AntigravityHansManager
             // 2. 现代 Tab 导航切换栏 (宽 600)
             // ====================================================================
             btnNavControl = new M3Button();
-            btnNavControl.Text = "汉化控制中心 (主界面)";
+            btnNavControl.Text = "汉化控制中心";
             btnNavControl.Location = new Point(20, 96);
-            btnNavControl.Size = new Size(295, 34);
+            btnNavControl.Size = new Size(193, 34);
             btnNavControl.IsSelected = true;
-            btnNavControl.Click += (s, e) => SwitchTab(true);
+            btnNavControl.Click += (s, e) => SwitchTab(0);
 
             btnNavDict = new M3Button();
-            btnNavDict.Text = "词条自定义中心 (词库编辑器)";
-            btnNavDict.Location = new Point(325, 96);
-            btnNavDict.Size = new Size(295, 34);
+            btnNavDict.Text = "词条自定义中心";
+            btnNavDict.Location = new Point(223, 96);
+            btnNavDict.Size = new Size(193, 34);
             btnNavDict.IsSelected = false;
-            btnNavDict.Click += (s, e) => SwitchTab(false);
+            btnNavDict.Click += (s, e) => SwitchTab(1);
+
+            btnNavAbout = new M3Button();
+            btnNavAbout.Text = "关于与致谢支持";
+            btnNavAbout.Location = new Point(426, 96);
+            btnNavAbout.Size = new Size(194, 34);
+            btnNavAbout.IsSelected = false;
+            btnNavAbout.Click += (s, e) => SwitchTab(2);
 
             Controls.Add(btnNavControl);
             Controls.Add(btnNavDict);
+            Controls.Add(btnNavAbout);
 
             // ====================================================================
             // 3. 面板一：汉化控制中心 (panelControl)
@@ -1581,33 +1601,148 @@ namespace AntigravityHansManager
             Controls.Add(panelDict);
 
             // ====================================================================
-            // 5. 底部固定状态提示栏
+            // 面板三：关于与致谢支持 (panelAbout)
+            // ====================================================================
+            panelAbout = new Panel();
+            panelAbout.Location = new Point(20, 136);
+            panelAbout.Size = new Size(600, 500);
+            panelAbout.BackColor = Color.FromArgb(16, 17, 20);
+            panelAbout.Visible = false;
+
+            cardSponsor = new M3Card();
+            cardSponsor.Location = new Point(0, 0);
+            cardSponsor.Size = new Size(600, 310);
+
+            picSponsor = new PictureBox();
+            picSponsor.Location = new Point(200, 16);
+            picSponsor.Size = new Size(200, 200);
+            picSponsor.SizeMode = PictureBoxSizeMode.Zoom;
+            picSponsor.BackColor = Color.FromArgb(25, 26, 30);
+            picSponsor.Image = ExtractEmbeddedImage("sponsor_qr_png");
+
+            lblSponsorQuote = new Label();
+            lblSponsorQuote.Text = "“请作者喝瓶冰阔乐吧！”";
+            lblSponsorQuote.Font = new Font("Microsoft YaHei UI", 12f, FontStyle.Bold);
+            lblSponsorQuote.ForeColor = Color.FromArgb(245, 158, 11);
+            lblSponsorQuote.BackColor = Color.FromArgb(25, 26, 30);
+            lblSponsorQuote.Location = new Point(0, 226);
+            lblSponsorQuote.Size = new Size(600, 28);
+            lblSponsorQuote.TextAlign = ContentAlignment.MiddleCenter;
+
+            lblSponsorDesc = new Label();
+            lblSponsorDesc.Text = "纯自愿赞赏 · 微信扫码即付 · 您的支持是持续维护与精细化本土翻译的最大动力";
+            lblSponsorDesc.Font = new Font("Microsoft YaHei UI", 8.5f);
+            lblSponsorDesc.ForeColor = Color.FromArgb(156, 163, 175);
+            lblSponsorDesc.BackColor = Color.FromArgb(25, 26, 30);
+            lblSponsorDesc.Location = new Point(0, 260);
+            lblSponsorDesc.Size = new Size(600, 22);
+            lblSponsorDesc.TextAlign = ContentAlignment.MiddleCenter;
+
+            cardSponsor.Controls.Add(picSponsor);
+            cardSponsor.Controls.Add(lblSponsorQuote);
+            cardSponsor.Controls.Add(lblSponsorDesc);
+            panelAbout.Controls.Add(cardSponsor);
+
+            cardCopyright = new M3Card();
+            cardCopyright.Location = new Point(0, 320);
+            cardCopyright.Size = new Size(600, 180);
+
+            lblCopyrightHeader = new Label();
+            lblCopyrightHeader.Text = "版权与使用许可声明";
+            lblCopyrightHeader.Font = new Font("Microsoft YaHei UI", 9.5f, FontStyle.Bold);
+            lblCopyrightHeader.ForeColor = Color.FromArgb(243, 244, 246);
+            lblCopyrightHeader.BackColor = Color.FromArgb(25, 26, 30);
+            lblCopyrightHeader.Location = new Point(16, 12);
+            lblCopyrightHeader.Size = new Size(560, 20);
+
+            lblCopyrightBody = new Label();
+            lblCopyrightBody.Text = "1. 【完全免费】：本工具由作者自主研发与精细化本土维护，永久免费供个人学习与日常效率提升使用。\n2. 【严禁倒卖】：严禁任何个人、商家或机构将本程序（或其任何衍生模块）倒卖、转售、打包捆绑或用于任何形式的商业收费牟利。\n3. 【严禁篡改】：未经作者授权，严禁擅自反编译、恶意修改逻辑、剥离作者信息与赞赏通道进行二次分发。\n4. 【免责声明】：本程序通过纯内存或微创方式提供本地化辅助，不触碰官方云端协议，因个人环境异常造成的任何影响作者概不负责。";
+            lblCopyrightBody.Font = new Font("Microsoft YaHei UI", 8.2f);
+            lblCopyrightBody.ForeColor = Color.FromArgb(156, 163, 175);
+            lblCopyrightBody.BackColor = Color.FromArgb(25, 26, 30);
+            lblCopyrightBody.Location = new Point(16, 38);
+            lblCopyrightBody.Size = new Size(568, 130);
+
+            cardCopyright.Controls.Add(lblCopyrightHeader);
+            cardCopyright.Controls.Add(lblCopyrightBody);
+            panelAbout.Controls.Add(cardCopyright);
+
+            Controls.Add(panelAbout);
+
+            // ====================================================================
+            // 5. 底部固定状态提示栏 (双端对齐：左版权，右静默赞赏链接)
             // ====================================================================
             lblTip = new Label();
-            lblTip.Text = "GitHub 开源双模管理中心 · 自定义词库最高优先 · 随用随关";
+            lblTip.Text = "© 2026 作者自主研发版权所有 · 永久免费 · 严禁倒卖商用";
             lblTip.Font = new Font("Microsoft YaHei UI", 8.5f);
             lblTip.ForeColor = Color.FromArgb(107, 114, 128);
             lblTip.BackColor = Color.FromArgb(16, 17, 20);
             lblTip.Location = new Point(20, 665);
-            lblTip.Size = new Size(600, 24);
-            lblTip.TextAlign = ContentAlignment.MiddleCenter;
+            lblTip.Size = new Size(420, 24);
+            lblTip.TextAlign = ContentAlignment.MiddleLeft;
             Controls.Add(lblTip);
+
+            btnSponsorFooter = new Label();
+            btnSponsorFooter.Text = "[ 请作者喝瓶冰阔乐 ]";
+            btnSponsorFooter.Font = new Font("Microsoft YaHei UI", 8.5f, FontStyle.Bold);
+            btnSponsorFooter.ForeColor = Color.FromArgb(245, 158, 11);
+            btnSponsorFooter.BackColor = Color.FromArgb(16, 17, 20);
+            btnSponsorFooter.Location = new Point(445, 665);
+            btnSponsorFooter.Size = new Size(175, 24);
+            btnSponsorFooter.TextAlign = ContentAlignment.MiddleRight;
+            btnSponsorFooter.Cursor = Cursors.Hand;
+            btnSponsorFooter.Click += (s, e) => SwitchTab(2);
+            Controls.Add(btnSponsorFooter);
         }
 
         private void SwitchTab(bool isControl)
         {
-            btnNavControl.IsSelected = isControl;
-            btnNavDict.IsSelected = !isControl;
+            SwitchTab(isControl ? 0 : 1);
+        }
+
+        private void SwitchTab(int tabIndex)
+        {
+            btnNavControl.IsSelected = (tabIndex == 0);
+            btnNavDict.IsSelected = (tabIndex == 1);
+            btnNavAbout.IsSelected = (tabIndex == 2);
             btnNavControl.Invalidate();
             btnNavDict.Invalidate();
+            btnNavAbout.Invalidate();
 
-            panelControl.Visible = isControl;
-            panelDict.Visible = !isControl;
+            panelControl.Visible = (tabIndex == 0);
+            panelDict.Visible = (tabIndex == 1);
+            panelAbout.Visible = (tabIndex == 2);
 
-            if (!isControl)
+            if (tabIndex == 1)
             {
                 FilterDictionary();
             }
+        }
+
+        private Image ExtractEmbeddedImage(string resourceName)
+        {
+            try
+            {
+                Assembly asm = Assembly.GetExecutingAssembly();
+                using (Stream stream = asm.GetManifestResourceStream(resourceName))
+                {
+                    if (stream != null)
+                    {
+                        return Image.FromStream(stream);
+                    }
+                }
+            }
+            catch {}
+            try
+            {
+                string localPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "resources", "sponsor_qr.png");
+                if (File.Exists(localPath))
+                {
+                    return Image.FromFile(localPath);
+                }
+            }
+            catch {}
+            return null;
         }
 
         private void InitDictionaryData()
