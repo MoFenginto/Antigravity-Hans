@@ -1,4 +1,4 @@
-# Antigravity 汉化工具 (Antigravity-Hans)
+<h1 align="center">Antigravity 汉化工具 (Antigravity-Hans)</h1>
 
 <p align="center">
   <b>Google Antigravity 官方客户端下一代「双模驱动」全功能中文本地化与系统管理解决方案</b><br>
