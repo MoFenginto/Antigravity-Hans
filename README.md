@@ -2,7 +2,8 @@
 
 <p align="center">
   <b>Google Antigravity 官方客户端下一代「双模驱动」全功能中文本地化与系统管理解决方案</b><br>
-  <i>作者 / 维护者：<b>YunLingHUI</b> (GitHub: @MoFenginto)</i>
+  <b>Next-Generation Dual-Engine Chinese Localization & Manager for Google Antigravity Client</b><br>
+  <i>开发者 / 维护者 (Author & Maintainer)：<b>YunLingHUI</b> (GitHub: @MoFenginto)</i>
 </p>
 
 <p align="center">
@@ -14,37 +15,46 @@
   <img src="https://img.shields.io/badge/使用授权-永久免费%20·%20严禁倒卖-ef4444?style=flat-square" alt="License">
 </p>
 
----
-
-## 求 Star 支持
-
-如果您觉得本工具好用、解决了您的英文困扰，**请在项目右上角点一个 ⭐ Star 支持一下作者！**  
-您的每一个 Star 和自愿赞赏，都是持续跟进 Google 官方最新版本迭代、精细化本地汉化维护的最大动力！
+<p align="center">
+  <a href="#一项目背景与痛点终结">简体中文文档</a> &nbsp;|&nbsp; <a href="#english-documentation">English Documentation</a>
+</p>
 
 ---
 
-## 目录
+## 求 Star 支持 / Star Request
 
-- [一、项目背景与痛点终结](#一项目背景与痛点终结)
-- [二、断层优势特性对比](#二断层优势特性对比)
-- [三、双模驱动核心技术架构](#三双模驱动核心技术架构)
-  - [模式一：安全纯内存静默模式 (官方推荐 · 零封号风险)](#模式一安全纯内存静默模式-官方推荐--零封号风险)
-  - [模式二：深度固化模式 (原生微创打补丁 · 打开即中文)](#模式二深度固化模式-原生微创打补丁--打开即中文)
-- [四、独家核心特性](#四独家核心特性)
-  - [1. 原生微创尾部追加打补丁算法 (MiniAsarPatcher)](#1-原生微创尾部追加打补丁算法-miniasarpatcher)
-  - [2. 可视化词库编辑器与免重启即时热生效](#2-可视化词库编辑器与免重启即时热生效)
-  - [3. 快捷方式全链路智能无痕接管](#3-快捷方式全链路智能无痕接管)
-  - [4. 独家 V8 8GB 大内存防崩溃守护](#4-独家-v8-8gb-大内存防崩溃守护)
-  - [5. 官方纯净 Quote (Ctrl+L) 布局保护](#5-官方纯净-quote-ctrll-布局保护)
-  - [6. 宿主进程零强杀保障](#6-宿主进程零强杀保障)
-  - [7. 客户端瘦身与缓存清理](#7-客户端瘦身与缓存清理)
-- [五、零封号风险安全合规声明](#五零封号风险安全合规声明)
-- [六、极速使用指南 (开箱即用)](#六极速使用指南-开箱即用)
-- [七、常见问题解答 (FAQ)](#七常见问题解答-faq)
-- [八、请作者喝瓶冰阔乐 (自愿赞赏)](#八请作者喝瓶冰阔乐-自愿赞赏)
-- [九、版权与使用许可声明 (严禁倒卖)](#九版权与使用许可声明-严禁倒卖)
+如果您觉得本工具好用、解决了您的英文交互困扰，**请在项目右上角点一个 Star (⭐) 支持作者！**  
+您的每一个 Star 和自愿赞赏，都是作者持续跟进 Google 官方最新版本迭代、精细化本地汉化维护的最大动力！
+
+If this project helps you, please consider giving it a **Star** on the top right. Your support is the greatest motivation for continuous maintenance and feature updates!
 
 ---
+
+## 目录 (Table of Contents)
+
+- [中文文档](#中文文档)
+  - [一、项目背景与痛点终结](#一项目背景与痛点终结)
+  - [二、断层优势特性对比](#二断层优势特性对比)
+  - [三、双模驱动核心技术架构](#三双模驱动核心技术架构)
+    - [模式一：安全纯内存静默模式 (官方推荐 · 零封号风险)](#模式一安全纯内存静默模式-官方推荐--零封号风险)
+    - [模式二：深度固化模式 (原生微创打补丁 · 打开即中文)](#模式二深度固化模式-原生微创打补丁--打开即中文)
+  - [四、独家核心黑科技](#四独家核心黑科技)
+  - [五、零封号风险安全合规声明](#五零封号风险安全合规声明)
+  - [六、极速使用指南 (开箱即用)](#六极速使用指南-开箱即用)
+  - [七、常见问题解答 (FAQ)](#七常见问题解答-faq)
+  - [八、请作者喝瓶冰阔乐 (自愿赞赏)](#八请作者喝瓶冰阔乐-自愿赞赏)
+  - [九、版权与使用许可声明 (严禁倒卖)](#九版权与使用许可声明-严禁倒卖)
+- [English Documentation](#english-documentation)
+  - [1. Overview & Architecture](#1-overview--architecture)
+  - [2. Dual-Engine Working Modes](#2-dual-engine-working-modes)
+  - [3. Key Highlights](#3-key-highlights)
+  - [4. Quick Start & Releases](#4-quick-start--releases)
+  - [5. Support & Sponsorship](#5-support--sponsorship)
+  - [6. License & Anti-Resale Notice](#6-license--anti-resale-notice)
+
+---
+
+# 中文文档
 
 ## 一、项目背景与痛点终结
 
@@ -58,7 +68,7 @@ Google Antigravity 是一款顶尖的智能体原生（Agentic）桌面开发客
    - 传统打包往往塞入完整的数兆字节完整 ASAR，不仅文件臃肿（上百兆），而且每次官方静默升级后，旧版补丁极易把官方程序降级回旧版本，引发协议与通信错乱；
    - 孤立短词强行替换，导致“类型 / and select plan...”等生硬中英夹生饭。
 
-为了从根本上终结这些工程痛点，**Antigravity-Hans** 由 **YunLingHUI** 自主研发推出。本项目采用独创的「双模驱动架构」，将原生 C# 单文件管理中心、零依赖 CDP 纯内存注入管道、微创 ASAR 动态打补丁引擎、可视化词条自定义工作台与 2,313+ 条高精词典高度集成，单文件仅 600KB，零环境依赖，开箱即用！
+为了从根本上终结这些工程痛点，**Antigravity-Hans** 由 **YunLingHUI** 自主研发推出。本项目采用独创的「双模驱动架构」，将原生 C# 单文件管理中心、零依赖 CDP 纯内存注入管道、微创 ASAR 动态打补丁引擎、可视化词条自定义工作台与 2,313+ 条高精词典高度集成，单文件仅 600KB，零外部依赖，开箱即用！
 
 ---
 
@@ -102,50 +112,31 @@ Google Antigravity 是一款顶尖的智能体原生（Agentic）桌面开发客
 
 ---
 
-## 四、独家核心特性
+## 四、独家核心黑科技
 
-### 1. 原生微创尾部追加打补丁算法 (MiniAsarPatcher)
-小工具内嵌代码直接精准解析 Chromium Pickle ASAR 二进制协议。原版全部 1,084 个文件的数据在数据区中的物理位置完全不动，仅将汉化脚本追加在原数据区末尾，重构头部索引树并刷新 SHA256 校验。未来官方客户端静默更新后，小工具直接就地读取最新版的 asar 并微创修补，终生自适应！
-
-### 2. 可视化词库编辑器与免重启即时热生效
-- **双 Tab 工作台**：管理小工具内置专属【词条自定义中心】，自动解析 2,313 条原生高精词条；
-- **实时模糊搜索**：支持输入英文或中文关键字毫秒级过滤，支持“仅看已自定义”筛选；
-- **免重启即时热生效**：点击【保存并热生效 (一键注入客户端)】，小工具通过 WebSocket 实时向当前运行中的客户端窗口发送热重绘指令，**无需重启软件，界面词条当场变成您的自定义中文**！
-
-### 3. 快捷方式全链路智能无痕接管
-自动扫描用户桌面快捷方式以及开始菜单，智能注入参数。日常使用完全不需要每次打开管理工具，直接双击桌面上的 Antigravity 官方图标，即可全自动以纯内存中文模式启动！
-
-### 4. 独家 V8 8GB 大内存防崩溃守护
-Antigravity 官方客户端底层采用 gRPC-Web/Protobuf 流式通信。当单个会话执行步骤极多（如排查长代码任务）时，V8 引擎在流式解包巨额 Protobuf 二进制流时极易耗尽默认 2GB 内存配额，抛出致命错误 `ConnectError: [unknown] Array buffer allocation failed` 导致整窗黑屏崩溃。  
-本工具自动向启动链路注入官方标准参数 `--js-flags="--max-old-space-size=8192"`，将堆内存上限扩展至 8GB，彻底消除千步超长排查会话的崩溃隐患。
-
-### 5. 官方纯净 Quote (Ctrl+L) 布局保护
-彻底剔除外挂蓝底“译”字悬浮球，完全清空对上下文浮动容器的 CSS 侵入，100% 恢复官方原生纯净、无挤压、无裁切的 `Quote Ctrl+L` 极简排版。
-
-### 6. 宿主进程零强杀保障
-坚决杜绝任何后台静默 `taskkill`，当检测到客户端正在运行时，提供友好提示引导用户正常保存退出，保障当前所有活跃会话通信零中断、账号凭据零损坏。
-
-### 7. 客户端瘦身与缓存清理
-智能扫描 Antigravity 的 `Cache`、`Code Cache`、`GPUCache`、`DawnWebGPUCache` 与 `Crashpad/reports`，一键释放高达数百兆至数 GB 的冗余缓存垃圾。
+1. **原生微创尾部追加打补丁算法 (MiniAsarPatcher)**：精准解析 Chromium Pickle ASAR 二进制协议。原版全部 1,084 个文件的数据在数据区中的物理位置完全不动，仅将汉化脚本追加在原数据区末尾，重构头部索引树并刷新 SHA256 校验。未来官方客户端静默更新后，小工具直接就地读取最新版的 asar 并微创修补，终生自适应！
+2. **可视化词库编辑器与免重启即时热生效**：管理小工具内置专属【词条自定义中心】，自动解析 2,313 条原生高精词条，支持实时模糊搜索、免重启即时热生效、以及词库的导入导出。
+3. **快捷方式全链路智能无痕接管**：自动扫描用户桌面快捷方式以及开始菜单，智能注入参数。日常使用直接双击桌面上的 Antigravity 官方图标，即可全自动以纯内存中文模式启动！
+4. **独家 V8 8GB 大内存防崩溃守护**：自动向启动链路注入官方标准参数 `--js-flags="--max-old-space-size=8192"`，将堆内存上限扩展至 8GB，彻底消除千步超长排查会话的崩溃隐患。
+5. **官方纯净 Quote (Ctrl+L) 布局保护**：彻底剔除外挂蓝底“译”字悬浮球，完全清空对上下文浮动容器的 CSS 侵入，100% 恢复官方原生纯净、无挤压、无裁切的极简排版。
+6. **宿主进程零强杀保障**：坚决杜绝任何后台静默 `taskkill`，保障当前所有活跃会话通信零中断、账号凭据零损坏。
+7. **客户端瘦身与缓存清理**：智能扫描缓存目录，一键释放冗余垃圾。
 
 ---
 
 ## 五、零封号风险安全合规声明
 
-1. **官方标准通道对接**：
-   安全纯内存静默模式所调用的 `--remote-debugging-port` 为 Chromium 与 Electron 官方公开、正规支持的标准开发者通信接口，完全属于官方框架允许的功能范畴。
-2. **零核心篡改**：
-   纯内存模式下，磁盘上的所有可执行文件、核心动态库及 ASAR 归档均未发生任何单字节更改，完全通过 Google 官方更新程序与数字安全校验。
-3. **零隐私嗅探**：
-   汉化引擎仅在本地浏览器渲染进程上下文中执行文本节点转译，绝不监听、收集、上传任何用户的输入内容、代码片段或模型交互上下文。
+1. **官方标准通道对接**：安全纯内存静默模式所调用的 `--remote-debugging-port` 为 Chromium 与 Electron 官方公开、正规支持的标准开发者通信接口，完全属于官方框架允许的功能范畴。
+2. **零核心篡改**：纯内存模式下，磁盘上的所有可执行文件、核心动态库及 ASAR 归档均未发生任何单字节更改，完全通过 Google 官方更新程序与数字安全校验。
+3. **零隐私嗅探**：汉化引擎仅在本地浏览器渲染进程上下文中执行文本节点转译，绝不监听、收集、上传任何用户的输入内容、代码片段或模型交互上下文。
 
 ---
 
 ## 六、极速使用指南 (开箱即用)
 
-### 下载安装
-前往本仓库的 [Releases 页面](https://github.com/MoFenginto/Antigravity-Hans/releases) 下载最新版本的绿色单文件程序：
-- **`Antigravity汉化管理小工具.exe`**（仅约 600KB，无需安装任何运行环境）
+### 下载程序
+前往本仓库的 [Releases 页面](https://github.com/MoFenginto/Antigravity-Hans/releases) 下载最新发布的绿色免安装程序：
+- **`Antigravity汉化管理小工具.exe`**（仅约 600KB，无需安装任何第三方环境）
 
 ### 使用步骤
 1. **运行小工具**：双击运行 `Antigravity汉化管理小工具.exe`；
@@ -174,10 +165,13 @@ Antigravity 官方客户端底层采用 gRPC-Web/Protobuf 流式通信。当单�
 ## 八、请作者喝瓶冰阔乐 (自愿赞赏)
 
 本工具为作者 **YunLingHUI** 利用业余时间倾力自主研发并永久免费提供。  
-如果您觉得这个小工具为您带来了便利、提升了开发效率，欢迎微信扫码请作者喝瓶冰阔乐！  
-您的每一份支持，都是作者持续跟进官方更新、保持高水准精细化汉化的最大动力！
+如果您觉得这个小工具为您带来了便利、提升了开发效率，欢迎微信扫码请作者喝瓶冰阔乐！您的每一份自愿支持，都是作者持续跟进官方更新、精细化本地汉化维护的最大动力！
 
-*(赞赏码已直接内嵌在管理小工具的「关于与赞赏」面板中，运行小工具即可查看)*
+<p align="center">
+  <img src="assets/sponsor_qr.png" alt="请作者喝瓶冰阔乐吧！" width="240" style="border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);" /><br>
+  <b>“请作者喝瓶冰阔乐吧！”</b><br>
+  <i>纯自愿赞赏 · 微信扫码即付 · 您的支持是持续维护与精细化本土翻译的最大动力</i>
+</p>
 
 ---
 
@@ -193,3 +187,81 @@ Antigravity 官方客户端底层采用 gRPC-Web/Protobuf 流式通信。当单�
    任何从淘宝、闲鱼、微信群或其他第三方付费渠道获取的本程序均为非法盗版，请立即举报！
 5. 【免责声明】：本程序通过纯内存或微创方式提供辅助，不触碰官方云端协议，因个人环境异常造成的任何影响作者概不负责。
 ```
+
+---
+
+# English Documentation
+
+## 1. Overview & Architecture
+
+**Antigravity-Hans** is a next-generation, dual-engine localization and management solution designed specifically for the official Google Antigravity desktop client.
+
+Developed autonomously by **YunLingHUI**, it eliminates all conventional localization pain points (such as heavy Python runtime dependencies, unsightly console black windows, FOUC flashing delays, and ASAR corruption):
+- **Ultra-lightweight**: Single portable executable of only ~600KB.
+- **Zero Third-Party Dependencies**: Native C# implementation built on the native Windows .NET Framework.
+- **Dual-Engine Flexibility**: Seamlessly toggle between **Pure In-Memory Silent Mode** (Zero disk modifications, zero ban risk) and **Deep Permanent Solidification Mode** (Zero millisecond jump-cut).
+- **V8 8GB Memory Guard**: Automatically expands the Electron heap memory limit to 8GB, preventing array buffer allocation crashes in long-running agentic conversations.
+
+---
+
+## 2. Dual-Engine Working Modes
+
+### Mode A: Pure In-Memory Silent Mode (Recommended · Zero Ban Risk)
+- Keeps the official `resources/app.asar` completely untouched on disk with Google's official digital signature intact.
+- Injects the localization engine directly into the Electron rendering process memory via the standard Chrome DevTools Protocol (CDP) WebSocket pipeline.
+- Completely silent without any terminal windows. Changes are released immediately upon application exit.
+
+### Mode B: Deep Permanent Solidification Mode (Micro-Invasive Patching)
+- Employs an exclusive **MiniAsarPatcher tail-append algorithm** to modify `dist/preload.js` in ~0.05 seconds without rewriting existing file payloads.
+- Delivers instantaneous Chinese rendering from the very first frame with zero millisecond latency.
+- Features an automated one-click official restore mechanism at any time.
+
+---
+
+## 3. Key Highlights
+
+- **Visual Vocabulary Customization Center**: Built-in 2,313+ translation dictionary with instant hot-reload (no client restart required).
+- **Shortcut Auto-Takeover**: Directly launch the official desktop shortcut to enjoy Chinese localization automatically.
+- **Clean Quote (Ctrl+L) Protection**: Preserves the official minimal selection toolbar without UI disruption.
+- **Process Protection**: Strictly avoids aggressive process termination (`taskkill`) to safeguard user sessions.
+
+---
+
+## 4. Quick Start & Releases
+
+Download the standalone portable program directly from the [Releases](https://github.com/MoFenginto/Antigravity-Hans/releases) page:
+- **`Antigravity汉化管理小工具.exe`** (~600KB, portable, no installation required).
+
+1. Run `Antigravity汉化管理小工具.exe`.
+2. Choose your preferred mode:
+   - Click **[安全启动官方原版 (纯内存中文)]** for Pure Memory Mode.
+   - Click **[一键深度固化汉化]** for Instant Solidification Mode.
+3. Enjoy your native Chinese experience in Google Antigravity!
+
+---
+
+## 5. Support & Sponsorship
+
+If you find this tool helpful in your daily workflows, feel free to sponsor the author with a cold bottle of Coke via WeChat Pay! Your generosity keeps this project actively maintained alongside official Google updates.
+
+*(Please refer to the WeChat QR code in the Chinese section above or directly within the application's About panel.)*
+
+---
+
+## 6. License & Anti-Resale Notice
+
+```
+Copyright (C) 2026 YunLingHUI (GitHub: @MoFenginto). All Rights Reserved.
+
+1. [Free for Personal Use]: Free for individual developers for educational and efficiency purposes.
+2. [Strictly Prohibited: Resale & Commercial Use]: Reselling, repackaging, or incorporating this software into paid bundles/courses is strictly forbidden.
+3. [Strictly Prohibited: Reverse Engineering]: Decompiling, reverse-engineering, modifying logic, or stripping author credits/sponsorship channels without authorization is strictly prohibited.
+4. [Official Distribution Channel]: https://github.com/MoFenginto/Antigravity-Hans
+5. [Disclaimer]: Provided "as is" without warranty of any kind.
+```
+
+---
+
+<p align="center">
+  <b>⭐ If you like this project, please star this repository on GitHub! ⭐</b>
+</p>
