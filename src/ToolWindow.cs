@@ -1159,9 +1159,9 @@ namespace AntigravityHansManager
         private void InitializeComponent()
         {
             Text = "Antigravity 中文管理中心";
-            ClientSize = new Size(640, 715);
-            MinimumSize = new Size(640, 715);
-            MaximumSize = new Size(640, 715);
+            ClientSize = new Size(640, 740);
+            MinimumSize = new Size(640, 740);
+            MaximumSize = new Size(640, 740);
             StartPosition = FormStartPosition.CenterScreen;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
@@ -1677,8 +1677,8 @@ namespace AntigravityHansManager
             btnSponsorFooter.Font = new Font("Microsoft YaHei UI", 9f, FontStyle.Bold);
             btnSponsorFooter.ForeColor = Color.FromArgb(245, 158, 11);
             btnSponsorFooter.BackColor = Color.FromArgb(16, 17, 20);
-            btnSponsorFooter.Location = new Point(20, 646);
-            btnSponsorFooter.Size = new Size(600, 22);
+            btnSponsorFooter.Location = new Point(20, 650);
+            btnSponsorFooter.Size = new Size(600, 24);
             btnSponsorFooter.TextAlign = ContentAlignment.MiddleCenter;
             btnSponsorFooter.Cursor = Cursors.Hand;
             btnSponsorFooter.Click += (s, e) => SwitchTab(2);
@@ -1686,11 +1686,11 @@ namespace AntigravityHansManager
 
             lblTip = new Label();
             lblTip.Text = "© 2026 作者自主研发版权所有 · 永久免费 · 严禁倒卖商用";
-            lblTip.Font = new Font("Microsoft YaHei UI", 8.2f);
+            lblTip.Font = new Font("Microsoft YaHei UI", 8.5f);
             lblTip.ForeColor = Color.FromArgb(107, 114, 128);
             lblTip.BackColor = Color.FromArgb(16, 17, 20);
-            lblTip.Location = new Point(20, 672);
-            lblTip.Size = new Size(600, 20);
+            lblTip.Location = new Point(20, 680);
+            lblTip.Size = new Size(600, 24);
             lblTip.TextAlign = ContentAlignment.MiddleCenter;
             Controls.Add(lblTip);
         }
