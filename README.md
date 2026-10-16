@@ -36,8 +36,8 @@ If this project helps you, please consider giving it a **Star** on the top right
   - [一、项目背景与痛点终结](#一项目背景与痛点终结)
   - [二、断层优势特性对比](#二断层优势特性对比)
   - [三、双模驱动核心技术架构](#三双模驱动核心技术架构)
-    - [模式一：安全纯内存静默模式 (官方推荐 · 零封号风险)](#模式一安全纯内存静默模式-官方推荐--零封号风险)
-    - [模式二：深度固化模式 (原生微创打补丁 · 打开即中文)](#模式二深度固化模式-原生微创打补丁--打开即中文)
+    - [模式 I：安全纯内存静默模式 (官方推荐 · 零封号风险)](#模式-i安全纯内存静默模式-官方推荐--零封号风险)
+    - [模式 II：深度固化模式 (原生微创打补丁 · 打开即中文)](#模式-ii深度固化模式-原生微创打补丁--打开即中文)
   - [四、独家核心黑科技](#四独家核心黑科技)
   - [五、零封号风险安全合规声明](#五零封号风险安全合规声明)
   - [六、极速使用指南 (开箱即用)](#六极速使用指南-开箱即用)
@@ -60,13 +60,8 @@ If this project helps you, please consider giving it a **Star** on the top right
 
 Google Antigravity 是一款顶尖的智能体原生（Agentic）桌面开发客户端。目前官方仅提供纯英文交互界面，由于其前端架构基于极为复杂的 React 虚拟 DOM、流式 Protobuf 消息和 Monaco 核心代码编辑器，传统汉化方案常常面临严重困境：
 
-1. **市面 Python 动态注入方案**：
-   - 用户必须在本地配置繁琐的 Python 环境与外部依赖包；
-   - 每次启动都必须在后台常驻一个黑色命令行窗口（CMD/Terminal），极易误触关闭；
-   - 页面初次加载存在明显的英文闪烁（FOUC）与几百毫秒的“跳字延迟”。
-2. **粗暴替换 ASAR 方案**：
-   - 传统打包往往塞入完整的数兆字节完整 ASAR，不仅文件臃肿（上百兆），而且每次官方静默升级后，旧版补丁极易把官方程序降级回旧版本，引发协议与通信错乱；
-   - 孤立短词强行替换，导致“类型 / and select plan...”等生硬中英夹生饭。
+- **痛点 I（市面 Python 动态注入方案）**：用户必须在本地配置繁琐的 Python 环境与外部依赖包；每次启动都必须在后台常驻一个黑色命令行窗口（CMD/Terminal），极易误触关闭；页面初次加载存在明显的英文闪烁（FOUC）与几百毫秒的“跳字延迟”。
+- **痛点 II（粗暴替换 ASAR 方案）**：传统打包往往塞入完整的数兆字节完整 ASAR，不仅文件臃肿（上百兆），而且每次官方静默升级后，旧版补丁极易把官方程序降级回旧版本，引发协议与通信错乱；孤立短词强行替换，导致“类型 / and select plan...”等生硬中英夹生饭。
 
 为了从根本上终结这些工程痛点，**Antigravity-Hans** 由 **YunLingHUI** 自主研发推出。本项目采用独创的「双模驱动架构」，将原生 C# 单文件管理中心、零依赖 CDP 纯内存注入管道、微创 ASAR 动态打补丁引擎、可视化词条自定义工作台与 2,313+ 条高精词典高度集成，单文件仅 600KB，零外部依赖，开箱即用！
 
@@ -94,41 +89,38 @@ Google Antigravity 是一款顶尖的智能体原生（Agentic）桌面开发客
 
 ## 三、双模驱动核心技术架构
 
-### 模式一：安全纯内存静默模式 (官方推荐 · 零封号风险)
-- **核心定位**：专为对账号安全、官方原版纯净度有极致要求的专业开发者设计。
-- **底层原理**：
-  1. 本地磁盘上的 `resources/app.asar` **100% 永久保持官方出厂原版**（严格保留官方字节），SHA256 哈希与 Google 官方数字签名毫发无损；
-  2. 管理工具通过 Chrome DevTools Protocol (CDP) 调试管道拉起官方程序，利用 .NET 原生 `ClientWebSocket` 管道纯静默建立通信；
-  3. 通过 `Page.addScriptToEvaluateOnNewDocument` 与 `Runtime.evaluate` 指令，将纯净汉化引擎直接映射写入渲染进程内存；
-  4. 进程在内存中即时完成 DOM 转译，客户端关闭后内存瞬间释放，磁盘零任何残留修改；
-  5. **智能动态双向热开关**：管理工具内置动态状态识别，支持在软件运行中随时一键“开启纯内存中文”与“停用切回官方英文”，无需重启客户端，随点随切。
+### 模式 I：安全纯内存静默模式 (官方推荐 · 零封号风险)
+* **核心定位**：专为对账号安全、官方原版纯净度有极致要求的专业开发者设计。
+* **底层机制 I（出厂签名零改动）**：本地磁盘上的 `resources/app.asar` 100% 永久保持官方出厂原版（严格保留官方原版字节），SHA256 哈希与 Google 官方数字签名毫发无损。
+* **底层机制 II（纯静默调试管道）**：管理工具通过 Chrome DevTools Protocol (CDP) 调试管道拉起官方程序，利用 .NET 原生 `ClientWebSocket` 管道纯静默建立通信。
+* **底层机制 III（直接内存映射）**：通过 `Page.addScriptToEvaluateOnNewDocument` 与 `Runtime.evaluate` 指令，将纯净汉化引擎直接映射写入渲染进程内存。
+* **底层机制 IV（无痕即用即释放）**：进程在内存中即时完成 DOM 转译，客户端关闭后内存瞬间释放，磁盘零任何残留修改。
+* **底层机制 V（智能动态双向热开关）**：管理工具内置动态状态识别，支持在软件运行中随时一键“开启纯内存中文”与“停用切回官方英文”，无需重启客户端，随点随切。
 
-### 模式二：深度固化模式 (原生微创打补丁 · 打开即中文)
-- **核心定位**：追求极致加载速度、零毫秒跳字、希望日常直接双击官方桌面快捷方式即可获得全中文体验的用户。
-- **底层原理**：
-  1. 彻底颠覆传统“覆盖整个 ASAR”的笨拙做法，采用独家 **MiniAsarPatcher 尾部追加算法**，耗时仅 0.05 秒就地修补本地 `resources/app.asar` 中的 `dist/preload.js`；
-  2. 补丁内置常数级精准词典哈希映射（Exact Map），并在 TreeWalker 遍历中挂载 `NodeFilter.FILTER_REJECT` 进行整树剪枝，严格避开用户聊天消息流与代码块；
-  3. 首次安装自动就地生成 `app.asar.official_backup`，支持随时点击“恢复官方出厂原版”，一秒无损还原。
+### 模式 II：深度固化模式 (原生微创打补丁 · 打开即中文)
+* **核心定位**：追求极致加载速度、零毫秒跳字、希望日常直接双击官方桌面快捷方式即可获得全中文体验的用户。
+* **底层机制 I（尾部微创追加算法）**：彻底颠覆传统“覆盖整个 ASAR”的笨拙做法，采用独家 MiniAsarPatcher 尾部追加算法，耗时仅 0.05 秒就地修补本地 `resources/app.asar` 中的 `dist/preload.js`。
+* **底层机制 II（整树剪枝精准哈希）**：补丁内置常数级精准词典哈希映射（Exact Map），并在 TreeWalker 遍历中挂载 `NodeFilter.FILTER_REJECT` 进行整树剪枝，严格避开用户聊天消息流与代码块。
+* **底层机制 III（一秒出厂级无损还原）**：首次安装自动就地生成 `app.asar.official_backup`，支持随时点击“恢复官方出厂原版”，一秒无损还原。
 
 ---
 
 ## 四、独家核心黑科技
 
-1. **原生微创尾部追加打补丁算法 (MiniAsarPatcher)**：精准解析 Chromium Pickle ASAR 二进制协议。原版全部 1,084 个文件的数据在数据区中的物理位置完全不动，仅将汉化脚本追加在原数据区末尾，重构头部索引树并刷新 SHA256 校验。未来官方客户端静默更新后，小工具直接就地读取最新版的 asar 并微创修补，终生自适应！
-2. **可视化词库编辑器与免重启即时热生效**：管理小工具内置专属【词条自定义中心】，自动解析 2,313 条原生高精词条，支持实时模糊搜索、免重启即时热生效、以及词库的导入导出。
-3. **快捷方式全链路智能无痕接管**：自动扫描用户桌面快捷方式以及开始菜单，智能注入参数。日常使用直接双击桌面上的 Antigravity 官方图标，即可全自动以纯内存中文模式启动！
-4. **独家 V8 8GB 大内存防崩溃守护**：自动向启动链路注入官方标准参数 `--js-flags="--max-old-space-size=8192"`，将堆内存上限扩展至 8GB，彻底消除千步超长排查会话的崩溃隐患。
-5. **官方纯净 Quote (Ctrl+L) 布局保护**：彻底剔除外挂蓝底“译”字悬浮球，完全清空对上下文浮动容器的 CSS 侵入，100% 恢复官方原生纯净、无挤压、无裁切的极简排版。
-6. **宿主进程零强杀保障**：坚决杜绝任何后台静默 `taskkill`，保障当前所有活跃会话通信零中断、账号凭据零损坏。
-7. **客户端瘦身与缓存清理**：智能扫描缓存目录，一键释放冗余垃圾。
+* **特性 I. 原生微创尾部追加打补丁算法 (MiniAsarPatcher)**：精准解析 Chromium Pickle ASAR 二进制协议。原版全部 1,084 个文件的数据在数据区中的物理位置完全不动，仅将汉化脚本追加在原数据区末尾，重构头部索引树并刷新 SHA256 校验。未来官方客户端静默更新后，小工具直接就地读取最新版的 asar 并微创修补，终生自适应！
+* **特性 II. 可视化词库编辑器与免重启即时热生效**：管理小工具内置专属【词条自定义中心】，自动解析 2,313 条原生高精词条，支持实时模糊搜索、免重启即时热生效、以及词库的导入导出。
+* **特性 III. 快捷方式全链路智能无痕接管**：自动扫描用户桌面快捷方式以及开始菜单，智能注入参数。日常使用直接双击桌面上的 Antigravity 官方图标，即可全自动以纯内存中文模式启动！
+* **特性 IV. 独家 V8 8GB 大内存防崩溃守护**：自动向启动链路注入官方标准参数 `--js-flags="--max-old-space-size=8192"`，将堆内存上限扩展至 8GB，彻底消除千步超长排查会话的崩溃隐患。
+* **特性 V. 宿主进程零强杀安全保障**：坚决杜绝任何后台静默 `taskkill`，保障当前所有活跃会话通信零中断、账号凭据零损坏。
+* **特性 VI. 客户端瘦身与缓存一键清理**：智能扫描缓存目录，一键释放冗余垃圾。
 
 ---
 
 ## 五、零封号风险安全合规声明
 
-1. **官方标准通道对接**：安全纯内存静默模式所调用的 `--remote-debugging-port` 为 Chromium 与 Electron 官方公开、正规支持的标准开发者通信接口，完全属于官方框架允许的功能范畴。
-2. **零核心篡改**：纯内存模式下，磁盘上的所有可执行文件、核心动态库及 ASAR 归档均未发生任何单字节更改，完全通过 Google 官方更新程序与数字安全校验。
-3. **零隐私嗅探**：汉化引擎仅在本地浏览器渲染进程上下文中执行文本节点转译，绝不监听、收集、上传任何用户的输入内容、代码片段或模型交互上下文。
+* **准则 I. 官方标准通道对接**：安全纯内存静默模式所调用的 `--remote-debugging-port` 为 Chromium 与 Electron 官方公开、正规支持的标准开发者通信接口，完全属于官方框架允许的功能范畴。
+* **准则 II. 零核心文件篡改**：纯内存模式下，磁盘上的所有可执行文件、核心动态库及 ASAR 归档均未发生任何单字节更改，完全通过 Google 官方更新程序与数字安全校验。
+* **准则 III. 零隐私数据嗅探**：汉化引擎仅在本地浏览器渲染进程上下文中执行文本节点转译，绝不监听、收集、上传任何用户的输入内容、代码片段或模型交互上下文。
 
 ---
 
@@ -136,10 +128,10 @@ Google Antigravity 是一款顶尖的智能体原生（Agentic）桌面开发客
 
 ### 下载程序
 前往本仓库的 [Releases 页面](https://github.com/MoFenginto/Antigravity-Hans/releases) 下载最新发布的绿色免安装程序：
-- **`Antigravity汉化管理小工具.exe`**（仅约 600KB，无需安装任何第三方环境）
+- **`Antigravity-Hans-Manager.exe`**（仅约 600KB，无需安装任何第三方环境）
 
 ### 使用步骤
-1. **运行小工具**：双击运行 `Antigravity汉化管理小工具.exe`；
+1. **运行小工具**：双击运行 `Antigravity-Hans-Manager.exe`；
 2. **选择汉化模式**：
    - **方式 A（安全纯内存模式 · 推荐）**：点击【安全启动官方原版 (纯内存中文)】即可；
    - **方式 B（深度固化模式）**：点击【一键深度固化汉化】，0.05 秒完成就地微创补丁；
@@ -196,7 +188,7 @@ Google Antigravity 是一款顶尖的智能体原生（Agentic）桌面开发客
 
 **Antigravity-Hans** is a next-generation, dual-engine localization and management solution designed specifically for the official Google Antigravity desktop client.
 
-Developed autonomously by **YunLingHUI**, it eliminates all conventional localization pain points (such as heavy Python runtime dependencies, unsightly console black windows, FOUC flashing delays, and ASAR corruption):
+Developed autonomously by **YunLingHUI**, it eliminates all conventional localization pain points:
 - **Ultra-lightweight**: Single portable executable of only ~600KB.
 - **Zero Third-Party Dependencies**: Native C# implementation built on the native Windows .NET Framework.
 - **Dual-Engine Flexibility**: Seamlessly toggle between **Pure In-Memory Silent Mode** (Zero disk modifications, zero ban risk) and **Deep Permanent Solidification Mode** (Zero millisecond jump-cut).
@@ -206,12 +198,12 @@ Developed autonomously by **YunLingHUI**, it eliminates all conventional localiz
 
 ## 2. Dual-Engine Working Modes
 
-### Mode A: Pure In-Memory Silent Mode (Recommended · Zero Ban Risk)
+### Mode I: Pure In-Memory Silent Mode (Recommended · Zero Ban Risk)
 - Keeps the official `resources/app.asar` completely untouched on disk with Google's official digital signature intact.
 - Injects the localization engine directly into the Electron rendering process memory via the standard Chrome DevTools Protocol (CDP) WebSocket pipeline.
 - Completely silent without any terminal windows. Changes are released immediately upon application exit.
 
-### Mode B: Deep Permanent Solidification Mode (Micro-Invasive Patching)
+### Mode II: Deep Permanent Solidification Mode (Micro-Invasive Patching)
 - Employs an exclusive **MiniAsarPatcher tail-append algorithm** to modify `dist/preload.js` in ~0.05 seconds without rewriting existing file payloads.
 - Delivers instantaneous Chinese rendering from the very first frame with zero millisecond latency.
 - Features an automated one-click official restore mechanism at any time.
@@ -222,17 +214,17 @@ Developed autonomously by **YunLingHUI**, it eliminates all conventional localiz
 
 - **Visual Vocabulary Customization Center**: Built-in 2,313+ translation dictionary with instant hot-reload (no client restart required).
 - **Shortcut Auto-Takeover**: Directly launch the official desktop shortcut to enjoy Chinese localization automatically.
-- **Clean Quote (Ctrl+L) Protection**: Preserves the official minimal selection toolbar without UI disruption.
 - **Process Protection**: Strictly avoids aggressive process termination (`taskkill`) to safeguard user sessions.
+- **Cache Cleaner**: Quickly frees up hundreds of megabytes of cached assets.
 
 ---
 
 ## 4. Quick Start & Releases
 
 Download the standalone portable program directly from the [Releases](https://github.com/MoFenginto/Antigravity-Hans/releases) page:
-- **`Antigravity汉化管理小工具.exe`** (~600KB, portable, no installation required).
+- **`Antigravity-Hans-Manager.exe`** (~600KB, portable, no installation required).
 
-1. Run `Antigravity汉化管理小工具.exe`.
+1. Run `Antigravity-Hans-Manager.exe`.
 2. Choose your preferred mode:
    - Click **[安全启动官方原版 (纯内存中文)]** for Pure Memory Mode.
    - Click **[一键深度固化汉化]** for Instant Solidification Mode.
