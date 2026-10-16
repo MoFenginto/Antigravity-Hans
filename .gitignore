@@ -1,0 +1,24 @@
+# 依赖与编译临时产物
+node_modules/
+*.exe
+*.dll
+*.obj
+*.pdb
+*.tmp
+*.tmp_*
+*.log
+
+# 解压与反编译中间目录
+extracted_*/
+decompiled_*/
+*.unpacked/
+
+# 系统冗余文件
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# 本地个人配置
+*.user
+user_custom_dict.json

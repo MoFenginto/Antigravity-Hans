@@ -119,36 +119,8 @@ electron_1.contextBridge.exposeInMainWorld('wsl', wslAPI);
 
 
 /* __ANTIGRAVITY_ZH_ENGINE_V2__ */
-try {
-    const fs_1 = require("fs");
-    const path_1 = require("path");
-    const os_1 = require("os");
-    let lastCfgCheckTime = 0;
-    let cachedCfgVal = false;
-    function readZhSettingsEnabled() {
-        const now = Date.now();
-        if (now - lastCfgCheckTime < 200) return cachedCfgVal;
-        lastCfgCheckTime = now;
-        try {
-            const appData = process.env.APPDATA || (process.platform === 'win32' ? path_1.join(os_1.homedir(), 'AppData', 'Roaming') : '');
-            const cfgPath = path_1.join(appData, 'Antigravity', 'zh_settings.json');
-            if (fs_1.existsSync(cfgPath)) {
-                const content = fs_1.readFileSync(cfgPath, 'utf8');
-                cachedCfgVal = content.includes('"auto_translate_thought": true') || content.includes('"auto_translate_thought":true');
-                return cachedCfgVal;
-            }
-        } catch (e) {}
-        cachedCfgVal = false;
-        return false;
-    }
-    electron_1.contextBridge.exposeInMainWorld('zhTranslationBridge', {
-        isEnabled: () => {
-            return readZhSettingsEnabled();
-        }
-    });
-} catch (e) {}
-
-
+// Antigravity 纯内存静默汉化引擎 (Zero-FOUC Instant In-Memory Engine)
+/* __ANTIGRAVITY_ZH_ENGINE_V2__ */
 // ============================================================================
 // Antigravity 100% 全量纯中文零闪烁即时汉化引擎 (Zero-FOUC Instant Localization)
 // (原生节点创建拦截 + 属性拦截 + 微任务同步观察 + 长词绝对优先 + 零破坏防护)
@@ -161,6 +133,366 @@ try {
 
     // 1. 严格按字符长度降序排序的词典数据占位符
     const rawPhrases = [
+  [
+    "Pin conversation",
+    "置顶对话"
+  ],
+  [
+    "Archive conversation",
+    "归档此对话"
+  ],
+  [
+    "Unarchive conversation",
+    "取消归档对话"
+  ],
+  [
+    "More options",
+    "更多选项"
+  ],
+  [
+    "Readme",
+    "自述文件"
+  ],
+  [
+    "Plugin metadata",
+    "插件元数据"
+  ],
+  [
+    "This is a preview of the plugin's source. Nothing below is active until you install it.",
+    "此为插件源码预览。在您安装之前，下方的任何功能均未激活。"
+  ],
+  [
+    "Antigravity plugins marketplace catalog.",
+    "Antigravity 官方插件市场目录。"
+  ],
+  [
+    "Book 30 minutes with Priya and Sam next week",
+    "下周与 Priya 和 Sam 预约 30 分钟会议"
+  ],
+  [
+    "What's on my calendar today? Flag any conflicts",
+    "今天我的日历上有什么安排？标出任何日程冲突"
+  ],
+  [
+    "Block focus time before Friday's launch review",
+    "在周五发布评审之前锁定一段专注时间"
+  ],
+  [
+    "Summarize this design doc and list the open questions",
+    "总结此设计文档并列出未决问题"
+  ],
+  [
+    "Draft a launch announcement in a new doc from my notes",
+    "根据我的笔记在新文档中起草一份发布公告"
+  ],
+  [
+    "Reply to the open comments on my doc and resolve them",
+    "回复我文档中待处理的批注并将其解决"
+  ],
+  [
+    "Search, upload, download, and share files.",
+    "搜索、上传、下载与共享文件。"
+  ],
+  [
+    "Find last quarter's budget and share it with Alex",
+    "找到上季度的预算并分享给 Alex"
+  ],
+  [
+    "Move this week's design exports into the Launch folder",
+    "将本周的设计导出文件移动到 Launch 文件夹"
+  ],
+  [
+    "Download the Q3 report as a PDF",
+    "将第三季度报告下载为 PDF"
+  ],
+  [
+    "Find the trends and outliers in this sales sheet",
+    "分析此销售表格中的趋势与异常值"
+  ],
+  [
+    "Build a monthly budget tracker with formulas and a chart",
+    "利用公式和图表构建月度预算跟踪表"
+  ],
+  [
+    "Import this CSV and turn it into a pivot table by region",
+    "导入此 CSV 文件并按区域生成数据透视表"
+  ],
+  [
+    "Read, write, and format your Google Sheets. Fill in formulas, sort and clean\\ncolumns, import CSVs, build charts and pivot tables, and export the result.",
+    "读取、编写与格式化您的 Google 表格。填充公式、排序与清洗列、导入 CSV、生成图表与透视表，并导出会话结果。"
+  ],
+  [
+    "Read, write, and format your Google Sheets. Fill in formulas, sort and clean\ncolumns, import CSVs, build charts and pivot tables, and export the result.",
+    "读取、编写与格式化您的 Google 表格。填充公式、排序与清洗列、导入 CSV、生成图表与透视表，并导出会话结果。"
+  ],
+  [
+    "Turn my project notes into a 10-slide pitch deck",
+    "将我的项目笔记制作成 10 页的展示幻灯片"
+  ],
+  [
+    "Add a summary slide and speaker notes to my review deck",
+    "为我的评审演示文稿添加总结幻灯片和演讲者备注"
+  ],
+  [
+    "Export the final deck as a PDF",
+    "将最终的演示文稿导出为 PDF"
+  ],
+  [
+    "Create a new Android project called MyFirstApp using the empty-activity template",
+    "使用 empty-activity 模板创建一个名为 MyFirstApp 的新 Android 项目"
+  ],
+  [
+    "Run my app on a Samsung Galaxy Ultra device.",
+    "在三星 Galaxy Ultra 设备上运行我的应用。"
+  ],
+  [
+    "Test my app and make sure that it's ready to publish to Google Play.",
+    "测试我的应用，确保已准备好发布到 Google Play。"
+  ],
+  [
+    "Android Developer Tools Team",
+    "Android 开发者工具团队"
+  ],
+  [
+    "This plugin provides a specialized suite of skills for data engineers and database practitioners working on Google Cloud. It acts as an expert assistant, allowing you to use natural language prompts in your preferred coding agent to architect complex data pipelines, transform data with dbt, write Spark and BigQuery SQL notebooks, and orchestrate end-to-end workflows across GCP's data ecosystem.",
+    "此插件为在 Google Cloud 上工作的数据工程师和数据库开发人员提供了一套专业的技能合集。它充当专家助手，允许您在偏好的编程智能体中使用自然语言提示来构建复杂的数据管道、使用 dbt 进行数据转换、编写 Spark 和 BigQuery SQL Notebook，并编排跨越 GCP 数据生态系统的端到端工作流。"
+  ],
+  [
+    "Create a PySpark notebook to train a distributed Random Forest model on the BigQuery table my_transactions",
+    "创建一个 PySpark 笔记本，在 BigQuery 的 my_transactions 表上训练分布式随机森林模型"
+  ],
+  [
+    "Find datasets about customer orders in Knowledge Catalog and show their lineage",
+    "在知识目录中查找有关客户订单的数据集并展示其数据血缘"
+  ],
+  [
+    "My last Dataflow job failed. Find the root cause in the logs and propose a fix",
+    "我的上一个 Dataflow 作业失败了。在日志中查找根本原因并提出修复建议"
+  ],
+  [
+    "Prototype, build & run modern apps that users love with Firebase's backend, AI, and operational infrastructure.",
+    "利用 Firebase 的后端、AI 和运维基础设施，原型设计、构建并运行深受用户喜爱的现代应用程序。"
+  ],
+  [
+    "Set up Firebase in my app and connect it to a Firebase project",
+    "在我的应用中设置 Firebase 并将其连接到 Firebase 项目"
+  ],
+  [
+    "Add Firebase Authentication with Google sign-in to my app",
+    "为我的应用添加带有 Google 登录的 Firebase 身份验证"
+  ],
+  [
+    "Write and audit Firestore security rules for my data model",
+    "为我的数据模型编写并审计 Firestore 安全规则"
+  ],
+  [
+    "Add a Gemini-powered feature to my app with Firebase AI Logic",
+    "使用 Firebase AI 逻辑为我的应用添加 Gemini 驱动的功能"
+  ],
+  [
+    "Deploy my web app with Firebase App Hosting",
+    "使用 Firebase App Hosting 托管部署我的 Web 应用"
+  ],
+  [
+    "Look up the exact gcloud CLI command and IAM roles needed to deploy a Cloud Run service with Secret Manager",
+    "查询使用 Secret Manager 部署 Cloud Run 服务所需的确切 gcloud CLI 命令和 IAM 角色"
+  ],
+  [
+    "Search official Google documentation for how to implement structured outputs with the Gemini API",
+    "在 Google 官方文档中搜索如何使用 Gemini API 实现结构化输出"
+  ],
+  [
+    "Compare Cloud Run, GKE Autopilot, and App Engine based on official Google Cloud architecture guides",
+    "根据官方 Google Cloud 架构指南对比 Cloud Run、GKE Autopilot 和 App Engine"
+  ],
+  [
+    "Google Cloud guidance for coding agents: first-project onboarding, authentication and credential selection, and safety-critical validation for gcloud CLI commands. Includes the Google Developer Knowledge MCP server for grounded, up-to-date Google Cloud documentation.",
+    "针对编程智能体的 Google Cloud 指南：首个项目上手引导、身份验证与凭据选择，以及针对 gcloud CLI 命令的安全关键验证。内置用于获取可靠、最新官方文档的 Google 开发者知识库 MCP 服务器。"
+  ],
+  [
+    "Help me set up a new Google Cloud project, link billing, and configure local authentication.",
+    "帮助我创建一个新的 Google Cloud 项目、关联结算账号并配置本地身份验证。"
+  ],
+  [
+    "Configure Application Default Credentials (ADC) and IAM permissions for my local development environment.",
+    "为我的本地开发环境配置应用默认凭据 (ADC) 和 IAM 权限。"
+  ],
+  [
+    "Search official Google Cloud documentation using Developer Knowledge and validate my gcloud CLI commands.",
+    "使用开发者知识库搜索官方 Google Cloud 文档并验证我的 gcloud CLI 命令。"
+  ],
+  [
+    "Google Maps Platform",
+    "Google 地图平台"
+  ],
+  [
+    "Integration skill and tools for Google Maps Platform APIs",
+    "用于 Google Maps Platform API 的集成技能与工具"
+  ],
+  [
+    "Curated collection of agent skills for science tasks.",
+    "面向科学任务精选的智能体技能合集。"
+  ],
+  [
+    "Build a stateful multi-turn chat script using the Interactions API and the latest models",
+    "使用 Interactions API 和最新模型构建有状态的多轮对话脚本"
+  ],
+  [
+    "Create a real-time voice agent using the Gemini Live API and non-blocking function calling",
+    "使用 Gemini Live API 和非阻塞函数调用创建实时语音智能体"
+  ],
+  [
+    "Migrate my project from client.models.generate_content to the Interactions API",
+    "将我的工程从 client.models.generate_content 迁移到 Interactions API"
+  ],
+  [
+    "Audit this project for modern web best practices and modernization opportunities",
+    "审查此工程以获取现代 Web 最佳实践和现代化升级建议"
+  ],
+  [
+    "What is the recommended modern way to implement responsive dialogs and popovers?",
+    "实现响应式对话框和弹出层（Popover）的现代推荐方案是什么？"
+  ],
+  [
+    "Build a Chrome Extension with a side panel using Manifest V3 best practices",
+    "遵循 Manifest V3 最佳实践构建带有侧边栏的 Chrome 浏览器扩展"
+  ],
+  [
+    "Official plugin for Dart and Flutter that installs Flutter/Dart Skills, Rules, Custom Agents, and Dart MCP server for building natively compiled, visually stunning applications for mobile, web, desktop, and embedded devices from a single codebase",
+    "Dart 与 Flutter 官方插件，安装 Flutter/Dart 技能、规则、自定义智能体与 Dart MCP 服务器，用于从单一代码库构建原生编译、视觉惊艳的移动端、Web 端、桌面端与嵌入式应用程序"
+  ],
+  [
+    "Build a responsive Flutter layout that adapts across mobile, tablet, and desktop form factors",
+    "构建自适应移动端、平板电脑和桌面端多种外形规格的响应式 Flutter 布局"
+  ],
+  [
+    "Write a widget test using WidgetTester to verify UI rendering and user interactions",
+    "使用 WidgetTester 编写 Widget 单元测试，验证 UI 渲染和用户交互"
+  ],
+  [
+    "Audit my app for accessibility",
+    "审查我的应用的无障碍可访问性支持"
+  ],
+  [
+    "Diagnose and fix layout overflows or constraint issues in this Flutter widget",
+    "诊断并修复此 Flutter 组件中的布局溢出或约束问题"
+  ],
+  [
+    "Flutter Team",
+    "Flutter 官方团队"
+  ],
+  [
+    "Chrome DevTools Team",
+    "Chrome DevTools 官方团队"
+  ],
+  [
+    "Hide breakdown",
+    "隐藏明细"
+  ],
+  [
+    "Hide breakdowns",
+    "隐藏明细"
+  ],
+  [
+    "Dart and Flutter",
+    "Dart 与 Flutter"
+  ],
+  [
+    "Search and retrieve official documentation across Google Cloud, Gemini, Android, Firebase, Flutter, and Web. Requires Google Cloud credentials (ADC) or an API key.",
+    "在 Google Cloud、Gemini、Android、Firebase、Flutter 与 Web 之间搜索并检索官方文档。需要 Google Cloud 凭据 (ADC) 或 API 密钥。"
+  ],
+  [
+    "work with Google developer products. You can always change your choices in Settings.",
+    "使用 Google 开发者产品。您可以随时在“设置”中更改您的选择。"
+  ],
+  [
+    "Welcome to Antigravity",
+    "欢迎使用 Antigravity"
+  ],
+  [
+    "Welcome to",
+    "欢迎使用"
+  ],
+  [
+    "Continue with Google",
+    "通过 Google 账号继续"
+  ],
+  [
+    "Use Business Account",
+    "使用企业账号"
+  ],
+  [
+    "Having trouble signing in?",
+    "登录遇到问题？"
+  ],
+  [
+    "Gemini Models",
+    "Gemini 模型"
+  ],
+  [
+    "Weekly Limit 剩余",
+    "每周限额剩余"
+  ],
+  [
+    "Weekly Limit",
+    "每周限额"
+  ],
+  [
+    "Five Hour Limit 剩余",
+    "5 小时限额剩余"
+  ],
+  [
+    "Five Hour Limit",
+    "5 小时限额"
+  ],
+  [
+    "Show Less",
+    "收起"
+  ],
+  [
+    "Show More",
+    "展开更多"
+  ],
+  [
+    "Agent settings and permissions for conversations outside of projects.",
+    "项目外对话的智能体设置与权限。"
+  ],
+  [
+    "to ask for content changes for legal reasons.",
+    "因法律原因申请更改内容。"
+  ],
+  [
+    "just now",
+    "刚刚"
+  ],
+  [
+    "Global Permissions",
+    "全局权限"
+  ],
+  [
+    "Plan Review Policy",
+    "计划审查策略"
+  ],
+  [
+    "Type / and select plan to have the agent generate a plan.",
+    "输入 / 并选择 plan 以让智能体生成计划。"
+  ],
+  [
+    "Type / and select plan to have the agent generate a plan",
+    "输入 / 并选择 plan 以让智能体生成计划"
+  ],
+  [
+    "to have the agent generate a plan.",
+    "以让智能体生成计划。"
+  ],
+  [
+    "to have the agent generate a plan",
+    "以让智能体生成计划"
+  ],
+  [
+    "and select",
+    "并选择"
+  ],
   [
     "Provides a comprehensive guide, quick reference, and sitemap for Google Antigravity (AGY), including the Antigravity CLI (agy), Antigravity 2.0, Antigravity IDE, Python SDK, slash commands, keybindings, and customizations (skills, rules, MCP, sidecars). Activate this skill when the user asks questions about how to use, configure, or customize Antigravity, AGY, the agy CLI, the Antigravity IDE, or Antigravity 2.0.",
     "提供 Google Antigravity (AGY) 的综合指南、速查参考和站点地图，包括 Antigravity CLI (agy)、Antigravity 2.0、Antigravity IDE、Python SDK、斜杠命令、快捷键和自定义项（技能、规则、MCP、Sidecar）。当用户询问如何使用、配置或自定义 Antigravity 时激活此技能。"
@@ -218,6 +550,10 @@ try {
     "执行 `dart analyze` 识别警告和错误，并使用 `dart fix --apply` 自动解决机械式语法规范问题。在开发过程中及提交更改前使用以确保代码质量。"
   ],
   [
+    "The breakdown below shows token usage from customizations like rules, skills, and MCP. If a budget is exceeded, large rules are demoted to path pointers and large customizations are excluded automatically.",
+    "以下明细显示了来自规则、技能和 MCP 等自定义项的 Token 使用量。如果超出预算，大型规则将降级为路径指针，大型自定义项将自动排除。"
+  ],
+  [
     "Use `LayoutBuilder`, `MediaQuery`, or `Expanded/Flexible` to create a layout that adapts to different screen sizes. Use when you need the UI to look good on both mobile and tablet/desktop form factors.",
     "使用 `LayoutBuilder`、`MediaQuery` 或 `Expanded/Flexible` 创建自适应不同屏幕尺寸的布局。在适配移动端、平板和桌面端时使用。"
   ],
@@ -260,6 +596,14 @@ try {
   [
     "Write and organize unit tests for functions, methods, and classes using `package:test`. Use when creating new logic or fixing bugs to ensure code remains correct and regression-free.",
     "使用 `package:test` 为函数、方法和类编写并组织单元测试。在编写新逻辑或修复 Bug 时使用，以确保代码保持正确且无回归。"
+  ],
+  [
+    "Build applications with the Gemini Interactions API and Live API, including text, image, video, and speech generation, managed agents, and real-time multimodal streaming.",
+    "使用 Gemini Interactions API 和 Live API 构建应用，包括文本、图像、视频与语音生成、托管智能体及实时多模态流。"
+  ],
+  [
+    "Build applications with the Gemini Interactions API and Live API, including text, image, video, and speech generation, managed agents, and real-time multimodal streaming",
+    "使用 Gemini Interactions API 和 Live API 构建应用，包括文本、图像、视频与语音生成、托管智能体及实时多模态流"
   ],
   [
     "Build applications with the Gemini Interactions API and Live API, including text generation, multi turn chat, streaming, function calling, managed agents, and real ...",
@@ -518,6 +862,10 @@ try {
     "应用可从菜单栏访问，并在所有窗口关闭后继续在后台运行。"
   ],
   [
+    "Curated collection of agent skills for science that help with data analysis, modeling, and research.",
+    "面向科学领域的精选智能体技能合集，助力数据分析、建模与科研。"
+  ],
+  [
     "Bundles of customizations that can include skills, agents, rules, MCP servers, hooks, and sidecars.",
     "自定义功能合集，可包含技能、智能体、规则、MCP 服务器、钩子和 Sidecar。"
   ],
@@ -532,6 +880,10 @@ try {
   [
     "Requires manual review for all terminal commands and file accesses outside of the working folders.",
     "对所有工作文件夹之外的终端命令和文件访问都需要手动审核。"
+  ],
+  [
+    "Requires manual review for all terminal commands and file accesses outside of the working folders",
+    "对所有工作文件夹之外的终端命令和文件访问都需要手动审核"
   ],
   [
     "When toggled on, Antigravity collects usage data to help Google enhance performance and features.",
@@ -578,6 +930,10 @@ try {
     "为顺畅的 Dart 与 Flutter 开发工作流提供定制化操作指引。"
   ],
   [
+    "All terminal commands require review. The agent can read or write to any file in the machine",
+    "所有终端命令均需要审核。智能体可以读写计算机上的任何文件"
+  ],
+  [
     "Confirm the command is safe to run outside of the sandbox with full network and disk access.",
     "确认该命令可在沙盒外 safe 运行，并拥有完整网络和磁盘访问权限。"
   ],
@@ -590,6 +946,10 @@ try {
     "通过右上角齿轮图标或侧边栏访问，设置中心允许您配置以下各项："
   ],
   [
+    "Build on Google's developer platforms, including Android, Chrome, Gemini, and Google Cloud.",
+    "在 Google 开发者平台上构建应用，包括 Android、Chrome、Gemini 与 Google Cloud。"
+  ],
+  [
     "Port number for Chrome DevTools Protocol remote debugging. Leave empty for default (9222).",
     "Chrome DevTools Protocol 远程调试端口号。留空则使用默认值（9222）。"
   ],
@@ -600,6 +960,10 @@ try {
   [
     "When enabled, the agent will be able to access past conversations to inform its responses.",
     "启用后，智能体将能够访问历史对话以辅助其生成回复。"
+  ],
+  [
+    "Build on Google's developer platforms, including Android, Chrome, Gemini, and Google Cloud",
+    "在 Google 开发者平台上构建应用，包括 Android、Chrome、Gemini 与 Google Cloud"
   ],
   [
     "技能 providing tailored instructions for happy path Dart and Flutter development workflows.",
@@ -620,6 +984,10 @@ try {
   [
     "A label for this computer when you connect from another device. Changing it reconnects.",
     "从其他设备连接此电脑时显示的标识名称。修改后将重新连接。"
+  ],
+  [
+    "The breakdown below shows token usage from customizations like rules, skills, and MCP.",
+    "以下明细显示了来自规则、技能和 MCP 等自定义项的 Token 使用量。"
   ],
   [
     "Agent can retrieve console logs from the browser and return it for further processing.",
@@ -644,6 +1012,10 @@ try {
   [
     "Terminal Auto-Execution: Toggle whether the agent can run safe commands automatically.",
     "终端自动执行：控制智能体是否可以自动运行白名单中的安全命令。"
+  ],
+  [
+    "Curated collection of agent skills for science, creative projects, analysis, and more.",
+    "面向科学、创意项目、分析等领域的精选智能体技能合集。"
   ],
   [
     "The browser subagent can be invoked by typing /browser in the conversation input box.",
@@ -678,12 +1050,20 @@ try {
     "浏览器：打开用于执行网页任务或直接进行 URL 交互的集成视图。"
   ],
   [
+    "Connect to Google Workspace, including Docs, Sheets, Slides, Drive, and Calendar.",
+    "连接至 Google 工作区，包括文档、表格、幻灯片、云端硬盘与日历。"
+  ],
+  [
     "Are you sure you want to delete this conversation? This action cannot be undone.",
     "您确定要删除此对话吗？此操作无法撤消。"
   ],
   [
     "Receive product updates, tips, and promotions from Google Antigravity via email.",
     "通过电子邮件接收 Google Antigravity 的产品更新、技巧和促销信息。"
+  ],
+  [
+    "Connect to Google Workspace, including Docs, Sheets, Slides, Drive, and Calendar",
+    "连接至 Google 工作区，包括文档、表格、幻灯片、云端硬盘与日历"
   ],
   [
     "Pin a contrib experiment variant (force_contrib_variant). Requires Core Direct.",
@@ -830,6 +1210,10 @@ try {
     "启用后，允许沙盒命令访问外部网络。"
   ],
   [
+    "Configure a chat bot so you can use Jetski directly from Google Chat.",
+    "配置聊天机器人，以便直接从 Google Chat 中使用 Jetski。"
+  ],
+  [
     "A snapshot was saved before running. To restore your previous output:",
     "运行前已自动保存快照。若要还原先前的输出："
   ],
@@ -914,6 +1298,10 @@ try {
     "搜索采用智能大小写匹配，并默认忽略被 .gitignore 排除的文件。"
   ],
   [
+    "Inherits your global permissions (when working in this workspace).",
+    "继承您的全局权限（当在此工作区中工作时）。"
+  ],
+  [
     "Agent cannot modify files outside of the workspace in strict mode.",
     "严格模式下智能体无法修改工作区之外的文件。"
   ],
@@ -942,7 +1330,7 @@ try {
     "在此输入企业密码可能会触发密码重置警报。"
   ],
   [
-    "Inherits your global permissions (when working in this workspace).",
+    "Inherits your global permissions (when working in this workspace)",
     "继承您的全局权限（当在此工作区中工作时）。"
   ],
   [
@@ -970,8 +1358,12 @@ try {
     "安全隔离模式：增强隐私保护并限制特定外部数据共享。"
   ],
   [
-    "Inherits your global permissions (when working in this workspace)",
-    "继承您的全局权限（当在此工作区中工作时）。"
+    "Inherits your global permissions (when working in this project).",
+    "继承您的全局权限（当在此项目中工作时）。"
+  ],
+  [
+    "Replace the default browser right-click menu with quick actions.",
+    "使用快捷操作替换默认浏览器右键菜单。"
   ],
   [
     "Ask a quick question without interrupting the main conversation.",
@@ -1002,7 +1394,11 @@ try {
     "此扩展未声明任何需要用户确认的权限。"
   ],
   [
-    "Inherits your global permissions (when working in this project).",
+    "Curated collection of agent skills for science that help with...",
+    "面向科学领域的精选智能体技能合集..."
+  ],
+  [
+    "Inherits your global permissions (when working in this project)",
     "继承您的全局权限（当在此项目中工作时）。"
   ],
   [
@@ -1038,8 +1434,12 @@ try {
     "您的管理员已在此工作区中禁用了 MCP 服务器。"
   ],
   [
-    "Inherits your global permissions (when working in this project)",
-    "继承您的全局权限（当在此项目中工作时）。"
+    "Inherits your Global Permissions when working in this project.",
+    "在此项目中工作时继承您的全局权限。"
+  ],
+  [
+    "Inherits your global permissions when working in this project.",
+    "在此项目中工作时继承您的全局权限。"
   ],
   [
     "Allow/deny agent read access to specific files or directories.",
@@ -1064,6 +1464,14 @@ try {
   [
     "Your Antigravity use will be associated with provided project.",
     "您对 Antigravity 的使用将与提供的项目相关联。"
+  ],
+  [
+    "Inherits your Global Permissions when working in this project",
+    "在此项目中工作时继承您的全局权限"
+  ],
+  [
+    "Inherits your global permissions when working in this project",
+    "在此项目中工作时继承您的全局权限"
   ],
   [
     "ABFS workspace creation is not available in this environment.",
@@ -1110,6 +1518,10 @@ try {
     "在合适的位置优先使用 switch 表达式与模式匹配。"
   ],
   [
+    "Disables all safety barriers for maximal iteration velocity.",
+    "禁用所有安全屏障以获得最大迭代速度。"
+  ],
+  [
     "Cog workspace creation is not available in this environment.",
     "当前环境不支持创建 Cog 工作区。"
   ],
@@ -1120,10 +1532,6 @@ try {
   [
     "Confirming this undo action will make the following changes:",
     "确认撤销操作将执行以下更改："
-  ],
-  [
-    "Disables all safety barriers for maximal iteration velocity.",
-    "禁用所有安全屏障以获得最大迭代速度。"
   ],
   [
     "Grant create, update, or delete access to specific branches.",
@@ -1148,6 +1556,10 @@ try {
   [
     "Within any of the customization roots above, you can define:",
     "在上述任意自定义根目录中，您可以定义："
+  ],
+  [
+    "Disables all safety barriers for maximal iteration velocity",
+    "禁用所有安全屏障以获得最大迭代速度"
   ],
   [
     "Allow/deny agent browser actuation access to specific URLs.",
@@ -1230,6 +1642,10 @@ try {
     "以下是输出预览（中间部分已省略截断）："
   ],
   [
+    "Core tools and knowledge required to develop for Android.",
+    "开发 Android 所需的核心工具与知识。"
+  ],
+  [
     "A comma-separated list like repo-a, repo-b, or * for all.",
     "逗号分隔的列表（如 repo-a, repo-b 或 * 表示全部）。"
   ],
@@ -1254,6 +1670,10 @@ try {
     "未找到匹配的项目文件夹。请应用以使用自定义 URI。"
   ],
   [
+    "Core tools and knowledge required to develop for Android",
+    "进行 Android 应用程序开发所需的核心命令行工具与知识库。"
+  ],
+  [
     "ABFS is required to create ABFS workspaces. Please visit",
     "创建 ABFS 工作区需要 ABFS。请访问"
   ],
@@ -1272,10 +1692,6 @@ try {
   [
     "Configure allowed and denied URLs for browser actuation.",
     "配置允许和禁止浏览器操作的 URL。"
-  ],
-  [
-    "Core tools and knowledge required to develop for Android",
-    "进行 Android 应用程序开发所需的核心命令行工具与知识库。"
   ],
   [
     "Enter a project ID above to check for assigned licenses.",
@@ -1374,6 +1790,10 @@ try {
     "每个项目都可以单独覆盖部分全局设置。"
   ],
   [
+    "Choose between the Default and Project 4K experience.",
+    "在默认与项目 4K 体验之间进行选择。"
+  ],
+  [
     "Both staged and unstaged changes are being committed.",
     "将同时提交暂存区与工作区的更改。"
   ],
@@ -1456,6 +1876,14 @@ try {
   [
     "Why are you opting out of auto-triggered Best-of-N?",
     "您为何选择停用自动触发的多候选对比 (Best-of-N)？"
+  ],
+  [
+    "Prototype, build & run modern apps that users love.",
+    "原型设计、构建并运行用户喜爱的现代应用程序。"
+  ],
+  [
+    "Curated collection of agent skills for science t...",
+    "面向科学领域的精选智能体技能合集，助力数据分析、建模与科研..."
   ],
   [
     "Add an optional message, \\u23ce to submit comments",
@@ -1586,6 +2014,10 @@ try {
     "允许此浏览器实例的远程调试"
   ],
   [
+    "Project 4K interface without developer tooling.",
+    "无开发工具的 4K 纯净界面。"
+  ],
+  [
     "Absolute path to the Chrome/Chromium executable",
     "Chrome/Chromium 可执行文件的绝对路径"
   ],
@@ -1634,6 +2066,10 @@ try {
     "有哪些不符合预期？选择适用项（可选）。"
   ],
   [
+    "Prototype, build & run modern apps that user...",
+    "原型设计、构建并运行现代应用程序..."
+  ],
+  [
     "(Optional) Tell us more or type your reason...",
     "（可选）提供更多信息或输入原因..."
   ],
@@ -1670,6 +2106,14 @@ try {
     "输入以在整个工作区中搜索代码。"
   ],
   [
+    "Check availability, schedule events, and RSVP.",
+    "查看空闲状态、安排日程与活动答复。"
+  ],
+  [
+    "Choose the experience that fits how you work.",
+    "选择适合您工作方式的体验。"
+  ],
+  [
     "Add an optional message, ⏎ to submit comments",
     "添加可选消息，按 ⏎ 提交评论"
   ],
@@ -1702,6 +2146,18 @@ try {
     "此客户端启动时未附加任何自定义标志。"
   ],
   [
+    "Check availability, schedule events, and RSVP",
+    "查看空闲状态、安排日程与活动答复"
+  ],
+  [
+    "Search conversations with 🔍 in the top left.",
+    "使用左上角的放大镜图标搜索历史会话。"
+  ],
+  [
+    "Please list the steps to reproduce the issue",
+    "请详细列出复现该问题的具体步骤"
+  ],
+  [
     "Allow the agent to run without restrictions.",
     "允许智能体无限制自主执行。"
   ],
@@ -1712,10 +2168,6 @@ try {
   [
     "Conversation copied as Markdown to clipboard",
     "对话已作为 Markdown 复制到剪贴板"
-  ],
-  [
-    "Please list the steps to reproduce the issue",
-    "请详细列出复现该问题的具体步骤"
   ],
   [
     "Please verify your account to continue using",
@@ -1756,6 +2208,10 @@ try {
   [
     "Files modified by agent in this conversation",
     "智能体在本次对话中修改的文件"
+  ],
+  [
+    "to back up your data and run the migration.",
+    "备份您的数据并运行迁移。"
   ],
   [
     "% of the customization budget is available.",
@@ -1832,6 +2288,10 @@ try {
   [
     "Yes, and always allow in this conversation",
     "是，且在此对话中永久允许"
+  ],
+  [
+    "Interrupt the agent and send immediately.",
+    "打断智能体并立即发送。"
   ],
   [
     "An unexpected error occurred during check",
@@ -1926,6 +2386,10 @@ try {
     "智能体可以执行的终端命令。"
   ],
   [
+    "Manually customize individual settings.",
+    "手动自定义各项设置。"
+  ],
+  [
     "⌥⏎ On empty prompt, sends next in queue",
     "提示词为空时按 ⌥⏎ 发送队列中的下一条"
   ],
@@ -1962,10 +2426,6 @@ try {
     "本地权限具有更高优先级。"
   ],
   [
-    "Manually customize individual settings.",
-    "手动自定义各项设置。"
-  ],
-  [
     "The remote shared a link for this push.",
     "远程仓库为此次推送共享了链接。"
   ],
@@ -1976,6 +2436,10 @@ try {
   [
     "Yes, and always allow in this workspace",
     "是，且在此工作区中永久允许"
+  ],
+  [
+    "Manually customize individual settings",
+    "手动自定义各项设置"
   ],
   [
     "A group with this name already exists.",
@@ -2008,6 +2472,10 @@ try {
   [
     "Use theme to be imported with settings",
     "使用随设置导入的界面主题"
+  ],
+  [
+    "View archived in the sidebar (≡ menu).",
+    "在侧边栏（≡ 菜单）中查看已归档会话。"
   ],
   [
     "Cannot save a branch without a folder",
@@ -2066,6 +2534,14 @@ try {
     "直接与您的个人套餐等级绑定"
   ],
   [
+    "Read, write, and format spreadsheets.",
+    "读取、编写与格式化电子表格。"
+  ],
+  [
+    "Read, edit, and export presentations.",
+    "读取、编辑与导出演示文稿。"
+  ],
+  [
     "Are you sure you want to archive the",
     "确定要archive the吗？"
   ],
@@ -2118,6 +2594,22 @@ try {
     "暂存区更改与工作区更改"
   ],
   [
+    "Read, write, and format spreadsheets",
+    "读取、编写与格式化电子表格"
+  ],
+  [
+    "Read, edit, and export presentations",
+    "读取、编辑与导出演示文稿"
+  ],
+  [
+    "Queue until after the current turn.",
+    "在本轮对话后排队。"
+  ],
+  [
+    "Describe the bug you encountered...",
+    "请描述您遇到的错误..."
+  ],
+  [
     "Are you sure you want to delete the",
     "确定要delete the吗？"
   ],
@@ -2128,10 +2620,6 @@ try {
   [
     "By using this app, you agree to its",
     "使用本应用即表示你同意其"
-  ],
-  [
-    "Describe the bug you encountered...",
-    "请描述您遇到的错误..."
   ],
   [
     "Enter command (e.g., git, blaze)...",
@@ -2442,8 +2930,16 @@ try {
     "自远程主分支以来的所有更改"
   ],
   [
+    "The full developer experience.",
+    "完整的开发者体验。"
+  ],
+  [
     "Attach a screenshot (optional)",
     "附上截图（可选）"
+  ],
+  [
+    "Refresh quota and credits data",
+    "刷新配额与点数数据"
   ],
   [
     "Attach Antigravity server logs",
@@ -2484,10 +2980,6 @@ try {
   [
     "Mark all conversations as read",
     "将所有对话标记为已读"
-  ],
-  [
-    "Refresh quota and credits data",
-    "刷新配额与点数数据"
   ],
   [
     "Terminal & Tooling Permissions",
@@ -2730,6 +3222,14 @@ try {
     "设置已成功保存并立即生效。"
   ],
   [
+    "This page is going away soon",
+    "此页面即将下线"
+  ],
+  [
+    "Enter avatar URL (optional)",
+    "输入头像 URL（可选）"
+  ],
+  [
     "A new version is available.",
     "有新版本可用。"
   ],
@@ -2772,10 +3272,6 @@ try {
   [
     "Deny List Terminal Commands",
     "终端命令拒绝列表"
-  ],
-  [
-    "Enter avatar URL (optional)",
-    "输入头像 URL（可选）"
   ],
   [
     "Enter Queues after the turn",
@@ -2894,6 +3390,10 @@ try {
     "点击查看文档"
   ],
   [
+    "Read, draft, and edit docs.",
+    "读取、起草与编辑文档。"
+  ],
+  [
     "(Optional) Tell us more...",
     "（可选）告诉我们更多信息..."
   ],
@@ -2990,6 +3490,14 @@ try {
     "复制对话为 Markdown"
   ],
   [
+    "Read, draft, and edit docs",
+    "读取、起草与编辑文档"
+  ],
+  [
+    "Enter bot name (optional)",
+    "输入机器人名称（可选）"
+  ],
+  [
     "+ Add pull request policy",
     "+ 添加拉取请求策略"
   ],
@@ -3012,10 +3520,6 @@ try {
   [
     "Enable AI Credit Overages",
     "允许超额使用 AI 点数"
-  ],
-  [
-    "Enter bot name (optional)",
-    "输入机器人名称（可选）"
   ],
   [
     "Error fetching MCP prompt",
@@ -3294,6 +3798,14 @@ try {
     "切换辅助窗格"
   ],
   [
+    "Open System Preferences",
+    "打开系统设置"
+  ],
+  [
+    "Marketplace Gallery URL",
+    "插件市场列表 URL"
+  ],
+  [
     "⏎ Queues after the turn",
     "⏎ 在本轮对话后排队"
   ],
@@ -3358,16 +3870,8 @@ try {
     "正在加载对话..."
   ],
   [
-    "Marketplace Gallery URL",
-    "插件市场列表 URL"
-  ],
-  [
     "Open Keyboard Shortcuts",
     "打开快捷键设置"
-  ],
-  [
-    "Open System Preferences",
-    "打开系统设置"
   ],
   [
     "Open Workspace Selector",
@@ -3626,6 +4130,18 @@ try {
     "切换侧边栏"
   ],
   [
+    "Show in File Explorer",
+    "在文件资源管理器中显示"
+  ],
+  [
+    "Pin this conversation",
+    "置顶此对话"
+  ],
+  [
+    "Toggle Overview Panel",
+    "切换概览面板"
+  ],
+  [
     "Available AI Credits:",
     "可用 AI 积分："
   ],
@@ -3850,16 +4366,32 @@ try {
     "修改上一次提交"
   ],
   [
-    "Pin this conversation",
-    "置顶此对话"
-  ],
-  [
     "pin this conversation",
     "置顶此对话"
   ],
   [
     "Toggle model selector",
     "切换模型选择器"
+  ],
+  [
+    "Custom Context Menus",
+    "自定义上下文菜单"
+  ],
+  [
+    "Remote Control Issue",
+    "远程控制问题"
+  ],
+  [
+    "Marketplace Item URL",
+    "插件市场详情 URL"
+  ],
+  [
+    "Enter device name...",
+    "输入设备名称..."
+  ],
+  [
+    "active conversations",
+    "个活动对话"
   ],
   [
     "[Dev] GCP Project ID",
@@ -3950,10 +4482,6 @@ try {
     "启用通知"
   ],
   [
-    "Enter device name...",
-    "输入设备名称..."
-  ],
-  [
     "Enter URL pattern...",
     "输入 URL 匹配模式..."
   ],
@@ -3984,10 +4512,6 @@ try {
   [
     "Loading worktrees...",
     "正在加载工作树..."
-  ],
-  [
-    "Marketplace Item URL",
-    "插件市场详情 URL"
   ],
   [
     "Network Access Rules",
@@ -4142,7 +4666,11 @@ try {
     "5小时平滑动态限额"
   ],
   [
-    "active conversations",
+    "Follow the guide at",
+    "按照以下指南进行操作："
+  ],
+  [
+    "active conversation",
     "个活动对话"
   ],
   [
@@ -4366,10 +4894,6 @@ try {
     "代码编辑器自动折行"
   ],
   [
-    "active conversation",
-    "个活动对话"
-  ],
-  [
     "Uncommitted changes",
     "未提交更改"
   ],
@@ -4384,6 +4908,10 @@ try {
   [
     "rename conversation",
     "重命名对话"
+  ],
+  [
+    "Permanently delete",
+    "永久删除"
   ],
   [
     "+ New Conversation",
@@ -4694,15 +5222,27 @@ try {
     "点击查看文档"
   ],
   [
+    "Setup Jetski Chat",
+    "配置 Jetski 聊天"
+  ],
+  [
+    "Advanced Settings",
+    "高级设置"
+  ],
+  [
+    "Copy Project Name",
+    "复制项目名称"
+  ],
+  [
+    "Edit project name",
+    "编辑项目名称"
+  ],
+  [
     "Add to Chat/Quote",
     "添加至对话 / 引用"
   ],
   [
     "Advanced settings",
-    "高级设置"
-  ],
-  [
-    "Advanced Settings",
     "高级设置"
   ],
   [
@@ -4966,6 +5506,26 @@ try {
     "所有更改自"
   ],
   [
+    "Reopen Closed Tab",
+    "重新打开关闭的标签页"
+  ],
+  [
+    "Reopen closed tab",
+    "重新打开关闭的标签页"
+  ],
+  [
+    "Build with Google",
+    "基于 Google 技术构建"
+  ],
+  [
+    "Project Settings",
+    "项目设置"
+  ],
+  [
+    "Pin conversation",
+    "置顶对话"
+  ],
+  [
     "to be installed.",
     "才能使用。"
   ],
@@ -5158,10 +5718,6 @@ try {
     "检测到项目"
   ],
   [
-    "Project Settings",
-    "项目设置"
-  ],
-  [
     "Provide feedback",
     "提供反馈"
   ],
@@ -5296,6 +5852,18 @@ try {
   [
     "New terminal tab",
     "新建终端标签页"
+  ],
+  [
+    "Google Workspace",
+    "Google 工作区"
+  ],
+  [
+    "For help, visit",
+    "如需帮助，请访问"
+  ],
+  [
+    "Remove resource",
+    "移除资源"
   ],
   [
     "to be installed",
@@ -5618,6 +6186,30 @@ try {
     "隐藏明细"
   ],
   [
+    "Google Calendar",
+    "Google 日历"
+  ],
+  [
+    "Chrome DevTools",
+    "Chrome 开发者工具"
+  ],
+  [
+    "Custom Agents 0",
+    "自定义智能体 0"
+  ],
+  [
+    "Delete Project",
+    "删除项目"
+  ],
+  [
+    "Inherit Global",
+    "继承全局"
+  ],
+  [
+    "Overview Panel",
+    "概览面板"
+  ],
+  [
     "每周限额 Remaining",
     "每周剩余限额"
   ],
@@ -5720,10 +6312,6 @@ try {
   [
     "Delete Handler",
     "删除处理器"
-  ],
-  [
-    "Delete Project",
-    "删除项目"
   ],
   [
     "Failed to Push",
@@ -5936,6 +6524,14 @@ try {
   [
     "hide breakdown",
     "隐藏明细"
+  ],
+  [
+    "Delete plugin",
+    "删除插件"
+  ],
+  [
+    "Context Menus",
+    "上下文菜单"
   ],
   [
     "Access grants",
@@ -6246,6 +6842,30 @@ try {
     "打开设置"
   ],
   [
+    "Duplicate Tab",
+    "复制标签页"
+  ],
+  [
+    "Duplicate tab",
+    "复制标签页"
+  ],
+  [
+    "Google Sheets",
+    "Google 表格"
+  ],
+  [
+    "Google Slides",
+    "Google 幻灯片"
+  ],
+  [
+    "Full machine",
+    "整机访问"
+  ],
+  [
+    "More options",
+    "更多选项"
+  ],
+  [
     "5-hour limit",
     "5小时限额"
   ],
@@ -6380,10 +7000,6 @@ try {
   [
     "Find in Pane",
     "在窗格中查找"
-  ],
-  [
-    "Full machine",
-    "整机访问"
   ],
   [
     "Google Drive",
@@ -6610,6 +7226,26 @@ try {
     "在窗格中查找"
   ],
   [
+    "Google Cloud",
+    "Google 云平台"
+  ],
+  [
+    "Custom agent",
+    "自定义智能体"
+  ],
+  [
+    "Jetski Chat",
+    "Jetski 聊天"
+  ],
+  [
+    "or join the",
+    "或加入"
+  ],
+  [
+    "Device Name",
+    "设备名称"
+  ],
+  [
     "打开 in Cider",
     "在 Cider 中打开"
   ],
@@ -6682,10 +7318,6 @@ try {
     "描述"
   ],
   [
-    "Device Name",
-    "设备名称"
-  ],
-  [
     "Enable Chat",
     "启用聊天功能"
   ],
@@ -6728,10 +7360,6 @@ try {
   [
     "In Progress",
     "进行中"
-  ],
-  [
-    "Jetski Chat",
-    "Jetski 聊天"
   ],
   [
     "JJ worktree",
@@ -6946,6 +7574,34 @@ try {
     "聚焦输入框"
   ],
   [
+    "Google Docs",
+    "Google 文档"
+  ],
+  [
+    "All Plugins",
+    "全部插件"
+  ],
+  [
+    "Turbo mode",
+    "极速模式"
+  ],
+  [
+    "Chat space",
+    "聊天空间"
+  ],
+  [
+    "chat space",
+    "聊天空间"
+  ],
+  [
+    "Legal Help",
+    "法律帮助"
+  ],
+  [
+    "Avatar URL",
+    "头像 URL"
+  ],
+  [
     "Your Plan:",
     "您的套餐："
   ],
@@ -6984,10 +7640,6 @@ try {
   [
     "Automation",
     "自动化"
-  ],
-  [
-    "Avatar URL",
-    "头像 URL"
   ],
   [
     "Background",
@@ -7158,10 +7810,6 @@ try {
     "向左拆分"
   ],
   [
-    "Turbo mode",
-    "极速模式"
-  ],
-  [
     "Turbo Mode",
     "极速模式"
   ],
@@ -7204,6 +7852,14 @@ try {
   [
     "main agent",
     "主智能体"
+  ],
+  [
+    "All Skills",
+    "全部技能"
+  ],
+  [
+    "Mcp Tools",
+    "MCP 工具"
   ],
   [
     "Add Model",
@@ -7470,6 +8126,26 @@ try {
     "打开文档"
   ],
   [
+    "Close tab",
+    "关闭标签页"
+  ],
+  [
+    "Installed",
+    "已安装"
+  ],
+  [
+    "Show All",
+    "显示全部"
+  ],
+  [
+    "Hide All",
+    "隐藏全部"
+  ],
+  [
+    "Bot Name",
+    "机器人名称"
+  ],
+  [
     "[MODIFY]",
     "[修改]"
   ],
@@ -7504,10 +8180,6 @@ try {
   [
     "Artifact",
     "产物文件"
-  ],
-  [
-    "Bot Name",
-    "机器人名称"
   ],
   [
     "Branches",
@@ -7712,6 +8384,22 @@ try {
   [
     "commands",
     "命令"
+  ],
+  [
+    "Firebase",
+    "Firebase 后端云"
+  ],
+  [
+    "Built In",
+    "内置"
+  ],
+  [
+    "Built-in",
+    "内置"
+  ],
+  [
+    "Built in",
+    "内置"
   ],
   [
     "& Usage",
@@ -7924,6 +8612,14 @@ try {
   [
     "Zoom In",
     "放大界面"
+  ],
+  [
+    "New Tab",
+    "新建标签页"
+  ],
+  [
+    "New tab",
+    "新建标签页"
   ],
   [
     "Accent",
@@ -8307,7 +9003,7 @@ try {
   ],
   [
     "Turbo",
-    "极速加速模式"
+    "极速模式"
   ],
   [
     "Unpin",
@@ -8474,10 +9170,6 @@ try {
     "工具"
   ],
   [
-    "Type",
-    "类型"
-  ],
-  [
     "Undo",
     "撤销"
   ],
@@ -8542,18 +9234,234 @@ try {
     "低"
   ],
   [
+    "All",
+    "全部"
+  ],
+  [
     "AM",
     "上午"
   ],
   [
     "PM",
     "下午"
+  ],
+  [
+    "Compacting",
+    "正在压缩上下文..."
+  ],
+  [
+    "Compacting...",
+    "正在压缩上下文..."
+  ],
+  [
+    "Compacted",
+    "已压缩上下文"
+  ],
+  [
+    "Explored files, ran command",
+    "已探索文件并运行命令"
+  ],
+  [
+    "Explored files, ran commands",
+    "已探索文件并运行命令"
+  ],
+  [
+    "Explored files, ran commands.",
+    "已探索文件并运行命令"
+  ],
+  [
+    "Explored, ran commands",
+    "已探索并运行命令"
+  ],
+  [
+    "Ran commands, edited files",
+    "已运行命令并编辑文件"
+  ],
+  [
+    "Explored, edited files",
+    "已探索并编辑文件"
+  ],
+  [
+    "Edited files, ran commands",
+    "已编辑文件并运行命令"
+  ],
+  [
+    "Ran commands",
+    "已运行命令"
+  ],
+  [
+    "Edited files",
+    "已编辑文件"
+  ],
+  [
+    "Explored files",
+    "已探索文件"
+  ],
+  [
+    "DevTools port is still closed. Please make sure Chrome is running with remote debugging enabled.",
+    "DevTools 调试端口仍处于关闭状态。请确保 Chrome 已启用远程调试并正在运行。"
+  ],
+  [
+    "DevTools port is still closed. Please make sure Chrome is running with remote debugging enabled",
+    "DevTools 调试端口仍处于关闭状态。请确保 Chrome 已启用远程调试并正在运行。"
+  ],
+  [
+    "Proceed Anyway",
+    "仍然继续"
+  ],
+  [
+    "Check again",
+    "重新检查"
+  ],
+  [
+    "Check Again",
+    "重新检查"
+  ],
+  [
+    "Tool arguments",
+    "工具参数"
+  ],
+  [
+    "Tool arguments:",
+    "工具参数："
+  ],
+  [
+    "Tool Arguments",
+    "工具参数"
+  ],
+  [
+    "Tool Arguments:",
+    "工具参数："
+  ],
+  [
+    "Tool Output",
+    "工具输出"
+  ],
+  [
+    "Tool Output:",
+    "工具输出："
+  ],
+  [
+    "Tool output",
+    "工具输出"
+  ],
+  [
+    "Tool output:",
+    "工具输出："
+  ],
+  [
+    "Pages",
+    "页面"
+  ],
+  [
+    "Pages:",
+    "页面："
+  ],
+  [
+    "[selected]",
+    "[已选]"
+  ],
+  [
+    "Copy Image",
+    "复制图片"
+  ],
+  [
+    "Save Image",
+    "保存图片"
+  ],
+  [
+    "Copy image",
+    "复制图片"
+  ],
+  [
+    "Save image",
+    "保存图片"
+  ],
+  [
+    "Save Image As...",
+    "图片另存为..."
+  ],
+  [
+    "Copy Image Address",
+    "复制图片地址"
   ]
 ];
     const phrases = Array.isArray(rawPhrases) ? rawPhrases : Object.values(rawPhrases);
+    const EXACT_MAP = new Map();
+    for (let i = 0; i < phrases.length; i++) {
+      const p = phrases[i];
+      if (p && p[0] && p[1]) {
+        EXACT_MAP.set(p[0].trim(), p[1]);
+      }
+    }
+
+    // 1.1 用户个性化自定义词典支持 (User Custom Dictionary - 最高优先级)
+    const USER_CUSTOM_MAP = new Map();
+    function loadUserCustomDict(dictObj) {
+      USER_CUSTOM_MAP.clear();
+      if (!dictObj || typeof dictObj !== 'object') return;
+      for (const k in dictObj) {
+        if (Object.prototype.hasOwnProperty.call(dictObj, k) && dictObj[k]) {
+          USER_CUSTOM_MAP.set(k.trim(), dictObj[k]);
+        }
+      }
+    }
+
+    try {
+      if (typeof window !== 'undefined' && window.__antigravityCustomDict) {
+        loadUserCustomDict(window.__antigravityCustomDict);
+      } else if (typeof localStorage !== 'undefined') {
+        const savedCustom = localStorage.getItem('antigravity_user_custom_dict');
+        if (savedCustom) {
+          loadUserCustomDict(JSON.parse(savedCustom));
+        }
+      }
+    } catch (e) {}
+
+    if (typeof window !== 'undefined') {
+      window.updateAntigravityCustomDict = function(dictObj) {
+        try {
+          loadUserCustomDict(dictObj);
+          if (typeof localStorage !== 'undefined') {
+            localStorage.setItem('antigravity_user_custom_dict', JSON.stringify(dictObj || {}));
+          }
+          if (typeof window.reapplyAntigravityZh === 'function') {
+            window.reapplyAntigravityZh();
+          }
+        } catch (e) {}
+      };
+    }
+
 
     // 2. 正则模式匹配库（针对动态数字、状态卡片、复合时间、拆分节点、单位）
     const patterns = [
+
+      // 项目设置抽屉、权限下拉框与动态明细模式
+      [/^Show\s+(\d+)\s+breakdowns?$/gi, '查看 $1 项明细'],
+      [/^Rules\s*(\d+)$/gi, '规则 $1'],
+      [/^Skills\s*(\d+)$/gi, '技能 $1'],
+      [/^Toggle\s+(.+)$/gi, '切换 $1'],
+      [/^(?:删除|Delete)\s+plugin$/gi, '删除插件'],
+      [/^(?:排队|Queue)\s+until\s+after\s+the\s+current\s+turn\.?$/gi, '在本轮对话后排队'],
+      [/^Interrupt\s+the\s+agent\s+and\s+send\s+immediately\.?$/gi, '打断智能体并立即发送'],
+      [/^Light$/g, '浅色'],
+      [/^Dark$/g, '深色'],
+      [/^Contrast$/g, '对比度'],
+      [/^Strong$/g, '高对比'],
+      [/^Default$/g, '默认'],
+      [/^Custom$/g, '自定义'],
+      [/^tokens\s*\(/gi, 'tokens ('],
+      [/^Other\s+(?:自定义|Customizations)$/gi, '其他自定义项'],
+      [/(?:项目\s*4K|Project\s*4K)\s*interface\s*without\s*developer\s*tooling\.?/gi, '无开发工具的 4K 纯净界面。'],
+      [/Choose\s+between\s+the\s+(?:默认|Default)\s+and\s+(?:项目\s*4K|Project\s*4K)\s+experience\.?/gi, '在默认与项目 4K 体验之间进行选择。'],
+      [/(?:开发者-only|Developer-only)\s+tools\.\s*These\s+settings\s+are\s+stored\s+locally\s+in\s+this\s+browser\s+and\s+do\s+not\s+affect\s+other\s+users\.?/gi, '仅供开发者使用的工具。这些设置仅保存在本地浏览器中，不会影响其他用户。'],
+      [/^(?:显示|Show)\s+All$/gi, '显示全部'],
+      [/^(?:置顶|Pin)\s+conversation$/gi, '置顶对话'],
+
+      [/^\s*Inherit\s+Global\s*$/gi, '继承全局'],
+      [/^\s*Inherits\s+your\s+Global\s+Permissions\s+when\s+working\s+in\s+this\s+project\.?\s*$/gi, '在此项目中工作时继承您的全局权限。'],
+      [/^\s*Permanently\s+delete\s+(.+?)\s+including\s+(\d+)\s+active\s+conversations?\.?\s*$/gi, '永久删除 $1，包含 $2 个活动对话。'],
+      [/^\s*Permanently\s+delete\s+(.*?)\s*$/gi, '永久删除 $1'],
       // ========================================================================
       // 输入框与占位提示 (Placeholder & Composer)
       // ========================================================================
@@ -8810,13 +9718,210 @@ try {
       [/(?:Alt\+Enter|⌥⏎)\s+On empty prompt,\s*sends next in queue/gi, '提示词为空时按 Alt+Enter 发送队列中的下一条'],
 
       // 思考耗时与拆分节点
+      // ==========================================
+      // ==========================================
+      // 鼠标悬停浮窗 (Tooltips) 与操作提示全量覆盖
+      // ==========================================
+      [/^Open in Antigravity IDE$/gi, '在 Antigravity IDE 中打开'],
+      [/^Open in IDE$/gi, '在 IDE 中打开'],
+      [/^Maximize Pane$/gi, '最大化窗格'],
+      [/^Restore Pane$/gi, '还原窗格'],
+      [/^Minimize Pane$/gi, '最小化窗格'],
+      [/^Close Pane$/gi, '关闭窗格'],
+      [/^Toggle Secondary Side Bar$/gi, '切换辅助侧边栏'],
+      [/^Toggle Side Bar$/gi, '切换侧边栏'],
+      [/^Toggle Terminal$/gi, '切换终端'],
+      [/^Toggle Output$/gi, '切换输出'],
+      [/^Search Conversations$/gi, '搜索会话'],
+      [/^Search tabs, files, plugins, subagents, artifacts, tasks\.\.\.$/gi, '搜索标签页、文件、插件、子智能体、产物、任务...'],
+      [/^Search tabs, files, plugins, subagents, arti\.\.\.$/gi, '搜索标签页、文件、插件、子智能体...'],
+      [/^Search in files$/gi, '在文件中搜索'],
+      [/^Scroll to Bottom$/gi, '滚动至底部'],
+      [/^Scroll to Top$/gi, '滚动至顶部'],
+      [/^Select model, current:\s*(.+)$/gi, '选择模型，当前：$1'],
+      [/^Agent permissions preset selector, current:\s*(.+)$/gi, '智能体权限预设选择器，当前：$1'],
+      [/^Send message$/gi, '发送消息'],
+      [/^Stop generating$/gi, '停止生成'],
+      [/^Attach files?$/gi, '添加附件'],
+      [/^Upload image$/gi, '上传图片'],
+      [/^Voice input$/gi, '语音输入'],
+      [/^Undo to this point$/gi, '撤销至此步骤'],
+      [/^Copy message$/gi, '复制消息'],
+      [/^Copy code$/gi, '复制代码'],
+      [/^Pin conversation$/gi, '置顶对话'],
+      [/^Unpin conversation$/gi, '取消置顶对话'],
+      [/^Archive conversation$/gi, '归档对话'],
+      [/^Delete conversation$/gi, '删除对话'],
+      [/^Rename conversation$/gi, '重命名对话'],
+      [/^Load older messages, showing (\d+) of (\d+)$/gi, '加载更早消息，显示 $1 / $2'],
+      [/^Load older messages$/gi, '加载更早消息'],
+      [/^More options$/gi, '更多选项'],
+      [/^More actions$/gi, '更多操作'],
+      [/^Good response$/gi, '赞同此回答'],
+      [/^Bad response$/gi, '不赞同此回答'],
+      [/^Regenerate response$/gi, '重新生成回答'],
+      [/^Edit message$/gi, '编辑消息'],
+      [/^Close tab$/gi, '关闭标签页'],
+      [/^Close others$/gi, '关闭其他标签页'],
+      [/^Close all$/gi, '关闭全部标签页'],
+      [/^Split right$/gi, '向右拆分'],
+      [/^Split down$/gi, '向下拆分'],
+
+      // ==========================================
+      // 爬虫自动化全量收割补齐规则（步骤/权限/Token/操作）
+      // ==========================================
+      [/^Compacting\.\.\.$/gi, '正在压缩上下文...'],
+      [/^Compacting$/gi, '正在压缩上下文...'],
+      [/^Compacted$/gi, '已压缩上下文'],
+      [/^Worked\s+for\s+(\d+(?:\.\d+)?)\s*m(?:inutes?)?\s+(\d+(?:\.\d+)?)\s*s(?:econds?)?\.?$/gi, '已工作 $1 分 $2 秒'],
+      [/^Worked\s+for\s+(\d+(?:\.\d+)?)\s*m(?:inutes?)?\.?$/gi, '已工作 $1 分钟'],
+      [/^Worked\s+for\s+(\d+(?:\.\d+)?)\s*s(?:econds?)?\.?$/gi, '已工作 $1 秒'],
+      [/^Worked\s+for\s+a\s+moment\.?$/gi, '已短暂工作'],
+      [/^Worked\s+for\s+a\s+few\s+seconds\.?$/gi, '已工作数秒'],
+      [/^Worked\s+for\s+a\s+minute\.?$/gi, '已工作 1 分钟'],
+      [/^Working\s+for\s+(\d+(?:\.\d+)?)\s*m(?:inutes?)?\s+(\d+(?:\.\d+)?)\s*s(?:econds?)?\.?$/gi, '已工作 $1 分 $2 秒'],
+      [/^Working\s+for\s+(\d+(?:\.\d+)?)\s*m(?:inutes?)?\.?$/gi, '已工作 $1 分钟'],
+      [/^Working\s+for\s+(\d+(?:\.\d+)?)\s*s(?:econds?)?\.?$/gi, '已工作 $1 秒'],
+      [/^Working\s+for\s+a\s+moment\.?$/gi, '正在工作...'],
+      [/^Working\.\.\.$/gi, '正在工作...'],
+      [/^Edited\s+(.+)$/gi, '已编辑 $1'],
+      [/^Editing\s+(.+)$/gi, '正在编辑 $1'],
+      [/^Explored\s+files,\s*ran\s+commands?\.?$/gi, '已探索文件并运行命令'],
+      [/^(?:(\d+)\.\s*)?Enable\s*(?:“|")?Allow\s+remote\s+debugging\s+for\s+this\s+browser\s+instance(?:”|")?\.?$/gi, '$1. 启用“允许此浏览器实例的远程调试”。'],
+      [/^DevTools\s+port\s+is\s+still\s+closed\.\s*Please\s+make\s+sure\s+Chrome\s+is\s+running\s+with\s+remote\s+debugging\s+enabled\.?$/gi, 'DevTools 调试端口仍处于关闭状态。请确保 Chrome 已启用远程调试并正在运行。'],
+      [/^Proceed\s+[Aa]nyway$/gi, '仍然继续'],
+      [/^Check\s+[Aa]gain$/gi, '重新检查'],
+      [/^Tool\s+[Aa]rguments:?$/gi, '工具参数'],
+      [/^Tool\s+[Oo]utput:?$/gi, '工具输出'],
+      [/^Successfully\s+navigated\s+to\s+(.+)$/gi, '已成功导航至 $1'],
+      [/^Copy\s+[Ii]mage$/gi, '复制图片'],
+      [/^Save\s+[Ii]mage$/gi, '保存图片'],
+      [/^Save\s+[Ii]mage\s+[Aa]s\.\.\.$/gi, '图片另存为...'],
+      [/^Copy\s+[Ii]mage\s+[Aa]ddress$/gi, '复制图片地址'],
+      [/^Pages:?$/g, '页面'],
+      [/^about:blank\s+\[selected\]$/gi, 'about:blank [已选]'],
+      [/^\[selected\]$/gi, '[已选]'],
+      [/^Analyzed$/gi, '已分析'],
+      [/^Analyzing$/gi, '正在分析'],
+      [/^Analyzed\s+(.+)$/gi, '已分析 $1'],
+      [/^Analyzing\s+(.+)$/gi, '正在分析 $1'],
+      [/^Review$/gi, '审查'],
+      [/^(\d+)\s+files?\s+changed\s+([+\-0-9\s>]+)$/gi, '已更改 $1 个文件 $2'],
+      [/^(\d+)\s+files?\s+changed$/gi, '已更改 $1 个文件'],
+      [/^Every command requires approval\.?$/gi, '所有命令均需批准。'],
+      [/^Ask before sensitive operations\.?$/gi, '敏感操作前询问。'],
+      [/^Run all commands without restrictions\.?$/gi, '无限制运行所有命令。'],
+      [/^Search for content to open$/gi, '搜索要打开的内容'],
+      [/^Use Global Settings$/gi, '使用全局设置'],
+      [/^This project overrides your global permission settings\.?$/gi, '此项目覆盖了您的全局权限设置。'],
+      [/^Conversation Log$/gi, '会话日志'],
+      [/^User message$/gi, '用户消息'],
+      [/^Visit$/gi, '访问'],
+      [/^Rules:\s*([\d,]+)\s*tokens?$/gi, '规则：$1 Token'],
+      [/^Skills:\s*([\d,]+)\s*tokens?$/gi, '技能：$1 Token'],
+      [/^Mcp Tools:\s*([\d,]+)\s*tokens?$/gi, 'MCP 工具：$1 Token'],
+
+      // ==========================================
+      // 步骤折叠条动作前缀（动名词/动词大一统）
+      // ==========================================
+      [/^Testing\s+(.+)$/gi, '正在测试 $1'],
+      [/^Injecting\s+(.+)$/gi, '正在注入 $1'],
+      [/^Run\s+inspection\s+of\s+(.+)$/gi, '运行检查 $1'],
+      [/^Run\s+deep\s+inspect\s+(.+)$/gi, '运行深度检查 $1'],
+      [/^Run\s+safe\s+crawler\s+(.+)$/gi, '运行安全爬虫 $1'],
+      [/^Run\s+safe\s+crawler$/gi, '运行安全爬虫'],
+
+      // 执行步骤汇总标签（复合与数量全覆盖）
+      // ==========================================
+      [/^Explored,\s*ran\s+commands,\s*edited\s+files\.?$/gi, '已探索、已运行命令并编辑文件'],
+      [/^Explored,\s*ran\s+commands\.?$/gi, '已探索并运行命令'],
+      [/^Ran\s+commands,\s*edited\s+files\.?$/gi, '已运行命令并编辑文件'],
+      [/^Explored,\s*edited\s+files\.?$/gi, '已探索并编辑文件'],
+      [/^Edited\s+files,\s*ran\s+commands\.?$/gi, '已编辑文件并运行命令'],
+      [/^Ran\s+commands\.?$/gi, '已运行命令'],
+      [/^Edited\s+files\.?$/gi, '已编辑文件'],
+      [/^Explored\s+files\.?$/gi, '已探索文件'],
+      [/^Explored\s+folders\.?$/gi, '已探索文件夹'],
+      [/^Explored\s+folder\.?$/gi, '已探索文件夹'],
+      [/^Ran\s+(\d+)\s+commands?\.?$/gi, '已运行 $1 条命令'],
+      [/^Edited\s+(\d+)\s+files?\.?$/gi, '已编辑 $1 个文件'],
+      [/^Explored\s+(\d+)\s+files?\.?$/gi, '已探索 $1 个文件'],
+      [/^Explored\s+(\d+)\s+folders?\.?$/gi, '已探索 $1 个文件夹'],
+      [/^Explored\s+(\d+)\s+tasks?\.?$/gi, '已探索 $1 个任务'],
+      [/^Explored\s+(\d+)\s+searches?\.?$/gi, '已探索 $1 次搜索'],
+
+            // ==========================================
+      // 工具执行步骤动作与状态前缀（严格限定宾语对象，严禁通配用户标题）
+      // ==========================================
+      [/^Ran\s+command\s+(.+)$/gi, '已运行命令 $1'],
+      [/^Running\s+command\s+(.+)$/gi, '正在运行命令 $1'],
+      [/^Run\s+command\s+(.+)$/gi, '运行命令 $1'],
+      [/^Checked\s+task\s+Execute\s+(.+)$/gi, '检查任务 执行 $1'],
+      [/^Writing\s+to\s+file\s+(.+)$/gi, '正在写入文件 $1'],
+      [/^Writing\s+file\s+(.+)$/gi, '正在写入文件 $1'],
+      [/^Viewing\s+file\s+(.+)$/gi, '正在查看文件 $1'],
+      [/^Reading\s+file\s+(.+)$/gi, '正在读取文件 $1'],
+      [/^Searching\s+code\s+in\s+(.+)$/gi, '正在 $1 中搜索代码'],
+      [/^Searching\s+code\s+(.+)$/gi, '正在搜索代码 $1'],
+      [/^Searching\s+the\s+web\s+for\s+(.+)$/gi, '正在网页搜索 $1'],
+      [/^Searching\s+the\s+web$/gi, '正在搜索网页'],
+      [/^Updating\s+file\s+(.+)$/gi, '正在更新文件 $1'],
+      [/^Listing\s+files\s+in\s+(.+)$/gi, '正在列出 $1 中的文件'],
+      [/^Fetching\s+content\s+from\s+(.+)$/gi, '正在从 $1 获取内容'],
+      [/^Sending\s+message\s+to\s+(.+)$/gi, '正在向 $1 发送消息'],
+      [/^Sent\s+message\s+to\s+(.+)$/gi, '已向 $1 发送消息'],
+      [/^Killing\s+task\s+(.+)$/gi, '正在终止任务 $1'],
+      [/^Killed\s+task\s+(.+)$/gi, '已终止任务 $1'],
+      [/^Canceling\s+task\s+(.+)$/gi, '正在取消任务 $1'],
+      [/^Canceled\s+task\s+(.+)$/gi, '已取消任务 $1'],
+      [/^Launched\s+subagent\s+(.+)$/gi, '已启动子智能体 $1'],
+      [/^Launching\s+subagent\s+(.+)$/gi, '正在启动子智能体 $1'],
+      [/^Killing\s+task\s+(.+)$/gi, '正在终止任务 $1'],
+      [/^Killed\s+task\s+(.+)$/gi, '已终止任务 $1'],
+      [/^Canceling\s+task\s+(.+)$/gi, '正在取消任务 $1'],
+      [/^Canceled\s+task\s+(.+)$/gi, '已取消任务 $1'],
+      [/^Subagent\s+(.+?)\s+finished$/gi, '子智能体 $1 已完成'],
+      [/^Subagent\s+(.+?)\s+failed$/gi, '子智能体 $1 失败'],
+      [/^Launched\s+subagent\s+(.+)$/gi, '已启动子智能体 $1'],
+      [/^Launching\s+subagent\s+(.+)$/gi, '正在启动子智能体 $1'],
+
+      // ==========================================
+      // 思考耗时与状态反馈
+      // ==========================================
       [/^Thinking for\s*$/g, '已思考 '],
       [/^Thought for\s*$/g, '已思考 '],
+      [/^Thought for a moment\.?$/gi, '已短暂思考'],
+      [/^Thought for a few seconds\.?$/gi, '已思考数秒'],
+      [/^Thinking for a moment\.?$/gi, '正在短暂思考'],
+      [/^Thinking\.\.\.$/gi, '正在思考...'],
       [/Thought for (\d+)s/gi, '已思考 $1 秒'],
       [/Thinking for (\d+)s/gi, '已思考 $1 秒'],
       [/思考 for (\d+)s/g, '已思考 $1 秒'],
       [/思考 for (\d+) 秒/g, '已思考 $1 秒'],
       [/已思考 (\d+)s/g, '已思考 $1 秒'],
+
+      // ==========================================
+      // 步骤折叠条与差异审查按钮外壳
+      // ==========================================
+      [/^View changes$/gi, '查看更改'],
+      [/^Hide changes$/gi, '隐藏更改'],
+      [/^Review changes$/gi, '审查更改'],
+      [/^Accept changes$/gi, '接受更改'],
+      [/^Reject changes$/gi, '拒绝更改'],
+      [/^Revert changes$/gi, '还原更改'],
+      [/^Apply changes$/gi, '应用更改'],
+      [/^Discard changes$/gi, '放弃更改'],
+      [/^Keep changes$/gi, '保留更改'],
+      [/^Accept all$/gi, '全部接受'],
+      [/^Reject all$/gi, '全部拒绝'],
+      [/^Diff view$/gi, '差异视图'],
+      [/^Split view$/gi, '分栏视图'],
+      [/^Inline view$/gi, '内联视图'],
+      [/^Expand all$/gi, '全部展开'],
+      [/^Collapse all$/gi, '全部折叠'],
+      [/^Copy code$/gi, '复制代码'],
+      [/^Run in terminal$/gi, '在终端中运行'],
+      [/^Insert into terminal$/gi, '插入终端'],
 
       // 项目与工作区创建弹窗
       [/^Select Folder\(s\)$/gi, '选择文件夹'],
@@ -8836,6 +9941,37 @@ try {
       [/^Yes\s*$/g, '是'],
 
       // 步骤栏统计项与单位（精准限定在修改前缀下，杜绝误伤）
+      // 增强: 修复 Setup may take over 5 分钟 / minutes 夹生饭
+      [/Setup may take over (?:(d+)s+minutes?|(d+)s*分钟).?s*Please keep this screen open during setup.?/gi, '设置可能需要超过 $1$2 分钟。在此过程中请保持此屏幕打开。'],
+      [/(d+)m ago/gi, '$1 分钟前'],
+      [/(d+)s ago/gi, '$1 秒前'],
+      [/(d+)h ago/gi, '$1 小时前'],
+      [/^(d+)s+tools?$/gi, '$1 个工具'],
+      [/^Hides+breakdowns?$/gi, '隐藏明细'],
+
+      // 增强: 登录与欢迎界面
+      [/^(?:继续|Continue)\s+with\s+Google$/gi, '通过 Google 账号继续'],
+      [/^Send\s+feedback\s+as\s+(.+)$/gi, '以 $1 身份发送反馈'],
+
+      // 增强: 项目与明细统计
+      [/^Show\s+(\d+)\s+breakdowns?$/gi, '显示 $1 项明细'],
+      [/^(\d+)\s+active\s+conversations?$/gi, '$1 个活跃对话'],
+      [/^Weekly\s+Limit\s*(?:剩余)?$/gi, '每周限额剩余'],
+      [/^Five\s+Hour\s+Limit\s*(?:剩余)?$/gi, '5 小时限额剩余'],
+
+      // 增强: 修复 Type / and select plan 碎片与半汉化
+      [/^(?:类型|Type)\s*$/g, '输入'],
+      [/^\s*and select\s*$/gi, '并选择'],
+      [/^\s*to have the agent generate a plan\.?\s*$/gi, '以让智能体生成计划。'],
+      [/(?:类型|Type)\s*(\/|／)\s*(?:and select|并选择)\s*plan\s*(?:to have the agent generate a plan\.?|以让智能体生成计划。)/gi, '输入 $1 并选择 plan 以让智能体生成计划。'],
+      [/^类型\s*(\/|／)\s*and select plan to have the agent generate a plan\.?$/gi, '输入 $1 并选择 plan 以让智能体生成计划。'],
+      [/^Type\s*(\/|／)\s*and select plan to have the agent generate a plan\.?$/gi, '输入 $1 并选择 plan 以让智能体生成计划。'],
+
+      // 增强: Modified in 项目名
+      [/^Modified in\s*$/g, '已在项目内修改：'],
+      [/(?:Modified in|已在)\s*([A-Za-z0-9_\-\u4e00-\u9fa5]+)\s*$/gi, '已在 $1 中修改'],
+      [/^Modified in\s+([A-Za-z0-9_\-\u4e00-\u9fa5]+)\s*$/gi, '已在 $1 中修改'],
+
       [/^Modified in\s*$/g, '已在'],
       [/(?:Modified in|已在)\s*(\d+)\s+projects?/gi, '已在 $1 个项目中修改'],
       [/Inherit\s*常规/g, '继承常规设置'],
@@ -8878,10 +10014,23 @@ try {
       [/Refreshes in (\d+) minutes?/gi, '$1 分钟后刷新'],
       [/Refreshes in (\d+) hours?/gi, '$1 小时后刷新'],
 
-      // 限额描述（全场景容错：支持已汉化/半汉化/无逗号/有逗号）
-      [/You have used some of your\s+(?:5-hour limit|5小时限额|5 小时限额),?\s*it will fully refresh in\s*([^.]+?)(?:\.|$)/gi, '您已使用部分 5 小时限额，将在 $1后完全刷新。'],
-      [/You have used some of your\s+(?:weekly limit|每周限额),?\s*it will fully refresh in\s*([^.]+?)(?:\.|$)/gi, '您已使用部分每周限额，将在 $1后完全刷新。'],
-      [/You have used some of your\s+(.+?),?\s*it will fully refresh in\s*([^.]+?)(?:\.|$)/gi, '您已使用部分 $1，将在 $2后完全刷新。'],
+      // ==========================================
+      // 动态限额与用量多时序自适应大一统规则
+      // ==========================================
+      [/^Weekly\s+Limit(?:\s+(?:Remaining|剩余))?$/gi, '每周限额剩余'],
+      [/^Five\s+Hour\s+Limit(?:\s+(?:Remaining|剩余))?$/gi, '5 小时限额剩余'],
+      [/^5-Hour\s+Limit(?:\s+(?:Remaining|剩余))?$/gi, '5 小时限额剩余'],
+      [/^5\s+Hour\s+Limit(?:\s+(?:Remaining|剩余))?$/gi, '5 小时限额剩余'],
+      [/^Weekly\s+Limit$/gi, '每周限额'],
+      [/^Five\s+Hour\s+Limit$/gi, '5 小时限额'],
+      [/^View\s+Usage$/gi, '查看用量'],
+      [/^Notice$/gi, '说明'],
+      [/^Unavailable$/gi, '暂不可用'],
+      [/^(\d+)\s+files?\s+changed\s+([+\-0-9\s>]+)$/gi, '已更改 $1 个文件 $2'],
+      [/^(\d+)\s+files?\s+changed$/gi, '已更改 $1 个文件'],
+      [/You have used some of your\s+(?:weekly limit|每周限额),?\s*it will fully refresh in\s*([^.]+?)(?:\.|\$)/gi, '您已使用部分每周限额，将在 $1后完全刷新。'],
+      [/You have used some of your\s+(?:5-hour limit|5 hour limit|5小时限额|5 小时限额),?\s*it will fully refresh in\s*([^.]+?)(?:\.|\$)/gi, '您已使用部分 5 小时限额，将在 $1后完全刷新。'],
+      [/You have used some of your\s+(.+?),?\s*it will fully refresh in\s*([^.]+?)(?:\.|\$)/gi, '您已使用部分 $1，将在 $2后完全刷新。'],
       [/(\d+)% of the customization budget is available\./gi, '自定义预算还剩 $1%。'],
       [/Your Plan: (.+)/gi, '您的套餐：$1'],
 
@@ -9077,7 +10226,27 @@ try {
         const d = dayMap[day.toLowerCase()] || day;
         const p = ap ? (ap.toUpperCase() === 'AM' ? '上午 ' : '下午 ') : '';
         return `上${d} ${p}${time}`.trim();
-      }]
+      }],
+
+      // 自动化与自定义卡片精准匹配与弹性容错
+      [/^Create with Prompt$/gi, '通过提示词创建'],
+      [/^\+\s*New$/gi, '+ 新建'],
+      [/^Search automations\.\.\.$/gi, '搜索自动化任务...'],
+      [/^No automations configured\.?$/gi, '未配置任何自动化任务。'],
+      [/^No automations found\.?$/gi, '未找到任何自动化任务。'],
+      [/^Automations$/gi, '自动化'],
+      [/^Automate recurring workflows with scheduled tasks\.?$/gi, '通过定时任务实现重复性工作流的自动化。'],
+      [/^Create an automation to get started\.?$/gi, '创建一个自动化任务以开始使用。'],
+      [/^Last run$/gi, '上次运行'],
+      [/^Next run$/gi, '下次运行'],
+      [/^Runs every$/gi, '执行周期'],
+      [/^Search,\s*upload,\s*download,\s*and\s*share\s*files\.?$/gi, '搜索、上传、下载与共享文件。'],
+      [/^Prototype,\s*build\s*&\s*run\s*modern\s*apps\s*that\s*users?\s*love.*?$/gi, '利用 Google Cloud 原型设计、构建并运行深受用户喜爱的现代应用程序。'],
+      [/^Prototype,\s*build\s*&\s*run\s*modern\s*apps\s*that\s*user.*?$/gi, '利用 Google Cloud 原型设计、构建并运行现代应用程序...'],
+      [/^Curated\s*collection\s*of\s*agent\s*skills\s*for\s*science.*?$/gi, '面向科学任务精选的智能体技能合集，加速科研发现。'],
+      [/^Curated\s*collection\s*of\s*modern\s*fullstack\s*web\s*dev\s*agent\s*skills\.?$/gi, '精选的现代 Web 全栈开发智能体技能合集。'],
+      [/^Automate,\s*inspect,\s*and\s*debug\s*with\s*Chrome\s*DevTools\s*and\s*Puppeteer\.?$/gi, '使用 Chrome DevTools 和 Puppeteer 执行自动化操作、页面审查与深度调试。'],
+      [/^Build\s*powerful\s*autonomous\s*AI\s*agents\s*with\s*the\s*Google\s*Antigravity\s*Python\s*SDK\.?$/gi, '使用 Google Antigravity Python SDK 构建强大的自主 AI 智能体。']
     ];
 
     function escapeRegExp(value) {
@@ -9101,41 +10270,49 @@ try {
         return value.replace(/^Analyzed\s+/i, '已分析 ')
                     .replace(/^Analyzing\s+/i, '正在分析 ')
                     .replace(/^Canceled\s+/i, '已取消 ')
-                    .replace(/^Ran\s+/i, '已运行 ');
+                    .replace(/^Ran\s+/i, '已运行 ')
+                    .replace(/^Edited\s+/i, '已编辑 ')
+                    .replace(/^Editing\s+/i, '正在编辑 ');
       }
 
-      let next = value;
+      // 提取前导与尾随空白字符，保持原生排版与换行格式
+      const match = value.match(/^(\s*)([\s\S]*?)(\s*)$/);
+      if (!match) return value;
+      const leading = match[1];
+      const core = match[2];
+      const trailing = match[3];
 
-      // 1. 正则复合与动态节点优先处理（整句语义优先，防止被局部词条打碎）
+      // 0. 用户个性化自定义词典最高优先级覆盖 (User Custom Dictionary Override)
+      if (USER_CUSTOM_MAP.has(core)) {
+        return leading + USER_CUSTOM_MAP.get(core) + trailing;
+      }
+
+      // 1. O(1) 绝对精准哈希匹配（全句/全词完全相等才替换，绝不从长句中抠字，绝不跨区域污染）
+      if (EXACT_MAP.has(core)) {
+        return leading + EXACT_MAP.get(core) + trailing;
+      }
+
+      // 2. 极少数动态数字/状态模式（带严格 ^ 和 $ 边界硬锁）
       for (let i = 0; i < patterns.length; i++) {
         const p = patterns[i][0];
         const r = patterns[i][1];
-        if (p.test(next)) {
-          next = next.replace(p, r);
+        if (p.test(core)) {
+          const res = core.replace(p, r);
           p.lastIndex = 0;
-          if (!/[A-Za-z]/.test(next)) return next;
+          return leading + res + trailing;
         }
       }
 
-      // 2. 严格长词优先降序匹配（托底覆盖所有静态词条）
-      for (let i = 0; i < phrases.length; i++) {
-        const source = phrases[i][0];
-        const target = phrases[i][1];
-        if (next.includes(source)) {
-          next = replacePhrase(next, source, target);
-          if (!/[A-Za-z]/.test(next)) return next;
-        }
-      }
-
-      return next;
+      // 3. 未命中整句规则则严格原样返回，绝对严禁用 includes 子串切割造成夹生饭！
+      return value;
     }
 
-    function shouldSkip(node) {
+        function shouldSkip(node) {
       if (!node) return true;
       const element = node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement;
       if (!element) return false;
 
-      // 保护代码块、编辑器、输入框与思维链区域
+      // 1. 保护代码块、编辑器、输入框与终端
       const tagName = element.tagName ? element.tagName.toLowerCase() : '';
       if (tagName === 'script' || tagName === 'style' || tagName === 'code' || tagName === 'pre') {
         return true;
@@ -9144,21 +10321,22 @@ try {
         return true;
       }
 
-      // 【核心交互组件白名单绝对放行】输入框占位符、斜杠菜单、下拉选项、审查栏、按钮绝不跳过！
-      if (element.closest('[data-mention-menu], [role="listbox"], [role="menu"], [role="dialog"], [role="tooltip"], [role="combobox"], [role="option"], .files-changed-header, .review-button, p.pointer-events-none, [data-placeholder], button, [role="button"]')) {
-        if (!element.closest('.monaco-editor, .terminal, .xterm, pre, code, [contenteditable="true"], input, textarea')) {
-          return false;
+      // 2. 【核心用户数据免触区】左侧会话历史列表条目、历史记录弹窗条目、用户会话标题 100% 绝对跳过！
+      // 坚决杜绝任何用户自定义的英文会话名称被篡改或半截污染！
+      if (element.closest('[data-testid*="conversation-row"], [data-testid*="history-item"], [data-testid*="session-item"]')) {
+        if (!element.closest('button, [role="button"], [role="menu"], [role="menuitem"], [role="dialog"]')) {
+          return true;
         }
       }
 
-      // 保护用户技术文档、产物抽屉与大型 Markdown 正文，杜绝成千上万个节点引发算力雪崩！
+      // 3. 保护用户技术文档、产物抽屉与大型 Markdown 正文
       if (element.closest('.markdown-body, .markdown-content, [data-testid*="markdown"], [data-testid*="artifact"], .artifact-viewer, .artifact-view, .artifact-drawer, .prose, article')) {
         if (!element.closest('.artifact-card, button, [role="button"], .review-button')) {
           return true;
         }
       }
 
-      // 保护正在输入的文本域
+      // 4. 保护正在输入的文本域与编辑框
       if (node.nodeType === Node.TEXT_NODE) {
         if (element.closest('[contenteditable="true"], [contenteditable=""], input, textarea')) {
           return true;
@@ -9170,21 +10348,36 @@ try {
         }
       }
 
-      // 保护登录认证与向导区域，杜绝任何干扰认证状态机的可能
+      // 5. 保护登录认证与向导区域
       if (element.closest('[data-testid="login-container"], [data-testid="welcome-screen"], .login-screen, [data-testid="ide-install-wizard"]')) {
         return true;
       }
 
-      // 保护用户自己的提问气泡内容
+      // 6. 保护用户自己的提问气泡内容与消息流正文
       if (element.closest('[data-testid="user-input-step"], [aria-label="User message"], [aria-label="用户消息"]')) {
         return true;
       }
-
-      // 【核心防卡死】仅保护历史会话中具体的渲染正文与日志流，绝不误杀主操作区与控制组件
       if (element.closest('[data-testid*="chat-message"], [data-testid*="turn"], [data-testid*="step"], [role="log"]')) {
-        if (!element.closest('[data-testid="title-menu-bar"], [data-testid="conversation-list-sidebar"], header, nav, button, [role="button"], .files-changed-header, .review-button')) {
-          return true;
+        // 如果是元素节点，只要自身不是只读正文容器，就允许深入探索子节点
+        if (node.nodeType === Node.ELEMENT_NODE) {
+          if (element.matches && element.matches('.markdown-body, pre, code, .terminal, .monaco-editor')) {
+            return true;
+          }
+          return false;
         }
+
+        // 如果是文本节点：必须处于步骤条头部、审查栏或按钮内方可放行
+        if (element.closest('button, [role="button"], .files-changed-header, .review-button, [class*="min-h-8"], [class*="select-none"], [data-testid*="collapsible"], [data-testid*="compact"], [data-testid*="step"] > div:first-child')) {
+          if (!element.closest('.monaco-editor, .terminal, .xterm, pre, code')) {
+            return false;
+          }
+        }
+        return true;
+      }
+
+      // 7. 【核心交互组件白名单绝对放行】输入框占位符、斜杠菜单、下拉选项、审查栏、按钮绝不跳过！
+      if (element.closest('[data-mention-menu], [role="listbox"], [role="menu"], [role="dialog"], [role="tooltip"], [role="combobox"], [role="option"], .files-changed-header, .review-button, p.pointer-events-none, [data-placeholder], button, [role="button"], [data-testid*="collapsible"], [data-testid*="compact"], [data-radix-popper-content-wrapper], [data-radix-menu-content], [role="menuitem"], [class*="context-menu"]')) {
+        return false;
       }
 
       return false;
@@ -9232,12 +10425,18 @@ try {
 
         if (root.nodeType === Node.TEXT_NODE) {
           const val = root.nodeValue;
-          if (val && val !== root.__zh_last_val && /[A-Za-z]/.test(val)) {
+          if (val && /[A-Za-z]/.test(val)) {
+            if (root.__zh_done && root.__zh_last_val === val) {
+              return;
+            }
             const translated = translate(val);
             if (translated !== val) {
               root.nodeValue = translated;
+              root.__zh_last_val = translated;
+              if (!/[A-Za-z]/.test(translated)) {
+                root.__zh_done = true;
+              }
             }
-            root.__zh_last_val = root.nodeValue;
           }
           return;
         }
@@ -9249,18 +10448,30 @@ try {
           checkCompositeElement(root);
         }
 
-        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT);
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT, {
+          acceptNode: function(node) {
+            if (shouldSkip(node)) {
+              return NodeFilter.FILTER_REJECT; // 关键：彻底剪掉整个聊天流子树，绝不递归几万个子孙节点！
+            }
+            return NodeFilter.FILTER_ACCEPT;
+          }
+        });
         let node = walker.nextNode();
         while (node) {
           if (!shouldSkip(node)) {
             if (node.nodeType === Node.TEXT_NODE) {
               const val = node.nodeValue;
-              if (val && val !== node.__zh_last_val && /[A-Za-z]/.test(val)) {
-                const translated = translate(val);
-                if (translated !== val) {
-                  node.nodeValue = translated;
+              if (val && /[A-Za-z]/.test(val)) {
+                if (!(node.__zh_done && node.__zh_last_val === val)) {
+                  const translated = translate(val);
+                  if (translated !== val) {
+                    node.nodeValue = translated;
+                    node.__zh_last_val = translated;
+                    if (!/[A-Za-z]/.test(translated)) {
+                      node.__zh_done = true;
+                    }
+                  }
                 }
-                node.__zh_last_val = node.nodeValue;
               }
             } else if (node.nodeType === Node.ELEMENT_NODE) {
               translateElement(node);
@@ -9325,197 +10536,7 @@ try {
     }
 
     function initSelectionTranslationBubble() {
-      // 物理清除历史遗留的独立兜底气泡，彻底防止代码审核区出现附着
-      try {
-        const oldBubble = document.getElementById('zh-selection-bubble');
-        if (oldBubble) oldBubble.remove();
-      } catch (e) {}
-
-      let popover = document.getElementById('zh-translation-popover');
-      let currentSelectedText = '';
-
-      // 1. 全局单例极简深灰暗色 Popover (与 Antigravity 原生暗色质感 100% 统一)
-      if (!popover) {
-        popover = document.createElement('div');
-        popover.id = 'zh-translation-popover';
-        popover.style.cssText = 'position:fixed;display:none;z-index:999999;max-width:460px;min-width:280px;background:rgba(24,24,27,0.96);border:1px solid rgba(255,255,255,0.12);border-radius:8px;box-shadow:0 12px 30px rgba(0,0,0,0.65);backdrop-filter:blur(12px);padding:12px 14px;color:#f4f4f5;font-size:13px;line-height:1.6;font-family:system-ui,-apple-system,sans-serif;user-select:text;';
-        document.body.appendChild(popover);
-
-        popover.addEventListener('mousedown', (e) => e.stopPropagation());
-      }
-
-      async function showTranslationPopover(text, anchorRect) {
-        if (!text || !text.trim()) return;
-        popover.style.display = 'block';
-
-        // 智能定位算法：彻底根治左上方 (16, 8) 漂移
-        let left, top;
-        if (anchorRect && (anchorRect.width > 0 || anchorRect.height > 0 || anchorRect.top > 0 || anchorRect.left > 0)) {
-          left = Math.min(Math.max(16, anchorRect.left - 60), window.innerWidth - 480);
-          top = Math.min(anchorRect.bottom + 8, window.innerHeight - 280);
-          if (top < 10) top = anchorRect.top - 200;
-        } else {
-          // 兜底屏幕中上部优雅居中
-          left = Math.max(16, Math.floor((window.innerWidth - 420) / 2));
-          top = Math.max(30, Math.floor((window.innerHeight - 260) / 3));
-        }
-
-        popover.style.left = left + 'px';
-        popover.style.top = top + 'px';
-
-        popover.innerHTML = '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:6px;">' +
-          '<div style="display:flex;align-items:center;gap:6px;"><span style="background:rgba(255,255,255,0.08);color:#e4e4e7;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600;">中译</span><span style="color:#71717a;font-size:11px;">极速通道</span></div>' +
-          '<span id="zh-popover-close" style="cursor:pointer;color:#71717a;font-size:16px;line-height:1;padding:0 4px;">&times;</span>' +
-          '</div><div style="color:#a1a1aa;font-size:12px;">正在翻译...</div>';
-
-        const closeBtn = popover.querySelector('#zh-popover-close');
-        if (closeBtn) closeBtn.onclick = (e) => { e.stopPropagation(); popover.style.display = 'none'; };
-
-        const translated = await fetchGoogleTranslate(text);
-        if (popover.style.display !== 'none') {
-          if (translated) {
-            popover.innerHTML = '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:6px;">' +
-              '<div style="display:flex;align-items:center;gap:6px;"><span style="background:rgba(255,255,255,0.08);color:#e4e4e7;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600;">中译</span><span style="color:#71717a;font-size:11px;">极速通道</span></div>' +
-              '<span id="zh-popover-close" style="cursor:pointer;color:#71717a;font-size:16px;line-height:1;padding:0 4px;">&times;</span>' +
-              '</div><div style="max-height:280px;overflow-y:auto;white-space:pre-wrap;word-break:break-word;color:#e4e4e7;font-size:13px;line-height:1.65;">' +
-              translated.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br/>') +
-              '</div>';
-            const cb = popover.querySelector('#zh-popover-close');
-            if (cb) cb.onclick = (e) => { e.stopPropagation(); popover.style.display = 'none'; };
-          } else {
-            popover.innerHTML = '<div style="color:#ef4444;font-size:12px;">翻译失败，请检查网络连接</div>';
-          }
-        }
-      }
-
-      // 2. 扫描并无缝融入官方 .selection-quote-popup 气泡
-      function embedIntoOfficialQuotePopup() {
-        const enabled = isTranslationEnabled();
-        const popups = document.querySelectorAll('.selection-quote-popup');
-
-        popups.forEach(popup => {
-          const flexContainer = popup.querySelector('.flex');
-          if (!flexContainer) return;
-
-          // 汉化官方 Quote 按钮文字
-          const quoteBtn = flexContainer.querySelector('[data-testid="selection-quote-button"]');
-          if (quoteBtn) {
-            quoteBtn.style.flex = '0 0 auto';
-            quoteBtn.style.width = 'auto';
-            quoteBtn.style.minWidth = 'max-content';
-            quoteBtn.style.whiteSpace = 'nowrap';
-            quoteBtn.style.padding = '2px 8px';
-
-            const quoteSpan = Array.from(quoteBtn.querySelectorAll('span')).find(s => s.textContent && s.textContent.trim() === 'Quote');
-            if (quoteSpan) quoteSpan.textContent = '引用';
-          }
-
-          const existingBtn = flexContainer.querySelector('[data-testid="selection-translate-button"]');
-          const existingDiv = flexContainer.querySelector('.zh-quote-divider');
-
-          // 【核心控制】若用户在小工具中关闭了翻译：物理彻底清除“翻译”按钮与分割线，100% 恢复官方原版纯净 Quote！
-          if (!enabled) {
-            if (existingBtn) existingBtn.remove();
-            if (existingDiv) existingDiv.remove();
-            return;
-          }
-
-          // 开启时：彻底解除官方容器的宽度限制与 overflow-hidden 裁切
-          popup.style.width = 'auto';
-          popup.style.maxWidth = 'none';
-          popup.style.overflow = 'visible';
-
-          flexContainer.style.width = 'auto';
-          flexContainer.style.minWidth = 'max-content';
-          flexContainer.style.overflow = 'visible';
-          flexContainer.style.display = 'flex';
-          flexContainer.style.flexDirection = 'row';
-          flexContainer.style.alignItems = 'center';
-
-          // 如果尚未嵌入翻译按钮，则追加
-          if (!existingBtn) {
-            const divider = document.createElement('div');
-            divider.className = 'zh-quote-divider';
-            divider.style.cssText = 'width:1px;height:12px;background:rgba(255,255,255,0.15);margin:auto 3px;flex-shrink:0;';
-            flexContainer.appendChild(divider);
-
-            const transBtn = document.createElement('button');
-            transBtn.setAttribute('data-testid', 'selection-translate-button');
-            transBtn.className = 'flex items-center gap-1 justify-center transition-colors cursor-pointer hover:bg-secondary text-xs';
-            transBtn.style.cssText = 'flex:0 0 auto;width:auto;min-width:max-content;white-space:nowrap;padding:2px 8px;';
-            transBtn.type = 'button';
-            transBtn.innerHTML = '<span class="text-xs">翻译</span>';
-
-            transBtn.addEventListener('mousedown', (e) => {
-              e.stopPropagation();
-              e.preventDefault();
-            });
-
-            transBtn.addEventListener('click', (e) => {
-              e.stopPropagation();
-              e.preventDefault();
-              const sel = window.getSelection();
-              const text = (sel ? sel.toString() : '') || currentSelectedText;
-              if (!text || !text.trim()) return;
-              // 精确获取当前按钮所在位置
-              const rect = transBtn.getBoundingClientRect();
-              showTranslationPopover(text.trim(), rect);
-            });
-
-            flexContainer.appendChild(transBtn);
-          }
-        });
-      }
-
-      function handleSelectionChange() {
-        const enabled = isTranslationEnabled();
-        if (!enabled) {
-          if (popover) popover.style.display = 'none';
-          embedIntoOfficialQuotePopup();
-          return;
-        }
-
-        const sel = window.getSelection();
-        if (!sel || sel.isCollapsed) return;
-
-        const text = sel.toString().trim();
-        if (!text || text.length < 2 || !/[a-zA-Z]/.test(text)) return;
-
-        currentSelectedText = text;
-
-        // 仅融入官方气泡，绝不自作主张在代码区/输入区弹出任何独立气泡
-        embedIntoOfficialQuotePopup();
-      }
-
-      document.addEventListener('mouseup', () => {
-        setTimeout(handleSelectionChange, 35);
-        setTimeout(embedIntoOfficialQuotePopup, 70);
-      });
-
-      document.addEventListener('keyup', (e) => {
-        if (e.key === 'Shift' || e.key === 'ArrowLeft' || e.key === 'ArrowRight' || e.key === 'ArrowUp' || e.key === 'ArrowDown') {
-          setTimeout(handleSelectionChange, 35);
-        } else if (e.key === 'Escape') {
-          if (popover) popover.style.display = 'none';
-        }
-      });
-
-      document.addEventListener('mousedown', (e) => {
-        const target = e.target;
-        if (popover && !popover.contains(target) && !target.closest('.selection-quote-popup')) {
-          popover.style.display = 'none';
-        }
-      });
-
-      window.addEventListener('zh:toggle-translation', (e) => {
-        try {
-          if (e.detail && e.detail.enabled === false) {
-            document.querySelectorAll('[data-testid="selection-translate-button"]').forEach(b => b.remove());
-            document.querySelectorAll('.zh-quote-divider').forEach(d => d.remove());
-            if (popover) popover.style.display = 'none';
-          }
-        } catch (err) {}
-      });
+      /* Selection translation completely removed to preserve pure official Quote layout */
     }
 
     let pendingNodes = [];
@@ -9554,33 +10575,33 @@ try {
                 overflow-x: hidden !important;
                 overflow-y: auto !important;
               }
-              /* 彻底防止官方选区悬浮气泡 (Quote Popup) 宽度不足导致“引用”与图标被挤压裁切 */
-              .selection-quote-popup {
-                width: auto !important;
-                max-width: none !important;
-                overflow: visible !important;
-              }
-              .selection-quote-popup > div,
-              .selection-quote-popup .flex {
-                width: auto !important;
-                min-width: max-content !important;
-                overflow: visible !important;
-                display: flex !important;
-                flex-direction: row !important;
-                align-items: center !important;
-              }
-              [data-testid="selection-quote-button"],
-              [data-testid="selection-translate-button"] {
-                flex: 0 0 auto !important;
-                width: auto !important;
-                min-width: max-content !important;
-                white-space: nowrap !important;
-              }
-            `;
+              /* Selection quote popup css removed */
+`;
             (document.head || document.documentElement).appendChild(style);
           } catch (e) {}
         }
         translateNode(document.body || document.documentElement);
+
+        if (typeof window !== 'undefined') {
+          window.__antigravityTranslateText = translate;
+          window.reapplyAntigravityZh = () => {
+            try {
+              const walker = document.createTreeWalker(document.body || document.documentElement, NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT, null, false);
+              let n = walker.nextNode();
+              while (n) {
+                if (n.nodeType === Node.TEXT_NODE) {
+                  delete n.__zh_last_val;
+                  delete n.__zh_done;
+                } else if (n.nodeType === Node.ELEMENT_NODE) {
+                  delete n.__zh_last_attr_val;
+                }
+                n = walker.nextNode();
+              }
+              translateNode(document.body || document.documentElement);
+            } catch(e) {}
+          };
+        }
+
         initSelectionTranslationBubble();
 
         // 纯净高性能防抖观察器：完全剔除 characterData 监听，彻底杜绝大对话加载时海量文本事件风暴！
@@ -9627,3 +10648,4 @@ try {
 } catch (e) {
   console.warn('[Antigravity-Hans] Injected script caught exception:', e);
 }
+
