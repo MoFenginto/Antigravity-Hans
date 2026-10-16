@@ -1159,7 +1159,7 @@ namespace AntigravityHansManager
 
         private void InitializeComponent()
         {
-            Text = "Antigravity 中文管理中心";
+            Text = "Antigravity 汉化工具";
             ClientSize = new Size(640, 740);
             MinimumSize = new Size(640, 740);
             MaximumSize = new Size(640, 740);
@@ -1198,7 +1198,7 @@ namespace AntigravityHansManager
             cardHeader.Size = new Size(600, 76);
 
             lblAppTitle = new Label();
-            lblAppTitle.Text = "Antigravity 中文管理中心";
+            lblAppTitle.Text = "Antigravity 汉化工具";
             lblAppTitle.Font = new Font("Microsoft YaHei UI", 12.5f, FontStyle.Bold);
             lblAppTitle.ForeColor = Color.FromArgb(243, 244, 246);
             lblAppTitle.BackColor = Color.FromArgb(25, 26, 30);

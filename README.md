@@ -1,8 +1,8 @@
-# Antigravity 双模中文管理中心 (Antigravity-Hans)
+# Antigravity 汉化工具 (Antigravity-Hans)
 
 <p align="center">
   <b>Google Antigravity 官方客户端下一代「双模驱动」全功能中文本地化与系统管理解决方案</b><br>
-  <b>Next-Generation Dual-Engine Chinese Localization & Manager for Google Antigravity Client</b><br>
+  <b>Next-Generation Dual-Engine Localization Tool for Google Antigravity Client</b><br>
   <i>开发者 / 维护者 (Author & Maintainer)：<b>YunLingHUI</b> (GitHub: @MoFenginto)</i>
 </p>
 
@@ -63,13 +63,13 @@ Google Antigravity 是一款顶尖的智能体原生（Agentic）桌面开发客
 - **痛点 I（市面 Python 动态注入方案）**：用户必须在本地配置繁琐的 Python 环境与外部依赖包；每次启动都必须在后台常驻一个黑色命令行窗口（CMD/Terminal），极易误触关闭；页面初次加载存在明显的英文闪烁（FOUC）与几百毫秒的“跳字延迟”。
 - **痛点 II（粗暴替换 ASAR 方案）**：传统打包往往塞入完整的数兆字节完整 ASAR，不仅文件臃肿（上百兆），而且每次官方静默升级后，旧版补丁极易把官方程序降级回旧版本，引发协议与通信错乱；孤立短词强行替换，导致“类型 / and select plan...”等生硬中英夹生饭。
 
-为了从根本上终结这些工程痛点，**Antigravity-Hans** 由 **YunLingHUI** 自主研发推出。本项目采用独创的「双模驱动架构」，将原生 C# 单文件管理中心、零依赖 CDP 纯内存注入管道、微创 ASAR 动态打补丁引擎、可视化词条自定义工作台与 2,313+ 条高精词典高度集成，单文件仅 600KB，零外部依赖，开箱即用！
+为了从根本上终结这些工程痛点，**Antigravity-Hans** 由 **YunLingHUI** 自主研发推出。本项目采用独创的「双模驱动架构」，将原生 C# 单文件汉化工具、零依赖 CDP 纯内存注入管道、微创 ASAR 动态打补丁引擎、可视化词条自定义工作台与 2,313+ 条高精词典高度集成，单文件仅 600KB，零外部依赖，开箱即用！
 
 ---
 
 ## 二、断层优势特性对比
 
-| 衡量维度 | 市面 Python + WebSocket 方案 | 传统粗暴 ASAR 替换补丁 | Antigravity 双模管理中心 (本项目) |
+| 衡量维度 | 市面 Python + WebSocket 方案 | 传统粗暴 ASAR 替换补丁 | Antigravity 汉化工具 (本项目) |
 | :--- | :--- | :--- | :--- |
 | **可执行程序体积** | 需安装数百兆 Python 运行库 | 依赖外部完整 ASAR (9MB+) | **单文件仅 600KB 极致轻量** |
 | **运行环境依赖** | 强依赖本地 Python 运行时与 pip 包 | 需手动解包/安装第三方工具 | **100% 零第三方依赖**，Windows 自带 .NET 即开即用 |
