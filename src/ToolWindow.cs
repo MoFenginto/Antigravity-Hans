@@ -969,7 +969,7 @@ namespace AntigravityHansManager
                     return false;
                 }
 
-                Match mPreload = Regex.Match(headerJson, @"""preload.js""s*:s*{[^{}]*}");
+                Match mPreload = Regex.Match(headerJson, @"""preload\.js""\s*:\s*\{[\s\S]*?""offset""\s*:\s*""\d+""[\s\S]*?\}\}");
                 if (!mPreload.Success)
                 {
                     error = "未在 ASAR 头部树中找到 dist/preload.js 节点";
