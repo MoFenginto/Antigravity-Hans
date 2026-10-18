@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+  }
+  html, body {
+    width: 800px !important;
+    height: 800px !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    background: radial-gradient(circle at 50% 20%, #1a1e29 0%, #0d0f14 60%, #050608 100%);
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 44px;
+    overflow: hidden;
+  }
+  /* 背景科技装饰线条 */
+  body::before {
+    content: "";
+    position: absolute;
+    top: -150px;
+    left: -150px;
+    width: 1100px;
+    height: 1100px;
+    background: radial-gradient(circle at 50% 30%, rgba(99, 102, 241, 0.15) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  body::after {
+    content: "";
+    position: absolute;
+    bottom: -100px;
+    right: -100px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(236, 72, 153, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  /* 顶部标签栏 */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+  .brand-badge {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.05));
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 40px;
+    padding: 8px 22px;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #a5b4fc;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    backdrop-filter: blur(10px);
+  }
+  .brand-badge span {
+    color: #38bdf8;
+  }
+  .delivery-badge {
+    background: linear-gradient(135deg, #10b981, #059669);
+    border-radius: 40px;
+    padding: 8px 20px;
+    font-size: 20px;
+    font-weight: 800;
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+  }
+  /* 中间核心视觉卡片 */
+  .hero-card {
+    background: linear-gradient(145deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.85));
+    border: 1.5px solid rgba(165, 180, 252, 0.35);
+    border-radius: 32px;
+    padding: 38px 36px 34px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  }
+  .sub-tag {
+    display: inline-block;
+    color: #f59e0b;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+  .main-title {
+    font-size: 56px;
+    font-weight: 900;
+    line-height: 1.15;
+    background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 50%, #818cf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+  .period-highlight {
+    display: inline-block;
+    background: linear-gradient(135deg, #6366f1, #a855f7);
+    color: #ffffff;
+    -webkit-text-fill-color: #ffffff;
+    padding: 4px 18px;
+    border-radius: 12px;
+    font-size: 50px;
+    font-weight: 900;
+    margin-right: 12px;
+    box-shadow: 0 8px 22px rgba(168, 85, 247, 0.45);
+    vertical-align: middle;
+  }
+  .desc-line {
+    font-size: 25px;
+    font-weight: 600;
+    color: #94a3b8;
+    margin-top: 8px;
+    letter-spacing: 1px;
+  }
+  /* 4大核心卖点网格 */
+  .grid-features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 26px;
+  }
+  .feature-item {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 18px;
+    padding: 16px 18px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+  }
+  .feature-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: #38bdf8;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .feature-title::before {
+    content: "●";
+    color: #6366f1;
+    font-size: 14px;
+  }
+  .feature-desc {
+    font-size: 17px;
+    font-weight: 500;
+    color: #cbd5e1;
+  }
+  /* 底部正规保障栏 */
+  .footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 16px 20px;
+    position: relative;
+    z-index: 2;
+  }
+  .guarantee-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #f1f5f9;
+  }
+  .guarantee-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #10b981;
+    box-shadow: 0 0 10px #10b981;
+  }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="brand-badge">
+      GOOGLE <span>GEMINI</span> ADVANCED
+    </div>
+    <div class="delivery-badge">
+      自动秒发 · 现货
+    </div>
+  </div>
+
+  <div class="hero-card">
+    <div class="sub-tag">官方直链卡密 · 独立激活</div>
+    <div class="main-title">
+      <span class="period-highlight">18个月</span>会员兑换码
+    </div>
+    <div class="desc-line">无需密码 · 官方直接生效 · 全程质保</div>
+
+    <div class="grid-features">
+      <div class="feature-item">
+        <div class="feature-title">200万超大上下文</div>
+        <div class="feature-desc">深度解析超长论文/代码/长篇文档</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-title">深度逻辑推理引擎</div>
+        <div class="feature-desc">全能编程代码辅助与学术创作</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-title">官方直链直达绑定</div>
+        <div class="feature-desc">无需提供个人账号密码，安全合规</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-title">附赠保姆级配置教程</div>
+        <div class="feature-desc">新手小白一键配置，即开即用</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="guarantee-pill">
+      <div class="guarantee-dot"></div>
+      官方直链正品
+    </div>
+    <div class="guarantee-pill">
+      <div class="guarantee-dot"></div>
+      下单自动秒发
+    </div>
+    <div class="guarantee-pill">
+      <div class="guarantee-dot"></div>
+      18个月全程售后
+    </div>
+  </div>
+</body>
+</html>
