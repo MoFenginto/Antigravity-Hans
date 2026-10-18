@@ -9,7 +9,7 @@
 <p align="center">
   <a href="https://github.com/MoFenginto/Antigravity-Hans/stargazers"><img src="https://img.shields.io/github/stars/MoFenginto/Antigravity-Hans?style=flat-square&logo=github&color=f59e0b" alt="GitHub Stars"></a>
   <a href="https://github.com/MoFenginto/Antigravity-Hans/releases"><img src="https://img.shields.io/github/v/release/MoFenginto/Antigravity-Hans?style=flat-square&color=3b82f6" alt="Release"></a>
-  <img src="https://img.shields.io/badge/平台-Windows%2010%20%2F%2011-0078d4?style=flat-square" alt="Platform">
+  <img src="https://img.shields.io/badge/平台-Windows%20·%20macOS%20·%20Linux%20(全平台支持)-0078d4?style=flat-square" alt="Platform">
   <img src="https://img.shields.io/badge/运行依赖-0%20第三方依赖-10b981?style=flat-square" alt="Dependencies">
   <img src="https://img.shields.io/badge/程序体积-仅%20600KB%20绿色单文件-8b5cf6?style=flat-square" alt="Size">
   <img src="https://img.shields.io/badge/使用授权-永久免费%20·%20严禁倒卖-ef4444?style=flat-square" alt="License">
@@ -158,15 +158,52 @@ Google Antigravity 是一款顶尖的智能体原生（Agentic）桌面开发客
 
 ## 六、极速使用指南 (开箱即用)
 
-### 下载程序
-前往本仓库的 [Releases 页面](https://github.com/MoFenginto/Antigravity-Hans/releases) 下载最新发布的绿色免安装程序：
-- **`Antigravity-Hans-Manager.exe`**（仅约 600KB，无需安装任何第三方环境）
+### 方式 0：独家神仙操作 · 对 Antigravity 内置 AI 发一句话搞定 (全平台通用)
 
-### 使用步骤
-1. **运行小工具**：双击运行 `Antigravity-Hans-Manager.exe`；
+无论您正在使用 **Windows**、**macOS** 还是 **Ubuntu / Linux**，甚至连终端都不需要打开！  
+直接在 Antigravity 客户端的**任意聊天输入框**中，复制并发送以下指令：
+
+```text
+帮我从 https://github.com/MoFenginto/Antigravity-Hans 下载并安装汉化
+```
+
+> **原理说明**：Antigravity 内置的 AI 助手接收到指令后，将自动调用系统原生工具链执行安全寻址、下载最新汉化核心并完成冷替换，真正做到“动动嘴皮子，客户端秒变 100% 纯中文”！
+
+---
+
+### 方式 1：Linux (Ubuntu / Debian / Arch / Fedora) & macOS 终端一键安装
+
+在系统的终端中，直接复制并粘贴执行以下一行命令即可全自动完成配置：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/MoFenginto/Antigravity-Hans/main/install.sh | bash
+```
+
+* 如需恢复出厂官方英文原版，随时运行：`bash install.sh --restore`。
+
+---
+
+### 方式 2：Windows PowerShell 终端一键静默安装
+
+在 Windows 终端（PowerShell）中执行以下一行命令：
+
+```powershell
+irm https://raw.githubusercontent.com/MoFenginto/Antigravity-Hans/main/install.ps1 | iex
+```
+
+* 如需恢复出厂官方英文原版，随时运行：`irm ... | iex -Restore`。
+
+---
+
+### 方式 3：Windows 绿色单文件 GUI 管理中心 (可视化控制)
+
+如果您喜欢可视化窗口操作，前往本仓库的 [Releases 页面](https://github.com/MoFenginto/Antigravity-Hans/releases) 下载独立绿色单文件：
+- **`Antigravity汉化管理小工具.exe`**（约 600KB，零环境依赖，无黑框）
+
+1. **运行小工具**：双击运行 `Antigravity汉化管理小工具.exe`；
 2. **选择汉化模式**：
-   - **方式 A（安全纯内存模式 · 推荐）**：点击【安全启动官方原版 (纯内存中文)】即可；
-   - **方式 B（深度固化模式）**：点击【一键深度固化汉化】，0.05 秒完成就地微创补丁；
+   - **安全纯内存模式 (推荐)**：点击【安全启动官方原版 (纯内存中文)】即可；
+   - **深度固化模式**：点击【一键深度固化汉化】，0.05 秒完成就地微创补丁；
 3. **日常启动**：直接双击桌面的 Antigravity 官方图标即可享受中文！
 4. **一键还原**：随时在工具中点击【恢复官方出厂原版】，一秒无损回退官方英文。
 
