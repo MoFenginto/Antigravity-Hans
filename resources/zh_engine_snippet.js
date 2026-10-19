@@ -13,6 +13,42 @@ try {
     // 1. 严格按字符长度降序排序的词典数据占位符
     const rawPhrases = [
   [
+    "Compact the conversation now (summarize history to free up the context window).",
+    "立即压缩当前会话（总结历史以释放上下文空间）。"
+  ],
+  [
+    "Compact the conversation now (summarize history to free up the context window)",
+    "立即压缩当前会话（总结历史以释放上下文空间）"
+  ],
+  [
+    "Plan carefully before executing a task.",
+    "在执行任务前先周密制定计划。"
+  ],
+  [
+    "Plan carefully before executing a task",
+    "在执行任务前先周密制定计划"
+  ],
+  [
+    "Save a new learning or customization.",
+    "保存新学到的经验或自定义规则。"
+  ],
+  [
+    "Persist new learnings and customize agent behavior.",
+    "持久化沉淀新经验并自定义智能体行为。"
+  ],
+  [
+    "Run tasks with deep reasoning and verification.",
+    "启用深度推理与严密核验模式运行任务。"
+  ],
+  [
+    "Create a scheduled background automation.",
+    "创建周期性后台自动化任务。"
+  ],
+  [
+    "Manage and configure plugins.",
+    "管理与配置插件。"
+  ],
+  [
     "Pin conversation",
     "置顶对话"
   ],

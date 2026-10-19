@@ -2115,7 +2115,8 @@ namespace AntigravityHansManager
                 dynamic shell = Activator.CreateInstance(shellType);
 
                 List<string> args = new List<string>();
-                if (enableDebugPort)
+                bool isPatchedCore = CheckIsPatched(Path.Combine(appPath ?? "", "resources", "app.asar"));
+                if (enableDebugPort && !isPatchedCore)
                 {
                     args.Add("--remote-debugging-port=23664");
                 }
