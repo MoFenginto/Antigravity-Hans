@@ -10364,13 +10364,16 @@ try {
       if (element.__zh_skip === true) return true;
 
       // 3. 核心代码块、终端、正文容器（单点快速匹配，直接整树剪枝）
-      if (element.matches && element.matches('.monaco-editor, .terminal, .xterm, .markdown-body, [data-testid="user-input-step"], [contenteditable="true"]')) {
+      // 3. 核心代码块、终端、用户正文容器、右侧文档预览分栏（在最顶层单点快速匹配，直接整树硬剪枝，杜绝数万节点爬行）
+      if (element.matches && element.matches('.monaco-editor, .terminal, .xterm, .markdown-body, [data-testid="user-input-step"], [contenteditable="true"], [data-testid*="preview"], [data-testid*="markdown"], [data-testid*="file-viewer"], .editor-container, .preview-container, .markdown-preview, .artifact-viewer, .artifact-view, .artifact-drawer, .prose, article')) {
         element.__zh_skip = true;
         return true;
       }
-      if (element.closest('.monaco-editor, .monaco-mouse-cursor-text, .cursor-edit, .terminal, .xterm, pre, code')) {
-        element.__zh_skip = true;
-        return true;
+      if (element.closest('.monaco-editor, .monaco-mouse-cursor-text, .cursor-edit, .terminal, .xterm, pre, code, [data-testid*="preview"], [data-testid*="markdown"], [data-testid*="file-viewer"], .editor-container, .preview-container, .markdown-preview, .artifact-viewer, .artifact-view, .artifact-drawer, .prose, article')) {
+        if (!element.closest('button, [role="button"], .review-button')) {
+          element.__zh_skip = true;
+          return true;
+        }
       }
 
       // 4. 【核心用户数据免触区】左侧会话历史列表条目、历史记录弹窗条目、用户会话标题 100% 绝对跳过！
