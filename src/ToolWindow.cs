@@ -2898,62 +2898,80 @@ namespace AntigravityHansManager
                 try
                 {
                     ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | (SecurityProtocolType)3072;
-                    HttpWebRequest req = (HttpWebRequest)WebRequest.Create("https://api.github.com/repos/MoFenginto/Antigravity-Hans/releases/latest");
-                    req.Method = "GET";
-                    req.UserAgent = "Antigravity-Hans-Manager/" + APP_VERSION;
-                    req.Accept = "application/vnd.github.v3+json";
-                    req.Timeout = 6000;
-                    req.ReadWriteTimeout = 6000;
 
-                    using (HttpWebResponse resp = (HttpWebResponse)req.GetResponse())
+                    // 方案一：通过 GitHub Web 页面 302 重定向 HEAD 请求秒级解析最新 Tag (零 API 速率限制，绝对免 403)
+                    try
                     {
-                        if (resp.StatusCode == HttpStatusCode.OK)
+                        HttpWebRequest headReq = (HttpWebRequest)WebRequest.Create("https://github.com/MoFenginto/Antigravity-Hans/releases/latest");
+                        headReq.Method = "HEAD";
+                        headReq.AllowAutoRedirect = false;
+                        headReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
+                        headReq.Timeout = 5000;
+                        headReq.ReadWriteTimeout = 5000;
+
+                        using (HttpWebResponse headResp = (HttpWebResponse)headReq.GetResponse())
                         {
-                            using (StreamReader reader = new StreamReader(resp.GetResponseStream(), Encoding.UTF8))
+                            string loc = headResp.Headers["Location"];
+                            if (!string.IsNullOrEmpty(loc))
                             {
-                                string json = reader.ReadToEnd();
-
-                                Match mTag = Regex.Match(json, "\"tag_name\"\\s*:\\s*\"([^\"]+)\"");
-                                if (mTag.Success) newVer = mTag.Groups[1].Value.Trim();
-
-                                Match mBody = Regex.Match(json, "\"body\"\\s*:\\s*\"((?:[^\"\\\\]|\\\\.)*)\"");
-                                if (mBody.Success)
+                                Match m = Regex.Match(loc, @"/releases/tag/(v[0-9\.]+)");
+                                if (m.Success)
                                 {
-                                    try
-                                    {
-                                        notes = Regex.Unescape(mBody.Groups[1].Value);
-                                    }
-                                    catch
-                                    {
-                                        notes = mBody.Groups[1].Value;
-                                    }
-                                }
-
-                                MatchCollection mUrls = Regex.Matches(json, "\"browser_download_url\"\\s*:\\s*\"([^\"]+\\.exe)\"");
-                                foreach (Match m in mUrls)
-                                {
-                                    string url = m.Groups[1].Value;
-                                    if (url.IndexOf("Antigravity", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                                        url.IndexOf("Manager", StringComparison.OrdinalIgnoreCase) >= 0)
-                                    {
-                                        downloadUrl = url;
-                                        break;
-                                    }
-                                }
-                                if (string.IsNullOrEmpty(downloadUrl) && mUrls.Count > 0)
-                                {
-                                    downloadUrl = mUrls[0].Groups[1].Value;
-                                }
-
-                                if (string.IsNullOrEmpty(downloadUrl))
-                                {
-                                    Match mHtml = Regex.Match(json, "\"html_url\"\\s*:\\s*\"([^\"]+)\"");
-                                    if (mHtml.Success) downloadUrl = mHtml.Groups[1].Value;
-                                }
-
-                                if (!string.IsNullOrEmpty(newVer))
-                                {
+                                    newVer = m.Groups[1].Value.Trim();
+                                    downloadUrl = "https://github.com/MoFenginto/Antigravity-Hans/releases/download/" + newVer + "/Antigravity-Hans-Manager.exe";
                                     hasUpdate = IsNewerVersion(APP_VERSION, newVer);
+                                }
+                            }
+                        }
+                    }
+                    catch {}
+
+                    // 方案二：如果方案一未获取到，降级通过 api.github.com
+                    if (string.IsNullOrEmpty(newVer))
+                    {
+                        HttpWebRequest req = (HttpWebRequest)WebRequest.Create("https://api.github.com/repos/MoFenginto/Antigravity-Hans/releases/latest");
+                        req.Method = "GET";
+                        req.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
+                        req.Accept = "application/vnd.github.v3+json";
+                        req.Timeout = 5000;
+                        req.ReadWriteTimeout = 5000;
+
+                        using (HttpWebResponse resp = (HttpWebResponse)req.GetResponse())
+                        {
+                            if (resp.StatusCode == HttpStatusCode.OK)
+                            {
+                                using (StreamReader reader = new StreamReader(resp.GetResponseStream(), Encoding.UTF8))
+                                {
+                                    string json = reader.ReadToEnd();
+                                    Match mTag = Regex.Match(json, @"""tag_name""\s*:\s*""([^""]+)""");
+                                    if (mTag.Success) newVer = mTag.Groups[1].Value.Trim();
+
+                                    Match mBody = Regex.Match(json, @"""body""\s*:\s*""((?:[^""\\]|\\.)*)""");
+                                    if (mBody.Success)
+                                    {
+                                        try { notes = Regex.Unescape(mBody.Groups[1].Value); } catch { notes = mBody.Groups[1].Value; }
+                                    }
+
+                                    MatchCollection mUrls = Regex.Matches(json, @"""browser_download_url""\s*:\s*""([^""]+\.exe)""");
+                                    foreach (Match m in mUrls)
+                                    {
+                                        string url = m.Groups[1].Value;
+                                        if (url.IndexOf("Antigravity", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                                            url.IndexOf("Manager", StringComparison.OrdinalIgnoreCase) >= 0)
+                                        {
+                                            downloadUrl = url;
+                                            break;
+                                        }
+                                    }
+                                    if (string.IsNullOrEmpty(downloadUrl) && mUrls.Count > 0)
+                                    {
+                                        downloadUrl = mUrls[0].Groups[1].Value;
+                                    }
+
+                                    if (!string.IsNullOrEmpty(newVer))
+                                    {
+                                        hasUpdate = IsNewerVersion(APP_VERSION, newVer);
+                                    }
                                 }
                             }
                         }
@@ -3002,9 +3020,9 @@ namespace AntigravityHansManager
                         {
                             if (!silent)
                             {
-                                if (!string.IsNullOrEmpty(errorMsg))
+                                if (!string.IsNullOrEmpty(errorMsg) && string.IsNullOrEmpty(newVer))
                                 {
-                                    MessageBox.Show("检查更新遇到网络问题，请稍后再试或访问 GitHub 主页。\\n\\n详情: " + errorMsg, "检查更新", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    MessageBox.Show("检查更新遇到网络问题，请稍后再试或直接访问 GitHub 主页。\n\n详情: " + errorMsg, "检查更新", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 }
                                 else
                                 {
@@ -3049,18 +3067,18 @@ namespace AntigravityHansManager
         {
             if (string.IsNullOrEmpty(latestVersion)) return;
 
-            string msg = "检测到 Antigravity 汉化小工具存在新版本！\\n\\n"
-                       + "本地当前版本：" + APP_VERSION + "\\n"
-                       + "远端最新版本：" + latestVersion + "\\n\\n";
+            string msg = "检测到 Antigravity 汉化小工具存在新版本！\n\n"
+                       + "本地当前版本：" + APP_VERSION + "\n"
+                       + "远端最新版本：" + latestVersion + "\n\n";
 
             if (!string.IsNullOrEmpty(latestReleaseNotes))
             {
-                string displayNotes = latestReleaseNotes.Replace("\\r", "");
-                if (displayNotes.Length > 320) displayNotes = displayNotes.Substring(0, 320) + "\\n...";
-                msg += "【更新说明】：\\n" + displayNotes + "\\n\\n";
+                string displayNotes = latestReleaseNotes.Replace("\r", "");
+                if (displayNotes.Length > 320) displayNotes = displayNotes.Substring(0, 320) + "\n...";
+                msg += "【更新说明】：\n" + displayNotes + "\n\n";
             }
 
-            msg += "是否立即自动下载并完成无痕原地热升级？\\n（更新过程将自动重启小工具，不影响正在运行的 Antigravity 客户端）";
+            msg += "是否立即自动下载并完成无痕原地热升级？\n（更新过程将自动重启小工具，不影响正在运行的 Antigravity 客户端）";
 
             DialogResult dr = MessageBox.Show(msg, "发现新版本 " + latestVersion, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
             if (dr == DialogResult.Yes)
