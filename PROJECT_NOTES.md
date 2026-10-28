@@ -1752,3 +1752,35 @@
 
 
 
+
+---
+
+## 2026-10-28: GitHub 在线自动检测与一键热升级引擎 (Auto-Updater) 全面集成
+
+### 1. 核心需求与设计哲学 (Design Philosophy)
+- 打造极致省心、零打扰的软件版本热更新闭环；
+- 绝不在启动时弹窗强迫或阻塞用户日常操作，纯后台静默异步探测；
+- 发现新版时提供多维度优雅高亮入口（顶部胶囊、底部状态栏、关于面板手动按钮），随心点击一键升级；
+- 升级过程全自动下载至临时目录，通过原生无痕批处理脚本实现原子替换、自动重启新版与自毁清理。
+
+### 2. 核心架构与技术实现
+1. **后台异步非阻塞检测引擎**：
+   - 启动时自动调用 `CheckUpdateAsync(true)`，设置 TLS 1.2 与专属 User-Agent；
+   - 请求 `https://api.github.com/repos/MoFenginto/Antigravity-Hans/releases/latest`，严格超时 6 秒防挂起；
+   - 提取 Release JSON 中最新语义化版本（Semantic Versioning）与更新说明，比对 `ParseSemanticVersion()`；
+2. **三重视觉引导交互**：
+   - **顶部卡片**：主标题右侧新增高亮 M3 胶囊按钮 `btnUpdateNotice`，发现新版时醒目提示 `[ 新版本 vX.X.X (点此升级) ]`；
+   - **关于选项卡**：版权卡片内新增 `[ 检查最新版本 ]`，支持用户随时手动发起检测并弹窗提示；
+   - **底部状态栏**：发现新版时，底部 `[ 请作者喝瓶冰阔乐 ]` 自动切换为高亮翠绿提示 `[ 发现新版本 vX.X.X，点击立即一键升级 ]`，点击直达升级窗体；
+3. **原生下载窗体与无痕原子替换流水线**：
+   - 实现 `UpdateDownloadForm` 现代深色对话框，异步展示下载字节与百分比进度（如 `已下载: 4.5 MB / 9.9 MB (45%)`）；
+   - 下载完毕后生成标准 GBK + CRLF 批处理过渡脚本 `antigravity_hans_update.bat`；
+   - 批处理循环探测原进程句柄释放 -> `copy /y` 或 `move /y` 原地原子覆盖 -> 重新启动新版 -> `(goto) 2>nul & del /f /q "%~f0"` 脚本自毁；
+4. **单一权威桌面交付物编译与核验**：
+   - 调用系统原生 `csc.exe` 重新脱机编译，全量内嵌 `core_patched_asar`、`core_official_backup`、`zh_engine_snippet_js` 与 `sponsor_qr_png`；
+   - 桌面唯一权威交付物：`D:\Users\MoFenginto\Desktop\Antigravity汉化管理小工具.exe`；
+   - 标准大小：`9,976,320` 字节（约 9.97 MB）；
+   - SHA256: `D7A29E9597A48C2F6A46EBBD97A8B55B9CAE6D899D7E6F3578B0F4D8BA182419`；
+5. **远端 GitHub 发布包同步**：
+   - Git 代码提交落定，同步推送到 GitHub `master` 与 `main` 双分支；
+   - GitHub Release `v2.27.0` 资产原子更新替换为最新的 `Antigravity-Hans-Manager.exe`（9.97 MB）。
