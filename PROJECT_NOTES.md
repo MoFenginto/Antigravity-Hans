@@ -1784,3 +1784,35 @@
 5. **远端 GitHub 发布包同步**：
    - Git 代码提交落定，同步推送到 GitHub `master` 与 `main` 双分支；
    - GitHub Release `v2.27.0` 资产原子更新替换为最新的 `Antigravity-Hans-Manager.exe`（9.97 MB）。
+
+---
+
+## 2026-10-28: 原生右键上下文菜单拦截与全时序相对时间戳深度修复
+
+### 1. 核心需求与排查根因 (Root Cause Truth)
+1. **“4m ag0” 的技术真相**：
+   - 用户截图中的 `4m ag0` 实际为 `4m ago`（末尾是英文字母 `o` 而非数字 `0`，因界面等宽字体渲染形似 0）；
+   - 语义为 **“4 分钟前” (4 minutes ago)**，同类还有 `1mo ago`（1 个月前）、`6m ago`（6 分钟前）；
+   - 此前未被汉化的根因：
+     - 历史正则中误将 `(\d+)` 遗失转义写成了 `(d+)`，导致纯数字时间戳无法匹配；
+     - 消息流容器的只读剪枝逻辑将时间戳所在的 SPAN 误判为正文内容跳过。
+2. **右键原生菜单长期未被汉化的底层真相**：
+   - 经过动态 DOM 爬虫与前端 10MB `main.js` 深度逆向发现，右键菜单（如 `Rename`、`Pin`、`Mark Unread`、`Copy Project Name`、`Project Settings`、`Show in File Explorer`）根本不在 DOM 树中！
+   - 前端 React 在点击右键时直接调用了 `window.electronNative.showContextMenu(items)`，将 JS 数组发送给 Electron 主进程调用系统原生 `Menu.buildFromTemplate().popup()` 渲染；
+   - 由于主世界中的 `window.electronNative` 被 Electron contextBridge 严格冻结（Frozen & Sealed），页面运行时无法从外部篡改；
+   - **架构级解决方案**：必须在 `preload.js` 初始化阶段，在 `showContextMenu` 进入主进程前通过 `translateNativeContextMenu(items)` 递归转译菜单与子菜单的 `label`！
+
+### 2. 核心成果与落地
+1. **全套右键原生菜单深度拦截 (125 个核心选项)**：
+   - 会话右键：重命名、置顶/取消置顶、标为未读/已读、归档、删除、水平/垂直拆分；
+   - 项目右键：复制项目名称、项目设置、在文件资源管理器中显示、删除项目、按项目分组；
+   - 文本选区：复制、剪切、粘贴、全选、引用选中文本、批注选中文本、复制消息等；
+2. **全时序动态相对时间与工作耗时修复**：
+   - 修复秒（s）、分（m）、时（h）、天（d）、周（w）、月（mo）、年（y）与刚刚（just now）的精准时间正则；
+   - 修复 `Worked for 5m` -> `已工作 5 分钟`，加入 `Prompt Draft`（提示词草稿）、`Running`（运行中）等；
+   - 在 `shouldSkip` 顶部设立系统元数据与时间戳白名单守卫，彻底杜绝外层剪枝误杀；
+3. **权威资产全量同步与发布**：
+   - 重新生成并打包 `resources/app.asar.patched`（4,791,939 字节）；
+   - 原生 `csc.exe` 脱机编译桌面小工具 `D:\Users\MoFenginto\Desktop\Antigravity汉化管理小工具.exe`（9,915,904 字节）；
+   - SHA256: `77ADFE02A07BDE9F3F19C46A358C45E82F4D61DE8CC518E2118E9DD9072B84D5`；
+   - Git 提交落定，同步推送到 GitHub `master` 与 `main`，更新 Release `v2.27.0` 资产。
