@@ -73,31 +73,7 @@ const deepLinkAPI = {
 const agentAPI = {
     updateActiveAgentCount: (count) => electron_1.ipcRenderer.invoke('agent:update-active-count', count),
 };
-const electronNativeAPI = {
-    getZoomLevel: () => electron_1.webFrame.getZoomFactor(),
-    getPathForFile: (file) => electron_1.webUtils.getPathForFile(file),
-    setTitleBarOverlay: (options) => electron_1.ipcRenderer.invoke('window:set-title-bar-overlay', options),
-    minimize: () => electron_1.ipcRenderer.invoke('window:minimize'),
-    maximize: () => electron_1.ipcRenderer.invoke('window:maximize'),
-    unmaximize: () => electron_1.ipcRenderer.invoke('window:unmaximize'),
-    isMaximized: () => electron_1.ipcRenderer.invoke('window:is-maximized'),
-    close: () => electron_1.ipcRenderer.invoke('window:close'),
-    toggleDevTools: () => electron_1.ipcRenderer.invoke('window:toggle-devtools'),
-    zoomIn: () => {
-        void electron_1.ipcRenderer.invoke('window:zoom-in');
-    },
-    zoomOut: () => {
-        void electron_1.ipcRenderer.invoke('window:zoom-out');
-    },
-    resetZoom: () => {
-        void electron_1.ipcRenderer.invoke('window:reset-zoom');
-    },
-    openExternal: (url) => electron_1.ipcRenderer.invoke('shell:open-external', url),
-    revealInFilePicker: (path) => electron_1.ipcRenderer.invoke('shell:reveal-in-file-picker', path),
 
-// ============================================================================
-// Electron 原生右键上下文菜单深度汉化字典 (Native Context Menu Translator)
-// ============================================================================
 const zhNativeContextMenuMap = {
     'Rename': '重命名',
     'Rename This Conversation': '重命名此对话',
@@ -241,6 +217,27 @@ function translateNativeContextMenu(items) {
     });
 }
 
+const electronNativeAPI = {
+    getZoomLevel: () => electron_1.webFrame.getZoomFactor(),
+    getPathForFile: (file) => electron_1.webUtils.getPathForFile(file),
+    setTitleBarOverlay: (options) => electron_1.ipcRenderer.invoke('window:set-title-bar-overlay', options),
+    minimize: () => electron_1.ipcRenderer.invoke('window:minimize'),
+    maximize: () => electron_1.ipcRenderer.invoke('window:maximize'),
+    unmaximize: () => electron_1.ipcRenderer.invoke('window:unmaximize'),
+    isMaximized: () => electron_1.ipcRenderer.invoke('window:is-maximized'),
+    close: () => electron_1.ipcRenderer.invoke('window:close'),
+    toggleDevTools: () => electron_1.ipcRenderer.invoke('window:toggle-devtools'),
+    zoomIn: () => {
+        void electron_1.ipcRenderer.invoke('window:zoom-in');
+    },
+    zoomOut: () => {
+        void electron_1.ipcRenderer.invoke('window:zoom-out');
+    },
+    resetZoom: () => {
+        void electron_1.ipcRenderer.invoke('window:reset-zoom');
+    },
+    openExternal: (url) => electron_1.ipcRenderer.invoke('shell:open-external', url),
+    revealInFilePicker: (path) => electron_1.ipcRenderer.invoke('shell:reveal-in-file-picker', path),
     showContextMenu: (items) => {
         return electron_1.ipcRenderer.invoke('window:show-context-menu', typeof translateNativeContextMenu === 'function' ? translateNativeContextMenu(items) : items);
     },
@@ -10646,22 +10643,7 @@ try {
     function shouldSkip(node) {
       if (!node) return true;
 
-      
-      // 确认删除与归档项目整句精准汉化 (彻底根除夹生饭)
-      [/^Are\s+you\s+sure\s+you\s+want\s+to\s+delete\s+the\s+project\s+["'“](.+?)["'”](?:\s*\?)?$/gi, '您确定要删除项目“$1”吗？'],
-      [/^Are\s+you\s+sure\s+you\s+want\s+to\s+delete\s+the\s+project\s+(.+?)(?:\s*\?)?$/gi, '您确定要删除项目“$1”吗？'],
-      [/^Are\s+you\s+sure\s+you\s+want\s+to\s+delete\s+the\s+(.+?)(?:\s*\?)?$/gi, '您确定要删除“$1”吗？'],
-      [/^Are\s+you\s+sure\s+you\s+want\s+to\s+delete\s+(.+?)(?:\s*\?)?$/gi, '您确定要删除“$1”吗？'],
-      [/^Are\s+you\s+sure\s+you\s+want\s+to\s+archive\s+the\s+project\s+["'“](.+?)["'”](?:\s*\?)?$/gi, '您确定要归档项目“$1”吗？'],
-      [/^Are\s+you\s+sure\s+you\s+want\s+to\s+archive\s+the\s+project\s+(.+?)(?:\s*\?)?$/gi, '您确定要归档项目“$1”吗？'],
-      [/^Are\s+you\s+sure\s+you\s+want\s+to\s+archive\s+the\s+(.+?)(?:\s*\?)?$/gi, '您确定要归档“$1”吗？'],
-      [/^This\s+will\s+permanently\s+delete\s+(\d+)\s+active\s+conversations?\s+within\s+it\.?$/gi, '这将永久删除其中的 $1 个活动对话。'],
-      [/^This\s+will\s+permanently\s+delete\s+all\s+conversations\s+within\s+it\.?$/gi, '这将永久删除其中的所有对话。'],
-      [/^This\s+will\s+permanently\s+delete\s+this\s+conversation\s+and\s+all\s+its\s+history\.?$/gi, '这将永久删除此对话及其所有历史记录。'],
-      [/^确定要delete the吗？\s*project\s+(.+?)\?$/gi, '您确定要删除项目“$1”吗？'],
-      [/^This will permanently delete (\d+) 活动对话 within it\.?$/gi, '这将永久删除其中的 $1 个活动对话。'],
-    
-// 【核心系统元数据/状态时间标签放行白名单】
+      // 【核心系统元数据/状态时间标签放行白名单】
       if (node.nodeType === Node.TEXT_NODE && node.nodeValue) {
         const nv = node.nodeValue.trim();
         if (/^(\d+\s*[smhdw]|1mo|\d+mo|\d+y|just now)\s+ago$/i.test(nv) || /^Worked for\s+\d+/i.test(nv) || nv === 'Prompt Draft' || nv === 'Running' || nv === 'Copy' || nv === 'Rename' || nv === 'Delete') {
