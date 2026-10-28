@@ -10386,6 +10386,15 @@ try {
 
     function shouldSkip(node) {
       if (!node) return true;
+
+      // 【核心系统元数据/状态时间标签放行白名单】
+      if (node.nodeType === Node.TEXT_NODE && node.nodeValue) {
+        const nv = node.nodeValue.trim();
+        if (/^(\d+\s*[smhdw]|1mo|\d+mo|\d+y|just now)\s+ago$/i.test(nv) || /^Worked for\s+\d+/i.test(nv) || nv === 'Prompt Draft' || nv === 'Running' || nv === 'Copy' || nv === 'Rename' || nv === 'Delete') {
+          return false;
+        }
+      }
+
       const element = node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement;
       if (!element) return false;
 

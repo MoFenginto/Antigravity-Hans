@@ -94,7 +94,156 @@ const electronNativeAPI = {
     },
     openExternal: (url) => electron_1.ipcRenderer.invoke('shell:open-external', url),
     revealInFilePicker: (path) => electron_1.ipcRenderer.invoke('shell:reveal-in-file-picker', path),
-    showContextMenu: (items) => electron_1.ipcRenderer.invoke('window:show-context-menu', items),
+
+// ============================================================================
+// Electron 原生右键上下文菜单深度汉化字典 (Native Context Menu Translator)
+// ============================================================================
+const zhNativeContextMenuMap = {
+    'Rename': '重命名',
+    'Rename This Conversation': '重命名此对话',
+    'Pin': '置顶',
+    'Unpin': '取消置顶',
+    'Pin This Conversation': '置顶此对话',
+    'Unpin This Conversation': '取消置顶此对话',
+    'Mark Unread': '标记为未读',
+    'Mark as Unread': '标记为未读',
+    'Mark This Conversation as Unread': '将此对话标记为未读',
+    'Mark as Read': '标记为已读',
+    'Mark All as Read': '全部标记为已读',
+    'Mark This Conversation as Read': '将此对话标记为已读',
+    'Archive': '归档',
+    'Archive This Conversation': '归档此对话',
+    'Archive project': '归档项目',
+    'Archive Workspace': '归档工作区',
+    'Archive / Restore': '归档 / 恢复',
+    'Delete': '删除',
+    'Delete Conversation': '删除对话',
+    'Delete Permanently': '永久删除',
+    'Delete Project': '删除项目',
+    'Delete Handler': '删除处理器',
+    'Delete Hook': '删除钩子',
+    'Delete Task': '删除任务',
+    'Copy Project Name': '复制项目名称',
+    'Project Settings': '项目设置',
+    'Show in File Explorer': '在文件资源管理器中显示',
+    'Create Project': '创建项目',
+    'New Project': '新建项目',
+    'New Remote Project': '新建远程项目',
+    'Group By Project': '按项目分组',
+    'Sidebar grouped by project': '侧边栏按项目分组',
+    'Updated sidebar grouping': '更新侧边栏分组',
+    'Copy': '复制',
+    'Cut': '剪切',
+    'Paste': '粘贴',
+    'Select All': '全选',
+    'Quote Selection': '引用选中文本',
+    'Comment on Selection': '批注选中文本',
+    'Copy Message': '复制消息',
+    'Copy Conversation Markdown': '复制对话为 Markdown',
+    'Copy Conversation ID': '复制对话 ID',
+    'Copy File Name': '复制文件名',
+    'Copy File Path': '复制文件路径',
+    'Copy Path': '复制路径',
+    'Copy Link': '复制链接',
+    'Copy Link Address': '复制链接地址',
+    'Copy Image': '复制图片',
+    'Copy Image Address': '复制图片地址',
+    'Copy Config File Path': '复制配置文件路径',
+    'Copy Trajectory ID': '复制轨迹 ID',
+    'Copy debug info': '复制调试信息',
+    'Split': '拆分',
+    'Split Right': '向右拆分',
+    'Split Down': '向下拆分',
+    'Split Terminal': '拆分终端',
+    'Split Conversation Horizontally': '水平拆分对话',
+    'Split Conversation Vertically': '垂直拆分对话',
+    'Equalize Split Panes': '均分拆分窗格',
+    'Remove from Split': '从拆分中移除',
+    'Close': '关闭',
+    'Close Tab': '关闭标签页',
+    'Close Other Tabs': '关闭其他标签页',
+    'Close Tabs to the Right': '关闭右侧标签页',
+    'Close Terminal Tab': '关闭终端标签页',
+    'New Terminal Tab': '新建终端标签页',
+    'Open': '打开',
+    'Open Command Palette': '打开命令面板',
+    'Open Commit Graph': '打开提交图',
+    'Open Conversation': '打开对话',
+    'Open Conversation History': '打开对话历史',
+    'Open Conversation Picker': '打开对话选择器',
+    'Open File Search': '打开文件搜索',
+    'Open Folder': '打开文件夹',
+    'Open Folder (Interactive)': '打开文件夹 (交互式)',
+    'Open Image in New Tab': '在新标签页中打开图片',
+    'Open Keyboard Shortcuts': '打开键盘快捷键',
+    'Open Link in External Browser': '在外部浏览器中打开链接',
+    'Open Link in New Tab': '在新标签页中打开链接',
+    'Open in Built-in Browser': '在内置浏览器中打开',
+    'Open in Code Search': '在代码搜索中打开',
+    'Open in External Browser': '在外部浏览器中打开',
+    'Open in Preview Pane': '在预览面板中打开',
+    'Open in Preview Tab': '在预览标签页中打开',
+    'Open with External Browser': '使用外部浏览器打开',
+    'Open Preferences': '打开偏好设置',
+    'Open Settings': '打开设置',
+    'Open Trajectory Debug View': '打开轨迹调试视图',
+    'Open Workspace Selector': '打开工作区选择器',
+    'Terminal: Add to Chat': '终端：添加到对话',
+    'Terminal Command Auto Execution': '终端命令自动执行',
+    'Terminal Commands': '终端命令',
+    'Allow List Terminal Commands': '白名单终端命令',
+    'Deny List Terminal Commands': '黑名单终端命令',
+    'Enable Terminal Sandbox': '启用终端沙箱',
+    'Enable Sandbox Mode (Preview)': '启用沙箱模式 (预览)',
+    'Browser Javascript Execution Policy': '浏览器 JavaScript 执行策略',
+    'Plan Review Policy': '计划审查策略',
+    'Review Policy': '审查策略',
+    'Request Review': '请求审查',
+    'Review': '审查',
+    'More options': '更多选项',
+    'Pin conversation': '置顶对话',
+    'Archive conversation': '归档对话',
+    'Delete conversation': '删除对话',
+    'Advanced Settings': '高级设置',
+    'Reload': '重新加载',
+    'Overview': '概览',
+    'Markdown Artifact Width': 'Markdown 产物宽度',
+    'Select Model': '选择模型',
+    'Select another model': '选择其他模型',
+    'Select Next Conversation': '选择下一个对话',
+    'Select Previous Conversation': '选择上一个对话',
+    'Toggle Environment Selector': '切换环境选择器',
+    'Toggle File Viewer': '切换文件查看器',
+    'Toggle Model Selector': '切换模型选择器',
+    'Toggle Overview Panel': '切换概览面板',
+    'Toggle Project Selector': '切换项目选择器',
+    'Toggle Terminal': '切换终端',
+    'Refresh gcert Credentials': '刷新 gcert 凭据',
+    'Marketing Emails': '营销邮件',
+    'Marketplace': '插件市场'
+};
+
+function translateNativeContextMenu(items) {
+    if (!Array.isArray(items)) return items;
+    return items.map(item => {
+        if (!item || typeof item !== 'object') return item;
+        const copy = Object.assign({}, item);
+        if (typeof copy.label === 'string') {
+            const trimmed = copy.label.trim();
+            if (zhNativeContextMenuMap[trimmed]) {
+                copy.label = copy.label.replace(trimmed, zhNativeContextMenuMap[trimmed]);
+            }
+        }
+        if (Array.isArray(copy.submenu)) {
+            copy.submenu = translateNativeContextMenu(copy.submenu);
+        }
+        return copy;
+    });
+}
+
+    showContextMenu: (items) => {
+        return electron_1.ipcRenderer.invoke('window:show-context-menu', typeof translateNativeContextMenu === 'function' ? translateNativeContextMenu(items) : items);
+    },
     closeContextMenu: () => electron_1.ipcRenderer.invoke('window:close-context-menu'),
 };
 const ideAPI = {
@@ -10508,6 +10657,15 @@ try {
 
     function shouldSkip(node) {
       if (!node) return true;
+
+      // 【核心系统元数据/状态时间标签放行白名单】
+      if (node.nodeType === Node.TEXT_NODE && node.nodeValue) {
+        const nv = node.nodeValue.trim();
+        if (/^(\d+\s*[smhdw]|1mo|\d+mo|\d+y|just now)\s+ago$/i.test(nv) || /^Worked for\s+\d+/i.test(nv) || nv === 'Prompt Draft' || nv === 'Running' || nv === 'Copy' || nv === 'Rename' || nv === 'Delete') {
+          return false;
+        }
+      }
+
       const element = node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement;
       if (!element) return false;
 
