@@ -1147,6 +1147,14 @@ namespace AntigravityHansManager
         private System.Windows.Forms.Timer pollTimer;
         private bool memoryZhEnabled = true;
 
+        public const string APP_VERSION = "v2.27.0";
+        private string latestVersion = "";
+        private string latestDownloadUrl = "";
+        private string latestReleaseNotes = "";
+        private bool isCheckingUpdate = false;
+        private M3Button btnUpdateNotice;
+        private M3Button btnCheckUpdate;
+
         public MainForm()
         {
             InitializeComponent();
@@ -1155,11 +1163,12 @@ namespace AntigravityHansManager
             InitDictionaryData();
             RefreshState();
             StartBackgroundPoll();
+            CheckUpdateAsync(true);
         }
 
         private void InitializeComponent()
         {
-            Text = "Antigravity 汉化工具";
+            Text = "Antigravity 汉化工具 " + APP_VERSION;
             ClientSize = new Size(640, 740);
             MinimumSize = new Size(640, 740);
             MaximumSize = new Size(640, 740);
@@ -1198,12 +1207,21 @@ namespace AntigravityHansManager
             cardHeader.Size = new Size(600, 76);
 
             lblAppTitle = new Label();
-            lblAppTitle.Text = "Antigravity 汉化工具";
-            lblAppTitle.Font = new Font("Microsoft YaHei UI", 12.5f, FontStyle.Bold);
+            lblAppTitle.Text = "Antigravity 汉化工具 " + APP_VERSION;
+            lblAppTitle.Font = new Font("Microsoft YaHei UI", 12f, FontStyle.Bold);
             lblAppTitle.ForeColor = Color.FromArgb(243, 244, 246);
             lblAppTitle.BackColor = Color.FromArgb(25, 26, 30);
             lblAppTitle.Location = new Point(18, 14);
             lblAppTitle.AutoSize = true;
+
+            btnUpdateNotice = new M3Button();
+            btnUpdateNotice.Text = "发现新版本 (点击升级)";
+            btnUpdateNotice.Font = new Font("Microsoft YaHei UI", 8.5f, FontStyle.Bold);
+            btnUpdateNotice.Location = new Point(236, 12);
+            btnUpdateNotice.Size = new Size(156, 28);
+            btnUpdateNotice.IsPrimary = true;
+            btnUpdateNotice.Visible = false;
+            btnUpdateNotice.Click += (s, e) => PromptUpdateDialog();
 
             lblSubTitle = new Label();
             lblSubTitle.Text = "正在侦测本地客户端与运行状态...";
@@ -1218,6 +1236,7 @@ namespace AntigravityHansManager
             pillStatus.Size = new Size(182, 30);
 
             cardHeader.Controls.Add(lblAppTitle);
+            cardHeader.Controls.Add(btnUpdateNotice);
             cardHeader.Controls.Add(lblSubTitle);
             cardHeader.Controls.Add(pillStatus);
             Controls.Add(cardHeader);
@@ -1664,11 +1683,19 @@ namespace AntigravityHansManager
             lblCopyrightBody.Location = new Point(16, 34);
             lblCopyrightBody.Size = new Size(568, 125);
 
+            btnCheckUpdate = new M3Button();
+            btnCheckUpdate.Text = "检查最新版本";
+            btnCheckUpdate.Font = new Font("Microsoft YaHei UI", 9.5f, FontStyle.Bold);
+            btnCheckUpdate.Location = new Point(30, 168);
+            btnCheckUpdate.Size = new Size(250, 36);
+            btnCheckUpdate.Click += (s, e) => CheckUpdateAsync(false);
+
             btnOpenGitHub = new M3Button();
-            btnOpenGitHub.Text = "访问 GitHub 官方主页 (点个 Star 支持)";
+            btnOpenGitHub.Text = "访问 GitHub 官方主页 (Star 支持)";
             btnOpenGitHub.IsPrimary = true;
-            btnOpenGitHub.Location = new Point(160, 168);
-            btnOpenGitHub.Size = new Size(280, 36);
+            btnOpenGitHub.Font = new Font("Microsoft YaHei UI", 9.5f, FontStyle.Bold);
+            btnOpenGitHub.Location = new Point(310, 168);
+            btnOpenGitHub.Size = new Size(260, 36);
             btnOpenGitHub.Click += (s, e) => {
                 try {
                     Process.Start("https://github.com/MoFenginto/Antigravity-Hans");
@@ -1677,6 +1704,7 @@ namespace AntigravityHansManager
 
             cardCopyright.Controls.Add(lblCopyrightHeader);
             cardCopyright.Controls.Add(lblCopyrightBody);
+            cardCopyright.Controls.Add(btnCheckUpdate);
             cardCopyright.Controls.Add(btnOpenGitHub);
             panelAbout.Controls.Add(cardCopyright);
 
@@ -1694,7 +1722,16 @@ namespace AntigravityHansManager
             btnSponsorFooter.Size = new Size(600, 24);
             btnSponsorFooter.TextAlign = ContentAlignment.MiddleCenter;
             btnSponsorFooter.Cursor = Cursors.Hand;
-            btnSponsorFooter.Click += (s, e) => SwitchTab(2);
+            btnSponsorFooter.Click += (s, e) => {
+                if (!string.IsNullOrEmpty(latestVersion))
+                {
+                    PromptUpdateDialog();
+                }
+                else
+                {
+                    SwitchTab(2);
+                }
+            };
             Controls.Add(btnSponsorFooter);
 
             lblTip = new Label();
@@ -2837,6 +2874,425 @@ namespace AntigravityHansManager
                 }
             }
             catch {}
+        }
+        #region 在线更新引擎 (Auto Updater)
+
+        public void CheckUpdateAsync(bool silent)
+        {
+            if (isCheckingUpdate) return;
+            isCheckingUpdate = true;
+            if (!silent && btnCheckUpdate != null)
+            {
+                btnCheckUpdate.Text = "正在检查更新...";
+                btnCheckUpdate.Enabled = false;
+            }
+
+            Task.Factory.StartNew(() =>
+            {
+                string newVer = "";
+                string downloadUrl = "";
+                string notes = "";
+                bool hasUpdate = false;
+                string errorMsg = "";
+
+                try
+                {
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | (SecurityProtocolType)3072;
+                    HttpWebRequest req = (HttpWebRequest)WebRequest.Create("https://api.github.com/repos/MoFenginto/Antigravity-Hans/releases/latest");
+                    req.Method = "GET";
+                    req.UserAgent = "Antigravity-Hans-Manager/" + APP_VERSION;
+                    req.Accept = "application/vnd.github.v3+json";
+                    req.Timeout = 6000;
+                    req.ReadWriteTimeout = 6000;
+
+                    using (HttpWebResponse resp = (HttpWebResponse)req.GetResponse())
+                    {
+                        if (resp.StatusCode == HttpStatusCode.OK)
+                        {
+                            using (StreamReader reader = new StreamReader(resp.GetResponseStream(), Encoding.UTF8))
+                            {
+                                string json = reader.ReadToEnd();
+
+                                Match mTag = Regex.Match(json, "\"tag_name\"\\s*:\\s*\"([^\"]+)\"");
+                                if (mTag.Success) newVer = mTag.Groups[1].Value.Trim();
+
+                                Match mBody = Regex.Match(json, "\"body\"\\s*:\\s*\"((?:[^\"\\\\]|\\\\.)*)\"");
+                                if (mBody.Success)
+                                {
+                                    try
+                                    {
+                                        notes = Regex.Unescape(mBody.Groups[1].Value);
+                                    }
+                                    catch
+                                    {
+                                        notes = mBody.Groups[1].Value;
+                                    }
+                                }
+
+                                MatchCollection mUrls = Regex.Matches(json, "\"browser_download_url\"\\s*:\\s*\"([^\"]+\\.exe)\"");
+                                foreach (Match m in mUrls)
+                                {
+                                    string url = m.Groups[1].Value;
+                                    if (url.IndexOf("Antigravity", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                                        url.IndexOf("Manager", StringComparison.OrdinalIgnoreCase) >= 0)
+                                    {
+                                        downloadUrl = url;
+                                        break;
+                                    }
+                                }
+                                if (string.IsNullOrEmpty(downloadUrl) && mUrls.Count > 0)
+                                {
+                                    downloadUrl = mUrls[0].Groups[1].Value;
+                                }
+
+                                if (string.IsNullOrEmpty(downloadUrl))
+                                {
+                                    Match mHtml = Regex.Match(json, "\"html_url\"\\s*:\\s*\"([^\"]+)\"");
+                                    if (mHtml.Success) downloadUrl = mHtml.Groups[1].Value;
+                                }
+
+                                if (!string.IsNullOrEmpty(newVer))
+                                {
+                                    hasUpdate = IsNewerVersion(APP_VERSION, newVer);
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    errorMsg = ex.Message;
+                }
+
+                try
+                {
+                    BeginInvoke(new Action(() =>
+                    {
+                        isCheckingUpdate = false;
+                        if (btnCheckUpdate != null)
+                        {
+                            btnCheckUpdate.Text = "检查最新版本";
+                            btnCheckUpdate.Enabled = true;
+                        }
+
+                        if (hasUpdate)
+                        {
+                            latestVersion = newVer;
+                            latestDownloadUrl = downloadUrl;
+                            latestReleaseNotes = notes;
+
+                            if (btnUpdateNotice != null)
+                            {
+                                btnUpdateNotice.Text = "新版 " + newVer + " (点此升级)";
+                                btnUpdateNotice.Visible = true;
+                            }
+
+                            if (btnSponsorFooter != null)
+                            {
+                                btnSponsorFooter.Text = "[ 发现新版本 " + newVer + "，点击立即一键升级 ]";
+                                btnSponsorFooter.ForeColor = Color.FromArgb(52, 211, 153);
+                            }
+
+                            if (!silent)
+                            {
+                                PromptUpdateDialog();
+                            }
+                        }
+                        else
+                        {
+                            if (!silent)
+                            {
+                                if (!string.IsNullOrEmpty(errorMsg))
+                                {
+                                    MessageBox.Show("检查更新遇到网络问题，请稍后再试或访问 GitHub 主页。\\n\\n详情: " + errorMsg, "检查更新", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("当前已是最新版本 (" + APP_VERSION + ")，无需更新。", "检查更新", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                            }
+                        }
+                    }));
+                }
+                catch {}
+            });
+        }
+
+        public static bool IsNewerVersion(string currentVer, string latestVer)
+        {
+            try
+            {
+                Version cur = ParseSemanticVersion(currentVer);
+                Version lat = ParseSemanticVersion(latestVer);
+                return lat > cur;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private static Version ParseSemanticVersion(string ver)
+        {
+            if (string.IsNullOrEmpty(ver)) return new Version(0, 0, 0, 0);
+            string clean = Regex.Replace(ver.Trim(), @"^[^\d]+", "");
+            string[] rawParts = clean.Split('.');
+            int major = 0, minor = 0, build = 0, rev = 0;
+            if (rawParts.Length > 0) int.TryParse(Regex.Replace(rawParts[0], @"\D", ""), out major);
+            if (rawParts.Length > 1) int.TryParse(Regex.Replace(rawParts[1], @"\D", ""), out minor);
+            if (rawParts.Length > 2) int.TryParse(Regex.Replace(rawParts[2], @"\D", ""), out build);
+            if (rawParts.Length > 3) int.TryParse(Regex.Replace(rawParts[3], @"\D", ""), out rev);
+            return new Version(major, minor, build, rev);
+        }
+
+        private void PromptUpdateDialog()
+        {
+            if (string.IsNullOrEmpty(latestVersion)) return;
+
+            string msg = "检测到 Antigravity 汉化小工具存在新版本！\\n\\n"
+                       + "本地当前版本：" + APP_VERSION + "\\n"
+                       + "远端最新版本：" + latestVersion + "\\n\\n";
+
+            if (!string.IsNullOrEmpty(latestReleaseNotes))
+            {
+                string displayNotes = latestReleaseNotes.Replace("\\r", "");
+                if (displayNotes.Length > 320) displayNotes = displayNotes.Substring(0, 320) + "\\n...";
+                msg += "【更新说明】：\\n" + displayNotes + "\\n\\n";
+            }
+
+            msg += "是否立即自动下载并完成无痕原地热升级？\\n（更新过程将自动重启小工具，不影响正在运行的 Antigravity 客户端）";
+
+            DialogResult dr = MessageBox.Show(msg, "发现新版本 " + latestVersion, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            if (dr == DialogResult.Yes)
+            {
+                StartSelfUpdateDownload(latestDownloadUrl, latestVersion);
+            }
+        }
+
+        private void StartSelfUpdateDownload(string downloadUrl, string versionTag)
+        {
+            if (string.IsNullOrEmpty(downloadUrl) || !downloadUrl.EndsWith(".exe", StringComparison.OrdinalIgnoreCase))
+            {
+                DialogResult dr = MessageBox.Show("未能在 Releases 中直接找到单文件安装包，是否打开网页手动下载？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dr == DialogResult.Yes)
+                {
+                    try { Process.Start(string.IsNullOrEmpty(downloadUrl) ? "https://github.com/MoFenginto/Antigravity-Hans/releases/latest" : downloadUrl); } catch {}
+                }
+                return;
+            }
+
+            try
+            {
+                using (UpdateDownloadForm form = new UpdateDownloadForm(downloadUrl, Application.ExecutablePath, versionTag))
+                {
+                    form.ShowDialog(this);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("启动更新器失败: " + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public static void ExecuteSelfUpdateBat(string newExePath)
+        {
+            try
+            {
+                string currentExe = Application.ExecutablePath;
+                string exeName = Path.GetFileName(currentExe);
+                string tempBat = Path.Combine(Path.GetTempPath(), "antigravity_hans_update.bat");
+
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine("@echo off");
+                sb.AppendLine("chcp 936 >nul 2>&1");
+                sb.AppendLine("title 正在更新 Antigravity 汉化小工具...");
+                sb.AppendLine("set RETRIES=0");
+                sb.AppendLine(":WAIT_LOOP");
+                sb.AppendLine("tasklist /fi \"imagename eq " + exeName + "\" 2>nul | find /i \"" + exeName + "\" >nul");
+                sb.AppendLine("if not errorlevel 1 (");
+                sb.AppendLine("    timeout /t 1 /nobreak >nul 2>&1");
+                sb.AppendLine("    set /a RETRIES+=1");
+                sb.AppendLine("    if %RETRIES% leq 15 goto WAIT_LOOP");
+                sb.AppendLine("    taskkill /f /im \"" + exeName + "\" >nul 2>&1");
+                sb.AppendLine(")");
+                sb.AppendLine("timeout /t 1 /nobreak >nul 2>&1");
+                sb.AppendLine("copy /y \"" + newExePath + "\" \"" + currentExe + "\" >nul 2>&1");
+                sb.AppendLine("if errorlevel 1 (");
+                sb.AppendLine("    move /y \"" + newExePath + "\" \"" + currentExe + "\" >nul 2>&1");
+                sb.AppendLine(")");
+                sb.AppendLine("del /f /q \"" + newExePath + "\" >nul 2>&1");
+                sb.AppendLine("start \"\" \"" + currentExe + "\"");
+                sb.AppendLine("(goto) 2>nul & del /f /q \"%~f0\"");
+
+                File.WriteAllText(tempBat, sb.ToString(), Encoding.GetEncoding(936));
+
+                ProcessStartInfo psi = new ProcessStartInfo();
+                psi.FileName = tempBat;
+                psi.CreateNoWindow = true;
+                psi.UseShellExecute = false;
+                psi.WindowStyle = ProcessWindowStyle.Hidden;
+                Process.Start(psi);
+
+                Environment.Exit(0);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("启动自动更新脚本失败: " + ex.Message, "更新错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        #endregion
+    }
+
+    public class UpdateDownloadForm : Form
+    {
+        private Label lblTitle;
+        private Label lblStatus;
+        private ProgressBar progressBar;
+        private M3Button btnCancel;
+        private WebClient webClient;
+        private string downloadUrl;
+        private string targetExePath;
+        private string tempNewExe;
+
+        public UpdateDownloadForm(string url, string targetPath, string versionTag)
+        {
+            downloadUrl = url;
+            targetExePath = targetPath;
+            tempNewExe = Path.Combine(Path.GetTempPath(), "Antigravity-Hans-Manager.new.exe");
+
+            Text = "在线更新 - Antigravity 汉化小工具";
+            ClientSize = new Size(460, 180);
+            StartPosition = FormStartPosition.CenterParent;
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
+            MinimizeBox = false;
+            BackColor = Color.FromArgb(20, 21, 24);
+            ForeColor = Color.FromArgb(227, 227, 227);
+            Font = new Font("Microsoft YaHei UI", 9f, FontStyle.Regular);
+
+            lblTitle = new Label();
+            lblTitle.Text = "正在下载新版本 " + versionTag + "...";
+            lblTitle.Font = new Font("Microsoft YaHei UI", 10.5f, FontStyle.Bold);
+            lblTitle.ForeColor = Color.FromArgb(243, 244, 246);
+            lblTitle.Location = new Point(24, 20);
+            lblTitle.Size = new Size(410, 24);
+
+            lblStatus = new Label();
+            lblStatus.Text = "正在连接 GitHub 下载节点，请稍候...";
+            lblStatus.Font = new Font("Microsoft YaHei UI", 8.5f);
+            lblStatus.ForeColor = Color.FromArgb(156, 163, 175);
+            lblStatus.Location = new Point(25, 48);
+            lblStatus.Size = new Size(410, 20);
+
+            progressBar = new ProgressBar();
+            progressBar.Location = new Point(25, 76);
+            progressBar.Size = new Size(405, 22);
+            progressBar.Minimum = 0;
+            progressBar.Maximum = 100;
+            progressBar.Value = 0;
+
+            btnCancel = new M3Button();
+            btnCancel.Text = "取消";
+            btnCancel.Location = new Point(335, 120);
+            btnCancel.Size = new Size(95, 34);
+            btnCancel.Click += (s, e) => {
+                if (webClient != null && webClient.IsBusy) webClient.CancelAsync();
+                DialogResult = DialogResult.Cancel;
+                Close();
+            };
+
+            Controls.Add(lblTitle);
+            Controls.Add(lblStatus);
+            Controls.Add(progressBar);
+            Controls.Add(btnCancel);
+
+            Shown += (s, e) => StartDownload();
+        }
+
+        private void StartDownload()
+        {
+            try
+            {
+                if (File.Exists(tempNewExe))
+                {
+                    try { File.Delete(tempNewExe); } catch {}
+                }
+
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | (SecurityProtocolType)3072;
+                webClient = new WebClient();
+                webClient.Headers.Add("User-Agent", "Antigravity-Hans-Downloader");
+
+                webClient.DownloadProgressChanged += (s, e) => {
+                    progressBar.Value = Math.Min(100, Math.Max(0, e.ProgressPercentage));
+                    double receivedMb = (double)e.BytesReceived / 1024.0 / 1024.0;
+                    double totalMb = (double)e.TotalBytesToReceive / 1024.0 / 1024.0;
+                    if (totalMb > 0.1)
+                    {
+                        lblStatus.Text = string.Format("已下载: {0:F1} MB / {1:F1} MB ({2}%)", receivedMb, totalMb, e.ProgressPercentage);
+                    }
+                    else
+                    {
+                        lblStatus.Text = string.Format("已下载: {0:F1} MB...", receivedMb);
+                    }
+                };
+
+                webClient.DownloadFileCompleted += (s, e) => {
+                    if (e.Cancelled)
+                    {
+                        try { if (File.Exists(tempNewExe)) File.Delete(tempNewExe); } catch {}
+                        return;
+                    }
+
+                    if (e.Error != null)
+                    {
+                        try { if (File.Exists(tempNewExe)) File.Delete(tempNewExe); } catch {}
+                        DialogResult dr = MessageBox.Show("下载更新遇到错误: " + e.Error.Message + "\\n\\n是否打开 GitHub Releases 页面直接手动下载？", "更新失败", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        if (dr == DialogResult.Yes)
+                        {
+                            try { Process.Start(downloadUrl); } catch {}
+                        }
+                        Close();
+                        return;
+                    }
+
+                    FileInfo fi = new FileInfo(tempNewExe);
+                    if (!fi.Exists || fi.Length < 500 * 1024)
+                    {
+                        try { if (File.Exists(tempNewExe)) File.Delete(tempNewExe); } catch {}
+                        MessageBox.Show("下载的文件大小异常，请稍后再试或前往 GitHub 手动下载。", "更新提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        Close();
+                        return;
+                    }
+
+                    lblStatus.Text = "下载完成，正在准备原子替换并重启...";
+                    progressBar.Value = 100;
+                    btnCancel.Enabled = false;
+
+                    MainForm.ExecuteSelfUpdateBat(tempNewExe);
+                };
+
+                webClient.DownloadFileAsync(new Uri(downloadUrl), tempNewExe);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("初始化下载失败: " + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
+            }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (webClient != null)
+                {
+                    if (webClient.IsBusy) webClient.CancelAsync();
+                    webClient.Dispose();
+                    webClient = null;
+                }
+            }
+            base.Dispose(disposing);
         }
     }
 }
