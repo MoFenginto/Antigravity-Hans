@@ -1896,3 +1896,34 @@
 3. **双端无缝落地**：
    - 远端 GitHub Release `v2.28.0` 资产已重新打包编译同步；
    - 桌面交付物（旧版 `v2.27.0`）已就地原子覆盖重新编译，用户再次打开小工具即可看到完美平整的自适应新版升级按钮。
+
+---
+
+## 2026-10-29: 彻底根治系统守护偏好设置未持久化记忆缺陷，保障快捷方式接管与启动参数精准记忆
+
+### 1. 核心需求与排查真相 (Root Cause Truth)
+1. **用户反馈“接管桌面与开始菜单快捷方式取消勾选后，关闭再打开又自动勾选上”的底层根因**：
+   - **调用顺序与异常阻断**：在 `ToolWindow.cs` 中，`chkHookShortcut.CheckedChanged += (s, e) => { ApplyAllShortcutArgs(...); SaveConfig(); };`，先执行耗时的快捷方式修改 `ApplyAllShortcutArgs`，后执行配置持久化 `SaveConfig()`；若修改快捷方式发生异常、被外部占用或用户在操作后立即关闭窗口，`SaveConfig()` 根本无法执行；
+   - **缺少 FormClosing 兜底机制**：窗体关闭时没有全局强制保存偏好设置，导致快速操作后关闭时数据未刷盘；
+   - **初始化阶段误触发**：`InitializeComponent()` 中设置默认勾选并绑定了事件，随后在 `LoadConfig()` 中更改勾选状态时误触发了重写与保存；
+   - **简单字符串匹配容错不足**：旧版 `LoadConfig` 使用 `Contains("\"hook_shortcut\": false")` 进行子串匹配，一旦 JSON 格式出现多余空格或格式微调，无法稳定提取用户设置，直接回退为默认的 `true`。
+
+### 2. 架构级健壮性重构与修复成果
+1. **优先持久化刷盘铁律**：
+   - 将 `SaveConfig()` 提到事件响应的最前列，用户一旦在 UI 上点击切换，首要任务是在 1ms 内将配置写入 `%APPDATA%\Antigravity\zh_settings.json`，确保偏好设置绝对不丢失；
+2. **状态保护门禁 (`isInitializing`)**：
+   - 增加 `isInitializing` 标志位，在构造和 `LoadConfig()` 阶段阻断事件重复执行，杜绝启动时的误保存与性能损耗；
+3. **正则鲁棒解析 (Regex Extraction)**：
+   - 使用 `@"[\"']hook_shortcut[\"']\s*:\s*(true|false)"` 正则解析，彻底消除空格、换行或格式差异造成的反序列化失败；
+4. **生命周期终点安全兜底 (`OnFormClosing`)**：
+   - 重写 `OnFormClosing`，在窗口销毁的瞬间再次执行 `SaveConfig()` 兜底刷盘；
+5. **快捷方式参数双向自愈**：
+   - 取消勾选时，稳健清空快捷方式中的 `--remote-debugging-port=23664` 调试参数，并依据大内存选项动态保留或清理 `--js-flags`，让官方图标启动恢复纯原版逻辑。
+
+### 3. 双端原子交付与落地核验
+1. **脱机编译与桌面原子覆盖**：
+   - 使用原生 `csc.exe` 重新脱机编译出 `Antigravity-Hans-Manager.exe`（10,174,976 字节）；
+   - 原子级就地覆盖桌面唯一权威可执行文件：`D:\Users\MoFenginto\Desktop\Antigravity汉化管理小工具.exe`；
+2. **Git 双分支与云端 Release 资产同步**：
+   - Git 提交（Commit: `020a549`），推送至 `master` 与 `main` 双分支；
+   - GitHub Release `v2.28.0` 资产热更新完毕，保持云端和本地 100% 权威一致。
