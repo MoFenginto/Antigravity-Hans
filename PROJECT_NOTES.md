@@ -1927,3 +1927,21 @@
 2. **Git 双分支与云端 Release 资产同步**：
    - Git 提交（Commit: `020a549`），推送至 `master` 与 `main` 双分支；
    - GitHub Release `v2.28.0` 资产热更新完毕，保持云端和本地 100% 权威一致。
+
+---
+
+## 2026-10-29: 彻底拔除自动生成桌面快捷方式逻辑，并引入 Win32 全局互斥锁杜绝多进程并发
+
+### 1. 核心需求与排查真相
+1. **取消勾选依然自动生成快捷方式的底层根因**：
+   - 在 `ApplyAllShortcutArgs` 尾部存在一段旧逻辑：`if (!File.Exists(primaryDesktopLnk)) { ... sc.Save(); }`；
+   - 无论用户是否勾选“接管快捷方式”，只要检测到桌面没有快捷方式，便强制在桌面凭空创建一个新的 `Antigravity.lnk`；
+   - **根治措施**：彻底删除该新建快捷方式代码，遵循“只在既有快捷方式上改参，绝不凭空创建”铁律，并主动物理清理刚才被自动生成的桌面快捷方式。
+2. **小工具启动两个进程的底层根因**：
+   - `Program.Main` 缺少 Win32 单实例互斥体保护，若用户连续双击或重复点击，系统会并行拉起两个独立窗口与进程，引发文件占用与状态撕裂；
+   - **根治措施**：引入 `Global\AntigravityHansManager_SingleInstance_Mutex` 全局互斥锁与 Win32 `SetForegroundWindow` / `ShowWindow`。第二次双击时，新进程自动激活既有窗口并秒级退出，从操作系统底层锁死唯一进程。
+
+### 2. 双端无缝交付
+- 原生脱机编译 `Antigravity-Hans-Manager.exe`（10,174,464 字节）；
+- 就地原子覆盖 `D:\Users\MoFenginto\Desktop\Antigravity汉化管理小工具.exe`；
+- Git 提交（Commit: `c916144`），推送至 `master` 与 `main`，同步更新 GitHub Release `v2.28.0` 资产。
