@@ -1147,7 +1147,7 @@ namespace AntigravityHansManager
         private System.Windows.Forms.Timer pollTimer;
         private bool memoryZhEnabled = true;
 
-        public const string APP_VERSION = "v2.27.0";
+        public const string APP_VERSION = "v2.28.0";
         private string latestVersion = "";
         private string latestDownloadUrl = "";
         private string latestReleaseNotes = "";
