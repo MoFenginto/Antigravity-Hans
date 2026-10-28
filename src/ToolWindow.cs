@@ -2275,28 +2275,31 @@ namespace AntigravityHansManager
             try
             {
                 if (!File.Exists(asarPath)) return false;
-                FileInfo fi = new FileInfo(asarPath);
-
-                if (fi.Length == 4486221) return false;
 
                 using (FileStream fs = new FileStream(asarPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                 {
-                    int scanLen = (int)Math.Min(fs.Length, 2097152);
-                    byte[] buf = new byte[scanLen];
-                    int count = fs.Read(buf, 0, buf.Length);
-                    string text = Encoding.UTF8.GetString(buf, 0, count);
-                    if (text.Contains("zhTranslationBridge") ||
-                        text.Contains("__antigravityStandaloneZhInstalled") ||
-                        text.Contains("__ANTIGRAVITY_EXACT__") ||
-                        text.Contains("rawPhrases") ||
-                        text.Contains("继承全局") ||
-                        text.Contains("在此项目中工作时继承您的全局权限"))
+                    if (fs.Length < 32) return false;
+
+                    byte[] headerBuf = new byte[16];
+                    fs.Read(headerBuf, 0, 16);
+                    uint u12 = BitConverter.ToUInt32(headerBuf, 12);
+                    int headerLen = (int)u12;
+                    if (headerLen <= 0 || 16 + headerLen > fs.Length) return false;
+
+                    byte[] jsonBuf = new byte[headerLen];
+                    fs.Read(jsonBuf, 0, headerLen);
+                    string headerJson = Encoding.UTF8.GetString(jsonBuf);
+
+                    MatchCollection matches = Regex.Matches(headerJson, @"""preload\.js""\s*:\s*\{[\s\S]*?""size""\s*:\s*(\d+)");
+                    foreach (Match m in matches)
                     {
-                        return true;
+                        int pSize = int.Parse(m.Groups[1].Value);
+                        if (pSize > 50000)
+                        {
+                            return true;
+                        }
                     }
                 }
-
-                if (fi.Length > 4600000) return true;
                 return false;
             }
             catch
@@ -2768,6 +2771,18 @@ namespace AntigravityHansManager
         private void BtnRestore_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(appPath)) return;
+
+            string resDir = Path.Combine(appPath, "resources");
+            string asarPath = Path.Combine(resDir, "app.asar");
+            string backupPath = Path.Combine(resDir, "app.asar.official_backup");
+
+            if (!CheckIsPatched(asarPath))
+            {
+                RefreshState();
+                MessageBox.Show("当前客户端已经是官方出厂英文原版（未固化修改），无需恢复！\n\n您可以随时在上方开启【安全纯内存静默模式】（零改动），或点击左侧开启【深度固化模式】。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             if (!EnsureProcessClosed()) return;
 
             progressBar.Start();
@@ -2776,10 +2791,6 @@ namespace AntigravityHansManager
 
             try
             {
-                string resDir = Path.Combine(appPath, "resources");
-                string asarPath = Path.Combine(resDir, "app.asar");
-                string backupPath = Path.Combine(resDir, "app.asar.official_backup");
-
                 if (File.Exists(backupPath))
                 {
                     SafeCopyFileWithRetry(backupPath, asarPath, true, 10, 300);
@@ -2793,9 +2804,17 @@ namespace AntigravityHansManager
                     }
                     else
                     {
-                        progressBar.Stop();
-                        MessageBox.Show("未在客户端目录或工具目录中检测到官方出厂备份文件 app.asar.official_backup！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
+                        byte[] officialBytes = ExtractEmbeddedBytes("core_official_backup");
+                        if (officialBytes != null && officialBytes.Length > 0)
+                        {
+                            File.WriteAllBytes(asarPath, officialBytes);
+                        }
+                        else
+                        {
+                            progressBar.Stop();
+                            MessageBox.Show("未在客户端目录或内嵌资源中检测到官方出厂备份文件 app.asar.official_backup！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
                     }
                 }
 
