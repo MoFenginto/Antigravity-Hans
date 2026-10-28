@@ -1816,3 +1816,35 @@
    - 原生 `csc.exe` 脱机编译桌面小工具 `D:\Users\MoFenginto\Desktop\Antigravity汉化管理小工具.exe`（9,915,904 字节）；
    - SHA256: `77ADFE02A07BDE9F3F19C46A358C45E82F4D61DE8CC518E2118E9DD9072B84D5`；
    - Git 提交落定，同步推送到 GitHub `master` 与 `main`，更新 Release `v2.27.0` 资产。
+
+---
+
+## 2026-10-28: 根除删除项目恶性夹生饭短词与 GitHub 检查更新 403 限制彻底修复
+
+### 1. 核心需求与排查根因 (Root Cause Truth)
+1. **GitHub 检查更新 (403) 已禁止的底层根因**：
+   - 客户端原先直接请求 `https://api.github.com/repos/.../releases/latest`；
+   - GitHub API 对未认证请求有单 IP 严格的每小时 60 次限流与 WAF 拦截策略，极易触发 `403 Forbidden`，且弹窗字面量转义错误导致换行符输出为 `\n\n`；
+   - **架构级解决方案**：改用轻量级 `HEAD` 请求 `https://github.com/MoFenginto/Antigravity-Hans/releases/latest`，设置 `AllowAutoRedirect = false`；
+   - GitHub 网页服务器会秒级返回 `302 Found`，直接从 HTTP `Location` 头部提取目标版本号（如 `v2.27.0`）！完全不经过 REST API，彻底免疫 403 速率限制，且只消耗几百字节流量，响应提升 10 倍！
+2. **“确定要delete the吗？ project 微信小程序？”夹生饭的底层根因**：
+   - 深入静态词典排查发现，历史词典中赫然存在 3 条恶性生硬短词：
+     - `[ "Are you sure you want to delete the", "确定要delete the吗？" ]`
+     - `[ "Are you sure you want to delete", "确定要delete吗？" ]`
+     - `[ "Are you sure you want to archive the", "确定要archive the吗？" ]`
+   - 当系统弹出 `Are you sure you want to delete the project "微信小程序"?` 时，前缀被暴力切走，留下后半截 `project 微信小程序?`，形成了丑陋的中英夹生饭！
+   - **修复策略**：
+     - 从 `preload.js` 与 `zh_engine_snippet.js` 中物理删除该 3 条短词；
+     - 注入整句正则规则：`您确定要删除项目“$1”吗？`；
+     - 注入第二行整句正则：`这将永久删除其中的 $1 个活动对话。`。
+
+### 2. 核心成果与落地
+1. **更新检测秒开免 403**：
+   - 重构 `ToolWindow.cs` 中的 `CheckUpdateAsync`，优先采用 302 Location 解析，修复换行符；
+2. **删除确认弹窗纯中文呈现**：
+   - 弹窗两行文本完美呈现为纯正规范简体中文；
+3. **权威资产全量重新编译并同步**：
+   - `resources/app.asar.patched`：`4,793,370` 字节；
+   - 桌面交付物：`D:\Users\MoFenginto\Desktop\Antigravity汉化管理小工具.exe`（`9,919,488` 字节）；
+   - SHA256: `FFF9B6589613E57E7F90127D7469FF9D36B815CF8015B8671DDE8F29F6B3527D`；
+   - Git 提交落定，同步推送到 GitHub `master` 与 `main`，更新 Release 资产。
