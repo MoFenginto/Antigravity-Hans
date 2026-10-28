@@ -1152,6 +1152,7 @@ namespace AntigravityHansManager
         private string latestDownloadUrl = "";
         private string latestReleaseNotes = "";
         private bool isCheckingUpdate = false;
+        private bool isInitializing = true;
         private M3Button btnUpdateNotice;
         private M3Button btnCheckUpdate;
 
@@ -1164,6 +1165,7 @@ namespace AntigravityHansManager
             RefreshState();
             StartBackgroundPoll();
             CheckUpdateAsync(true);
+            isInitializing = false;
         }
 
         private void InitializeComponent()
@@ -1371,7 +1373,7 @@ namespace AntigravityHansManager
             chkAutoHeal.Font = new Font("Microsoft YaHei UI", 9f, FontStyle.Bold);
             chkAutoHeal.Location = new Point(18, 34);
             chkAutoHeal.AutoSize = true;
-            chkAutoHeal.CheckedChanged += (s, e) => { SetAutoHealRegistry(chkAutoHeal.Checked); SaveConfig(); };
+            chkAutoHeal.CheckedChanged += (s, e) => { if (isInitializing) return; SaveConfig(); try { SetAutoHealRegistry(chkAutoHeal.Checked); } catch {} };
 
             lblAutoHealDesc = new Label();
             lblAutoHealDesc.Text = "官方后台升级覆盖后，开机自动检测并静默恢复汉化，无需手动重刷";
@@ -1389,7 +1391,7 @@ namespace AntigravityHansManager
             chkLargeMemory.Location = new Point(18, 74);
             chkLargeMemory.AutoSize = true;
             chkLargeMemory.Checked = true;
-            chkLargeMemory.CheckedChanged += (s, e) => { ApplyAllShortcutArgs(chkLargeMemory.Checked, chkHookShortcut != null && chkHookShortcut.Checked); SaveConfig(); };
+            chkLargeMemory.CheckedChanged += (s, e) => { if (isInitializing) return; SaveConfig(); try { ApplyAllShortcutArgs(chkLargeMemory.Checked, chkHookShortcut != null && chkHookShortcut.Checked); } catch {} };
 
             lblLargeMemoryDesc = new Label();
             lblLargeMemoryDesc.Text = "拉满 8GB 堆内存，彻底杜绝千步超大历史会话 ArrayBuffer 内存溢出黑屏";
@@ -1407,7 +1409,7 @@ namespace AntigravityHansManager
             chkHookShortcut.Location = new Point(18, 114);
             chkHookShortcut.AutoSize = true;
             chkHookShortcut.Checked = true;
-            chkHookShortcut.CheckedChanged += (s, e) => { ApplyAllShortcutArgs(chkLargeMemory.Checked, chkHookShortcut.Checked); SaveConfig(); };
+            chkHookShortcut.CheckedChanged += (s, e) => { if (isInitializing) return; SaveConfig(); try { ApplyAllShortcutArgs(chkLargeMemory.Checked, chkHookShortcut.Checked); } catch {} };
 
             lblHookShortcutDesc = new Label();
             lblHookShortcutDesc.Text = "一键为快捷方式注入调试与内存参数，无需从小工具点击启动";
@@ -2104,27 +2106,32 @@ namespace AntigravityHansManager
             {
                 chkAutoHeal.Checked = CheckAutoHealRegistry();
                 bool hookShortcut = true;
+                bool largeMemory = true;
 
                 string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                 string cfgPath = Path.Combine(appData, "Antigravity", "zh_settings.json");
                 if (File.Exists(cfgPath))
                 {
                     string content = File.ReadAllText(cfgPath);
-                    if (content.Contains("\"large_memory_guardian\": false") || content.Contains("\"large_memory_guardian\":false"))
+                    Match mHook = Regex.Match(content, @"[""']hook_shortcut[""']\s*:\s*(true|false)", RegexOptions.IgnoreCase);
+                    if (mHook.Success)
                     {
-                        chkLargeMemory.Checked = false;
+                        hookShortcut = mHook.Groups[1].Value.Equals("true", StringComparison.OrdinalIgnoreCase);
                     }
-                    if (content.Contains("\"hook_shortcut\": false") || content.Contains("\"hook_shortcut\":false"))
+                    Match mMem = Regex.Match(content, @"[""']large_memory_guardian[""']\s*:\s*(true|false)", RegexOptions.IgnoreCase);
+                    if (mMem.Success)
                     {
-                        hookShortcut = false;
+                        largeMemory = mMem.Groups[1].Value.Equals("true", StringComparison.OrdinalIgnoreCase);
                     }
-                    if (content.Contains("\"memory_zh_enabled\": false") || content.Contains("\"memory_zh_enabled\":false"))
+                    Match mMemoryZh = Regex.Match(content, @"[""']memory_zh_enabled[""']\s*:\s*(true|false)", RegexOptions.IgnoreCase);
+                    if (mMemoryZh.Success)
                     {
-                        memoryZhEnabled = false;
+                        memoryZhEnabled = mMemoryZh.Groups[1].Value.Equals("true", StringComparison.OrdinalIgnoreCase);
                     }
                 }
+                if (chkLargeMemory != null) chkLargeMemory.Checked = largeMemory;
                 if (chkHookShortcut != null) chkHookShortcut.Checked = hookShortcut;
-                ApplyAllShortcutArgs(chkLargeMemory.Checked, hookShortcut);
+                ApplyAllShortcutArgs(largeMemory, hookShortcut);
             }
             catch {}
         }
@@ -2137,10 +2144,23 @@ namespace AntigravityHansManager
                 string agDir = Path.Combine(appData, "Antigravity");
                 if (!Directory.Exists(agDir)) Directory.CreateDirectory(agDir);
                 string cfgPath = Path.Combine(agDir, "zh_settings.json");
-                string json = "{\n  \"auto_translate_thought\": false,\n  \"auto_heal_daemon\": " + (chkAutoHeal.Checked ? "true" : "false") + ",\n  \"large_memory_guardian\": " + (chkLargeMemory.Checked ? "true" : "false") + ",\n  \"hook_shortcut\": " + ((chkHookShortcut != null && chkHookShortcut.Checked) ? "true" : "false") + ",\n  \"memory_zh_enabled\": " + (memoryZhEnabled ? "true" : "false") + "\n}";
+                bool hookVal = chkHookShortcut != null && chkHookShortcut.Checked;
+                bool memVal = chkLargeMemory != null && chkLargeMemory.Checked;
+                bool autoHealVal = chkAutoHeal != null && chkAutoHeal.Checked;
+                string json = "{\n  \"auto_translate_thought\": false,\n  \"auto_heal_daemon\": " + (autoHealVal ? "true" : "false") + ",\n  \"large_memory_guardian\": " + (memVal ? "true" : "false") + ",\n  \"hook_shortcut\": " + (hookVal ? "true" : "false") + ",\n  \"memory_zh_enabled\": " + (memoryZhEnabled ? "true" : "false") + "\n}";
                 File.WriteAllText(cfgPath, json, Encoding.UTF8);
             }
             catch {}
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            try
+            {
+                SaveConfig();
+            }
+            catch {}
+            base.OnFormClosing(e);
         }
 
         private void ApplyAllShortcutArgs(bool enableMemory, bool enableDebugPort)
