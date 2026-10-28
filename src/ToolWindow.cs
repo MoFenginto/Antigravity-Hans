@@ -1217,8 +1217,8 @@ namespace AntigravityHansManager
             btnUpdateNotice = new M3Button();
             btnUpdateNotice.Text = "发现新版本 (点击升级)";
             btnUpdateNotice.Font = new Font("Microsoft YaHei UI", 8.5f, FontStyle.Bold);
-            btnUpdateNotice.Location = new Point(236, 12);
-            btnUpdateNotice.Size = new Size(156, 28);
+            btnUpdateNotice.Location = new Point(176, 13);
+            btnUpdateNotice.Size = new Size(160, 26);
             btnUpdateNotice.IsPrimary = true;
             btnUpdateNotice.Visible = false;
             btnUpdateNotice.Click += (s, e) => PromptUpdateDialog();
@@ -3020,7 +3020,11 @@ namespace AntigravityHansManager
 
                             if (btnUpdateNotice != null)
                             {
+                                lblAppTitle.Text = "Antigravity 汉化工具";
+                                int titleRight = lblAppTitle.Right > 0 ? lblAppTitle.Right : 166;
                                 btnUpdateNotice.Text = "新版 " + newVer + " (点此升级)";
+                                btnUpdateNotice.Location = new Point(titleRight + 10, 13);
+                                btnUpdateNotice.Size = new Size(160, 26);
                                 btnUpdateNotice.Visible = true;
                             }
 
