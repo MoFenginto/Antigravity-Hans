@@ -2258,7 +2258,29 @@ namespace AntigravityHansManager
                     }
                 }
 
+                if (enableDebugPort)
+                {
+                    string primaryDesktopLnk = Path.Combine(realDesktop, "Antigravity.lnk");
+                    if (!File.Exists(primaryDesktopLnk) && !string.IsNullOrEmpty(appPath))
+                    {
+                        string exePath = Path.Combine(appPath, "Antigravity.exe");
+                        if (File.Exists(exePath))
+                        {
+                            try
+                            {
+                                dynamic sc = shell.CreateShortcut(primaryDesktopLnk);
+                                sc.TargetPath = exePath;
+                                sc.WorkingDirectory = appPath;
+                                sc.Arguments = finalArgs;
+                                sc.IconLocation = exePath + ",0";
+                                sc.Description = "Google Antigravity Agentic IDE";
+                                sc.Save();
+                            }
+                            catch {}
+                        }
+                    }
                 }
+            }
             catch {}
         }
 
