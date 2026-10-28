@@ -1848,3 +1848,31 @@
    - 桌面交付物：`D:\Users\MoFenginto\Desktop\Antigravity汉化管理小工具.exe`（`9,919,488` 字节）；
    - SHA256: `FFF9B6589613E57E7F90127D7469FF9D36B815CF8015B8671DDE8F29F6B3527D`；
    - Git 提交落定，同步推送到 GitHub `master` 与 `main`，更新 Release 资产。
+
+
+---
+
+## 2026-10-28: 彻底修复汉化引擎语法解析错误，恢复纯内存静默汉化即时注入功能
+
+### 1. 核心需求与排查真相 (Root Cause Truth)
+1. **用户反馈“点击内存汉化没反应，界面仍全为英文”的底层根因**：
+   - 小工具界面显示“纯内存静默中文 (运行中) (Port:23664)”，是因为小工具判定依据是“Antigravity 进程存活”且“CDP 调试端口开放”；
+   - 但当小工具通过 CDP 向客户端发送 `Runtime.evaluate` 注入 `resources/zh_engine_snippet.js` 时：
+     - 在 `resources/zh_engine_snippet.js` 中，此前插入“删除项目整句正则”时，误将数组语法裸露放置在 `shouldSkip` 函数内，导致紧随其后的 `if` 关键字引发致命异常：`SyntaxError: Unexpected token 'if'`；
+     - 在 `preload.js` 中，右键原生菜单函数闭合被截断，引发 `SyntaxError: Unexpected end of input`；
+   - **直接恶果**：Chromium V8 渲染引擎在语法解析阶段直接抛错并拒绝执行整段注入代码，导致页面中完全没有加载汉化引擎实例（`window.__antigravityStandaloneZhInstalled === undefined`），页面完全保持英文！
+2. **架构级闭环修复**：
+   - 将整句正则严谨归入 `patterns` 数组内部；
+   - 补全 `preload.js` 顶部原生右键菜单递归拦截函数的闭合结构；
+   - 执行 `node -c resources/zh_engine_snippet.js` 与 `node -c preload.js` 双文件语法 100% 严格校验通过。
+
+### 2. 核心成果与全量落地
+1. **CDP 热注入瞬时验证**：
+   - 连接 CDP 端口 23664 热注入干净脚本，返回值 `installed: true`，侧边栏、正文、菜单按钮“新建对话”、“自动化”、“自定义”、“工作区”等秒级转为纯中文；
+2. **权威二进制产物重新打包与脱机编译**：
+   - 重新打包生成 `resources/app.asar.patched`（4,791,424 字节）；
+   - 释放旧小工具进程句柄后，使用原生 `csc.exe` 重新编译，原子级就地覆盖桌面唯一权威交付物：
+     `D:\Users\MoFenginto\Desktop\Antigravity汉化管理小工具.exe`（9,915,904 字节，SHA256: `08F9B1D9B418C2BA58A8935DB5B86D7D6C58231E9B309853128D00B3E19EA344`）；
+3. **远端代码与 Release 资产全量同步**：
+   - Git 提交代码（Commit: `114427a`），推送至 GitHub `master` 与 `main` 双分支；
+   - 同步更新 GitHub Release `v2.27.0` 资产（`Antigravity汉化管理小工具.exe` 与 `app.asar.patched`）。
