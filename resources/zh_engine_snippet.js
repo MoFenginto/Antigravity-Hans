@@ -13,6 +13,146 @@ try {
     // 1. 严格按字符长度降序排序的词典数据占位符
     const rawPhrases = [
   [
+    "Extensions",
+    "扩展"
+  ],
+  [
+    "Android Compose Preview",
+    "Android Compose 预览"
+  ],
+  [
+    "Android Device Hub",
+    "Android 设备中心"
+  ],
+  [
+    "Goals",
+    "目标"
+  ],
+  [
+    "Search tabs, files, extensions, subagents, artifacts",
+    "搜索标签页、文件、扩展、子智能体、产物"
+  ],
+  [
+    "Search tabs, files, extensions, subagents",
+    "搜索标签页、文件、扩展、子智能体"
+  ],
+  [
+    "Browser",
+    "浏览器"
+  ],
+  [
+    "Learning Proposal",
+    "学习提案"
+  ],
+  [
+    "Video Publish Plan Bilibili Douyin",
+    "B站与抖音视频发布计划"
+  ],
+  [
+    "Auto Localization Plan",
+    "自动汉化方案"
+  ],
+  [
+    "Walkthrough",
+    "操作指引"
+  ],
+  [
+    "subagents",
+    "子智能体"
+  ],
+  [
+    "subagent",
+    "子智能体"
+  ],
+  [
+    "Permission Preset",
+    "权限预设"
+  ],
+  [
+    "Auto (Preview)",
+    "自动 (预览版)"
+  ],
+  [
+    "Automatically decide if commands run.",
+    "自动判断是否运行命令。"
+  ],
+  [
+    "Automatically decide if commands run",
+    "自动判断是否运行命令"
+  ],
+  [
+    "Give Feedback",
+    "问题反馈"
+  ],
+  [
+    "Turbo",
+    "极速模式"
+  ],
+  [
+    "Notifications",
+    "通知"
+  ],
+  [
+    "Show system notifications when your action is needed or the agent finishes.",
+    "当需要您操作或智能体完成任务时显示系统通知。"
+  ],
+  [
+    "Show system notifications when your action is needed or the agent finishes",
+    "当需要您操作或智能体完成任务时显示系统通知"
+  ],
+  [
+    "Sound",
+    "提示音"
+  ],
+  [
+    "Play a sound when your action is needed or the agent finishes.",
+    "当需要您操作或智能体完成任务时播放提示音。"
+  ],
+  [
+    "Play a sound when your action is needed or the agent finishes",
+    "当需要您操作或智能体完成任务时播放提示音"
+  ],
+  [
+    "Volume:",
+    "音量："
+  ],
+  [
+    "Volume",
+    "音量"
+  ],
+  [
+    "Set the volume of agent sounds.",
+    "设置智能体提示音的音量。"
+  ],
+  [
+    "Set the volume of agent sounds",
+    "设置智能体提示音的音量"
+  ],
+  [
+    "Weekly Limit",
+    "每周额度"
+  ],
+  [
+    "Five Hour Limit",
+    "5 小时额度"
+  ],
+  [
+    "Weekly Limit 剩余",
+    "每周额度 剩余"
+  ],
+  [
+    "Five Hour Limit 剩余",
+    "5 小时额度 剩余"
+  ],
+  [
+    "it will fully refresh in",
+    "将在以下时间完全刷新："
+  ],
+  [
+    "fully refresh in",
+    "完全刷新时间："
+  ],
+  [
     "Compact the conversation now (summarize history to free up the context window).",
     "立即压缩当前会话（总结历史以释放上下文空间）。"
   ],
@@ -9350,6 +9490,23 @@ try {
 
     // 2. 正则模式匹配库（针对动态数字、状态卡片、复合时间、拆分节点、单位）
     const patterns = [
+      // ========================================================================
+      // 最新版本 2.24~2.27 动态界面与正则模式补充
+      // ========================================================================
+      [/^Goals\s+(\d+)$/gi, '目标 $1'],
+      [/^(\d+)\s+subagents?$/gi, '$1 个子智能体'],
+      [/^(.+?)\s+\((\d+)\s+subagents?\)$/gi, '$1 ($2 个子智能体)'],
+      [/^You\s+have\s+used\s+some\s+of\s+your\s+weekly\s+limit,\s+it\s+will\s+fully\s+refresh\s+in\s+(.+?)\.?$/gi, '您已使用部分每周额度，将在 $1 后完全刷新。'],
+      [/^You\s+have\s+used\s+some\s+of\s+your\s+5-hour\s+limit,\s+it\s+will\s+fully\s+refresh\s+in\s+(.+?)\.?$/gi, '您已使用部分 5 小时额度，将在 $1 后完全刷新。'],
+      [/^it\s+will\s+fully\s+refresh\s+in\s+(.+?)\.?$/gi, '将在 $1 后完全刷新。'],
+      [/^fully\s+refresh\s+in\s+(.+?)\.?$/gi, '将在 $1 后完全刷新。'],
+      [/^\s*Permission\s+Preset\s*$/gi, '权限预设'],
+      [/^\s*Automatically\s+decide\s+if\s+commands\s+run\.?\s*$/gi, '自动判断是否运行命令。'],
+      [/^\s*Give\s+Feedback\s*$/gi, '问题反馈'],
+      [/^\s*Show\s+system\s+notifications\s+when\s+your\s+action\s+is\s+needed\s+or\s+the\s+agent\s+finishes\.?\s*$/gi, '当需要您操作或智能体完成任务时显示系统通知。'],
+      [/^\s*Play\s+a\s+sound\s+when\s+your\s+action\s+is\s+needed\s+or\s+the\s+agent\s+finishes\.?\s*$/gi, '当需要您操作或智能体完成任务时播放提示音。'],
+      [/^\s*Set\s+the\s+volume\s+of\s+agent\s+sounds\.?\s*$/gi, '设置智能体提示音的音量。'],
+
 
       // 项目设置抽屉、权限下拉框与动态明细模式
       [/^Show\s+(\d+)\s+breakdowns?$/gi, '查看 $1 项明细'],
