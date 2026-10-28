@@ -13,11 +13,18 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Win32;
+using System.Runtime.InteropServices;
 
 namespace AntigravityHansManager
 {
     internal static class Program
     {
+        [DllImport("user32.dll")]
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
+        [DllImport("user32.dll")]
+        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+        private const int SW_RESTORE = 9;
+
         [STAThread]
         private static void Main(string[] args)
         {
@@ -35,13 +42,37 @@ namespace AntigravityHansManager
                 MainForm.RunSilentHeal();
                 return;
             }
-            try
+
+            bool isFirstInstance;
+            using (Mutex mutex = new Mutex(true, "Global\\AntigravityHansManager_SingleInstance_Mutex", out isFirstInstance))
             {
-                Application.Run(new MainForm());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("程序启动错误: " + ex.Message, "提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (!isFirstInstance)
+                {
+                    try
+                    {
+                        Process current = Process.GetCurrentProcess();
+                        foreach (Process p in Process.GetProcessesByName(current.ProcessName))
+                        {
+                            if (p.Id != current.Id && p.MainWindowHandle != IntPtr.Zero)
+                            {
+                                ShowWindow(p.MainWindowHandle, SW_RESTORE);
+                                SetForegroundWindow(p.MainWindowHandle);
+                                break;
+                            }
+                        }
+                    }
+                    catch {}
+                    return;
+                }
+
+                try
+                {
+                    Application.Run(new MainForm());
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("程序启动错误: " + ex.Message, "提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }
@@ -2227,26 +2258,7 @@ namespace AntigravityHansManager
                     }
                 }
 
-                string primaryDesktopLnk = Path.Combine(realDesktop, "Antigravity.lnk");
-                if (!File.Exists(primaryDesktopLnk) && !string.IsNullOrEmpty(appPath))
-                {
-                    string exePath = Path.Combine(appPath, "Antigravity.exe");
-                    if (File.Exists(exePath))
-                    {
-                        try
-                        {
-                            dynamic sc = shell.CreateShortcut(primaryDesktopLnk);
-                            sc.TargetPath = exePath;
-                            sc.WorkingDirectory = appPath;
-                            sc.Arguments = finalArgs;
-                            sc.IconLocation = exePath + ",0";
-                            sc.Description = "Google Antigravity Agentic IDE";
-                            sc.Save();
-                        }
-                        catch {}
-                    }
                 }
-            }
             catch {}
         }
 
