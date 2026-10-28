@@ -1945,3 +1945,18 @@
 - 原生脱机编译 `Antigravity-Hans-Manager.exe`（10,174,464 字节）；
 - 就地原子覆盖 `D:\Users\MoFenginto\Desktop\Antigravity汉化管理小工具.exe`；
 - Git 提交（Commit: `c916144`），推送至 `master` 与 `main`，同步更新 GitHub Release `v2.28.0` 资产。
+
+---
+
+## 2026-10-29: 实现桌面快捷方式“勾选即自动生成，取消勾选即绝对不生成”精准条件映射
+
+### 1. 核心需求与业务意图对齐
+- 用户明确指示：“当我勾选了就自动生成，没勾选就不自动生成”。
+- **精准映射机制**：
+  - 勾选 `接管桌面与开始菜单快捷方式`（`enableDebugPort == true`）：若桌面不存在 `Antigravity.lnk`，系统即时自动创建带有内存/调试注入参数的桌面快捷方式，实现点开即中文；
+  - 取消勾选（`enableDebugPort == false`）：`if (enableDebugPort)` 判定为假，绝对不新建任何快捷方式；若已有快捷方式，仅清空/还原调试参数，杜绝任何未经授权的图标创建。
+
+### 2. 双端无缝交付
+- 原生脱机编译 `Antigravity-Hans-Manager.exe`（10,175,488 字节）；
+- 就地原子覆盖 `D:\Users\MoFenginto\Desktop\Antigravity汉化管理小工具.exe`；
+- Git 提交（Commit: `35d1bfd`），推送至 `master` 与 `main`，同步更新 GitHub Release `v2.28.0` 资产。
