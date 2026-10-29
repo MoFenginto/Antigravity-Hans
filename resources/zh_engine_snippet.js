@@ -10,8 +10,170 @@ try {
     if (window.__antigravityStandaloneZhInstalled) return;
     window.__antigravityStandaloneZhInstalled = true;
 
+    // 原生右键上下文菜单全递归深度汉化拦截钩子 (Native Context Menu Hook)
+    try {
+      if (typeof require === 'function') {
+        const electron = require('electron');
+        if (electron && electron.ipcRenderer && !electron.ipcRenderer.__zh_hooked) {
+          electron.ipcRenderer.__zh_hooked = true;
+          const rawInvoke = electron.ipcRenderer.invoke;
+          const zhNativeMap = {
+            'Rename': '重命名',
+            'Rename This Conversation': '重命名此对话',
+            'Rename conversation': '重命名对话',
+            'Pin': '置顶',
+            'Unpin': '取消置顶',
+            'Pin This Conversation': '置顶此对话',
+            'Unpin This Conversation': '取消置顶此对话',
+            'Pin conversation': '置顶对话',
+            'Unpin conversation': '取消置顶对话',
+            'Mark Unread': '标记为未读',
+            'Mark as Unread': '标记为未读',
+            'Mark This Conversation as Unread': '将此对话标记为未读',
+            'Mark Read': '标记为已读',
+            'Mark as Read': '标记为已读',
+            'Mark All as Read': '全部标记为已读',
+            'Mark This Conversation as Read': '将此对话标记为已读',
+            'Copy': '复制',
+            'Copy Message': '复制消息',
+            'Copy Conversation Markdown': '复制对话为 Markdown',
+            'Copy Conversation ID': '复制对话 ID',
+            'Copy File Name': '复制文件名',
+            'Copy File Path': '复制文件路径',
+            'Copy Path': '复制路径',
+            'Copy Link': '复制链接',
+            'Split': '拆分',
+            'Split Right': '向右拆分',
+            'Split Down': '向下拆分',
+            'Split Up': '向上拆分',
+            'Split Left': '向左拆分',
+            'Split Terminal': '拆分终端',
+            'Archive': '归档',
+            'Archive conversation': '归档对话',
+            'Archive This Conversation': '归档此对话',
+            'Archive project': '归档项目',
+            'Archive Workspace': '归档工作区',
+            'Delete': '删除',
+            'Delete conversation': '删除对话',
+            'Delete This Conversation': '删除此对话',
+            'Delete Project': '删除项目',
+            'Delete Task': '删除任务',
+            'Close': '关闭',
+            'Close Tab': '关闭标签页',
+            'Close Other Tabs': '关闭其他标签页',
+            'Close Tabs to the Right': '关闭右侧标签页',
+            'Open in External Browser': '在外部浏览器中打开',
+            'Open in Built-in Browser': '在内置浏览器中打开',
+            'Open Command Palette': '打开命令面板'
+          };
+
+          function translateMenuRecursively(items) {
+            if (!Array.isArray(items)) return items;
+            return items.map(item => {
+              if (!item || typeof item !== 'object') return item;
+              const copy = Object.assign({}, item);
+              if (typeof copy.label === 'string') {
+                const t = copy.label.trim();
+                if (zhNativeMap[t]) {
+                  copy.label = copy.label.replace(t, zhNativeMap[t]);
+                }
+              }
+              if (Array.isArray(copy.submenu)) {
+                copy.submenu = translateMenuRecursively(copy.submenu);
+              }
+              return copy;
+            });
+          }
+
+          electron.ipcRenderer.invoke = function(channel, ...args) {
+            if (channel === 'window:show-context-menu' && Array.isArray(args[0])) {
+              args[0] = translateMenuRecursively(args[0]);
+            }
+            return rawInvoke.apply(this, [channel, ...args]);
+          };
+        }
+      }
+    } catch (e) {}
+
+
     // 1. 严格按字符长度降序排序的词典数据占位符
     const rawPhrases = [
+  [
+    "Configure link opening and built-in browser preferences.",
+    "配置链接打开方式与内置浏览器偏好。"
+  ],
+  [
+    "Configure link opening and built-in browser preferences",
+    "配置链接打开方式与内置浏览器偏好"
+  ],
+  [
+    "Choose where links open by default when clicked.",
+    "选择点击链接时默认打开的位置。"
+  ],
+  [
+    "Choose where links open by default when clicked",
+    "选择点击链接时默认打开的位置"
+  ],
+  [
+    "Browser Javascript Execution Policy",
+    "浏览器 JavaScript 执行策略"
+  ],
+  [
+    "Browser Automation Operation Rules",
+    "浏览器自动化操作规则"
+  ],
+  [
+    "Open Link in External Browser",
+    "在外部浏览器中打开链接"
+  ],
+  [
+    "Open Link in Built-in Browser",
+    "在内置浏览器中打开链接"
+  ],
+  [
+    "Open in External Browser",
+    "在外部浏览器中打开"
+  ],
+  [
+    "Open in Built-in Browser",
+    "在内置浏览器中打开"
+  ],
+  [
+    "External Browser",
+    "外部浏览器"
+  ],
+  [
+    "Built-in Browser",
+    "内置浏览器"
+  ],
+  [
+    "Open Links In",
+    "链接打开方式"
+  ],
+  [
+    "Browser Subagent",
+    "浏览器子智能体"
+  ],
+  [
+    "No matching results",
+    "无匹配结果"
+  ],
+  [
+    "Proceed in Sandbox",
+    "在沙箱中继续"
+  ],
+  [
+    "Always Proceed",
+    "始终继续"
+  ],
+  [
+    "Request Review",
+    "请求审查"
+  ],
+  [
+    "Strict",
+    "严格"
+  ],
   [
     "Extensions",
     "扩展"
@@ -9478,6 +9640,39 @@ try {
 
     // 2. 正则模式匹配库（针对动态数字、状态卡片、复合时间、拆分节点、单位）
     const patterns = [
+      // ==========================================
+      // 2.28 专属新增与右键菜单极速弹性匹配
+      // ==========================================
+      [/^\s*Built-in\s+Browser\s*$/gi, '内置浏览器'],
+      [/^\s*Open\s+Links\s+In\s*$/gi, '链接打开方式'],
+      [/^\s*External\s+Browser\s*$/gi, '外部浏览器'],
+      [/^\s*Configure\s+link\s+opening\s+and\s+built-in\s+browser\s+preferences\.?\s*$/gi, '配置链接打开方式与内置浏览器偏好。'],
+      [/^\s*Choose\s+where\s+links\s+open\s+by\s+default\s+when\s+clicked\.?\s*$/gi, '选择点击链接时默认打开的位置。'],
+      [/^\s*Browser\s+Subagent\s*$/gi, '浏览器子智能体'],
+      [/^\s*Browser\s+Javascript\s+Execution\s+Policy\s*$/gi, '浏览器 JavaScript 执行策略'],
+      [/^\s*Browser\s+Automation\s+Operation\s+Rules\s*$/gi, '浏览器自动化操作规则'],
+      [/^\s*Permission\s+Preset\s*$/gi, '权限预设'],
+      [/^\s*No\s+matching\s+results\s*$/gi, '无匹配结果'],
+      [/^\s*Always\s+Proceed\s*$/gi, '始终继续'],
+      [/^\s*Proceed\s+in\s+Sandbox\s*$/gi, '在沙箱中继续'],
+      [/^\s*Request\s+Review\s*$/gi, '请求审查'],
+      [/^\s*Strict\s*$/gi, '严格'],
+      [/^\s*Rename\s*$/gi, '重命名'],
+      [/^\s*Pin\s*$/gi, '置顶'],
+      [/^\s*Unpin\s*$/gi, '取消置顶'],
+      [/^\s*Mark\s+Unread\s*$/gi, '标记为未读'],
+      [/^\s*Mark\s+as\s+Unread\s*$/gi, '标记为未读'],
+      [/^\s*Mark\s+Read\s*$/gi, '标记为已读'],
+      [/^\s*Mark\s+as\s+Read\s*$/gi, '标记为已读'],
+      [/^\s*Copy\s*$/gi, '复制'],
+      [/^\s*Split\s*$/gi, '拆分'],
+      [/^\s*Split\s+Right\s*$/gi, '向右拆分'],
+      [/^\s*Split\s+Down\s*$/gi, '向下拆分'],
+      [/^\s*Split\s+Left\s*$/gi, '向左拆分'],
+      [/^\s*Split\s+Up\s*$/gi, '向上拆分'],
+      [/^\s*Archive\s*$/gi, '归档'],
+      [/^\s*Delete\s*$/gi, '删除'],
+
       // ========================================================================
       // 最新版本 2.24~2.27 动态界面与正则模式补充
       // ========================================================================
