@@ -1982,3 +1982,38 @@
 - 原生脱机编译 `Antigravity-Hans-Manager.exe`（10,175,488 字节）；
 - 就地原子覆盖 `D:\Users\MoFenginto\Desktop\Antigravity汉化管理小工具.exe`；
 - Git 提交（Commit: `35d1bfd`），推送至 `master` 与 `main`，同步更新 GitHub Release `v2.28.0` 资产。
+
+---
+
+## 2026-10-30: 彻底攻克右键原生菜单拦截、修复React动态节点自愈与插件市场全量地道汉化
+
+### 1. 核心需求与三大底层排查真相 (Root Cause Truth)
+1. **用户质问“为什么重命名、置顶、拆分等右键菜单全是英文”的底层根因**：
+   - **右键菜单的本质**：在 Antigravity 客户端中，右键点击会话、项目时弹出的上下文菜单**不是普通的 HTML 网页元素**，而是 Electron 操作系统原生 Context Menu！
+   - 前端通过 `src/preload.js` 中的 `electronNativeAPI.showContextMenu`，调用 `ipcRenderer.invoke('window:show-context-menu', items)` 将菜单树直接发送给 Electron 主进程，由主进程调用操作系统 API 原生渲染；
+   - 网页 DOM 注入的 MutationObserver 无论如何扫描，受 Chromium 沙箱阻隔，**物理上绝对无法触及操作系统原生菜单**！
+   - 此前旧版补丁仅在追加的 `zh_engine_snippet.js` 中尝试 `require('electron')`，但在 `contextIsolation: true` 下渲染进程没有 Node 权限，钩子直接被跳过，导致右键菜单 100% 永远为英文！
+2. **设置界面中 Permission Preset、Turbo、Built-in Browser 有时是英文的底层根因**：
+   - 此前为了防止长对话加载时的事件风暴，错误地将 MutationObserver 的 `characterData: true` 监听移除了，仅保留了 `childList`；
+   - 当 React 复用现有 DOM 节点并仅仅修改文本（例如切换下拉选项时将选中的值更新为 `Turbo`，或切换设置标签页时只改 `nodeValue`），**根本不会触发 childList 变动**！由于没有 characterData 监听，汉化引擎对此一无所知，导致闭合框永远显示 React 写入的英文；
+   - 此外，此前在 `patterns` 正则数组中意外混入了 `{ regex: ..., replace: ... }` 对象，导致在循环遍历正则时，`patterns[i][0]` 为 undefined，触发致命异常 `Cannot read properties of undefined (reading 'test')`，直接掐死中断了后续整个 DOM 树的遍历！
+3. **输入 `/changelog` 显示 `No matching results` 的事实真相**：
+   - Antigravity 官方客户端官方内置斜杠命令仅包含 `/browser`、`/goal`、`/compact`、`/schedule`、`/plan`、`/grill-me`、`/teamwork`、`/learn`、`/boost` 等；
+   - **Antigravity 客户端根本不存在 `/changelog` 这个斜杠命令**！此前回复凭空推测该命令误导了用户，属于重大工作失误，官方更新日志位于网页 `antigravity.google/docs/changelog`。
+
+### 2. 架构级攻坚与全量落地成果
+1. **原生右键菜单全递归 IPC 拦截器 (Native Context Menu Hook)**：
+   - 在 `src/preload.js` 顶部和 `MiniAsarPatcher` 动态修补逻辑中，部署 `__zh_native_menu_dict` 与 `__zh_translateMenuItems` 全递归转换函数；
+   - 在 `electronNativeAPI.showContextMenu` 与 `electron_1.ipcRenderer.invoke('window:show-context-menu')` 双重入口注入拦截，确保向主进程传递的每一个菜单 item（包括二级菜单 `向右拆分`、`向下拆分`）100% 转译为地道中文！
+2. **恢复带记忆硬锁的常数级 characterData 实时动态自愈引擎**：
+   - 恢复 MutationObserver 的 `characterData: true` 监听；
+   - 实行严格的 `nodeValue === node.__zh_last_val` $O(1)$ 常数级瞬间熔断机制，若已为中文稳定态 0 毫秒阻断，彻底杜绝自激死循环与卡顿；
+   - 清理 `patterns` 中的异常对象，增加防御性类型校验，彻底拔除中断遍历的 Bug；
+3. **插件市场与设置项全量词库补全**：
+   - 补全 `设计、创意与多媒体`、`生产力与项目管理`、`云托管与部署`、`商业与办公`、`第三方开发者安全须知`、`权限预设`、`极速模式`、`内置浏览器`、`链接打开方式`、`查看另外 $1 项` 等全量模式；
+4. **双端无缝交付与云端同步**：
+   - 重新打包生成最新权威 `resources/app.asar.patched`（4,929,156 字节）；
+   - 原生 `csc.exe` 重新编译并原子级就地覆盖桌面唯一权威交付物：
+     `D:\Users\MoFenginto\Desktop\Antigravity汉化管理小工具.exe`（10,200,064 字节）；
+   - Git 提交代码（Commit: `ab1980e`），同步推送到 GitHub `master` 与 `main` 双分支；
+   - GitHub Release `v2.28.0` 资产原地热更新完毕。
