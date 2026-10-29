@@ -1050,6 +1050,117 @@ namespace AntigravityHansManager
                     baseCode = baseCode.Substring(0, idxMarker);
                 }
 
+                // 自动拦截与汉化操作系统原生右键菜单 (showContextMenu)
+                if (!baseCode.Contains("__zh_native_menu_dict"))
+                {
+                    string menuHook = @"
+const __zh_native_menu_dict = {
+  'Rename': '重命名',
+  'Rename This Conversation': '重命名此对话',
+  'Rename conversation': '重命名对话',
+  'Pin': '置顶',
+  'Unpin': '取消置顶',
+  'Pin This Conversation': '置顶此对话',
+  'Unpin This Conversation': '取消置顶此对话',
+  'Pin conversation': '置顶对话',
+  'Unpin conversation': '取消置顶对话',
+  'Mark Unread': '标记为未读',
+  'Mark as Unread': '标记为未读',
+  'Mark This Conversation as Unread': '将此对话标记为未读',
+  'Mark Read': '标记为已读',
+  'Mark as Read': '标记为已读',
+  'Mark All as Read': '全部标记为已读',
+  'Mark This Conversation as Read': '将此对话标记为已读',
+  'Copy': '复制',
+  'Copy Message': '复制消息',
+  'Copy Conversation Markdown': '复制对话为 Markdown',
+  'Copy Conversation ID': '复制对话 ID',
+  'Copy File Name': '复制文件名',
+  'Copy File Path': '复制文件路径',
+  'Copy Path': '复制路径',
+  'Copy Link': '复制链接',
+  'Split': '拆分',
+  'Split Right': '向右拆分',
+  'Split Down': '向下拆分',
+  'Split Up': '向上拆分',
+  'Split Left': '向左拆分',
+  'Split Terminal': '拆分终端',
+  'Archive': '归档',
+  'Archive conversation': '归档对话',
+  'Archive This Conversation': '归档此对话',
+  'Archive project': '归档项目',
+  'Archive Workspace': '归档工作区',
+  'Delete': '删除',
+  'Delete conversation': '删除对话',
+  'Delete This Conversation': '删除此对话',
+  'Delete Project': '删除项目',
+  'Delete Task': '删除任务',
+  'Cut': '剪切',
+  'Paste': '粘贴',
+  'Select All': '全选',
+  'Undo': '撤销',
+  'Redo': '重做',
+  'Reload': '重新加载',
+  'Force Reload': '强制重新加载',
+  'Inspect Element': '检查元素',
+  'Open in File Explorer': '在文件资源管理器中打开',
+  'Reveal in File Explorer': '在文件资源管理器中显示',
+  'Reveal in Finder': '在访达中显示',
+  'Close': '关闭',
+  'Close Other Tabs': '关闭其他标签页',
+  'Close Tabs to the Right': '关闭右侧标签页',
+  'Close Saved Tabs': '关闭已保存标签页',
+  'Close All': '全部关闭'
+};
+
+function __zh_translateMenuLabel(str) {
+  if (!str || typeof str !== 'string') return str;
+  const t = str.trim();
+  if (__zh_native_menu_dict[t]) return str.replace(t, __zh_native_menu_dict[t]);
+  return str;
+}
+
+function __zh_translateMenuItems(items) {
+  if (!Array.isArray(items)) return items;
+  return items.map(item => {
+    if (!item || typeof item !== 'object') return item;
+    const cloned = { ...item };
+    if (typeof cloned.label === 'string') {
+      cloned.label = __zh_translateMenuLabel(cloned.label);
+    }
+    if (typeof cloned.sublabel === 'string') {
+      cloned.sublabel = __zh_translateMenuLabel(cloned.sublabel);
+    }
+    if (Array.isArray(cloned.submenu)) {
+      cloned.submenu = __zh_translateMenuItems(cloned.submenu);
+    }
+    return cloned;
+  });
+}
+
+try {
+  const _origIpcInvoke = electron_1.ipcRenderer.invoke;
+  electron_1.ipcRenderer.invoke = function(channel, ...args) {
+    if (channel === 'window:show-context-menu' && Array.isArray(args[0])) {
+      args[0] = __zh_translateMenuItems(args[0]);
+    }
+    return _origIpcInvoke.apply(this, [channel, ...args]);
+  };
+} catch (e) {}
+";
+
+                    int idxReq = baseCode.IndexOf("const electron_1 = require(\"electron\");");
+                    if (idxReq >= 0)
+                    {
+                        baseCode = baseCode.Insert(idxReq + "const electron_1 = require(\"electron\");".Length, "\r\n" + menuHook);
+                    }
+
+                    baseCode = baseCode.Replace(
+                        "showContextMenu: (items) => electron_1.ipcRenderer.invoke('window:show-context-menu', items),",
+                        "showContextMenu: (items) => electron_1.ipcRenderer.invoke('window:show-context-menu', __zh_translateMenuItems(items)),"
+                    );
+                }
+
                 string newPreloadStr = baseCode.TrimEnd() + "\n\n/* __ANTIGRAVITY_ZH_ENGINE_V2__ */\n" + zhSnippet;
                 byte[] newPreloadBytes = Encoding.UTF8.GetBytes(newPreloadStr);
 

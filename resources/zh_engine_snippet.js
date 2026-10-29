@@ -101,6 +101,71 @@ try {
     // 1. 严格按字符长度降序排序的词典数据占位符
     const rawPhrases = [
   [
+    "Design, Creative & Media",
+    "设计、创意与多媒体"
+  ],
+  [
+    "Productivity & Project Management",
+    "生产力与项目管理"
+  ],
+  [
+    "Cloud Hosting & Deployment",
+    "云托管与部署"
+  ],
+  [
+    "Developer Tools",
+    "开发者工具"
+  ],
+  [
+    "Business",
+    "商业与办公"
+  ],
+  [
+    "Third-party developer notice",
+    "第三方开发者安全须知"
+  ],
+  [
+    "Open documentation in browser",
+    "在浏览器中打开文档"
+  ],
+  [
+    "Open repository in browser",
+    "在浏览器中打开开源仓库"
+  ],
+  [
+    "Third-party developer tools",
+    "第三方开发者工具"
+  ],
+  [
+    "Third-party plugin",
+    "第三方插件"
+  ],
+  [
+    "Official plugin",
+    "官方插件"
+  ],
+  [
+    "切换 Maximize Auxiliary Pane",
+    "切换最大化辅助窗格"
+  ],
+  [
+    "Maximize Auxiliary Pane",
+    "最大化辅助窗格"
+  ],
+  [
+    "Restore Auxiliary Pane",
+    "恢复辅助窗格"
+  ],
+  [
+    "Hide Auxiliary Pane",
+    "隐藏辅助窗格"
+  ],
+  [
+    "Show Auxiliary Pane",
+    "显示辅助窗格"
+  ],
+
+  [
     "Configure link opening and built-in browser preferences.",
     "配置链接打开方式与内置浏览器偏好。"
   ],
@@ -9639,6 +9704,10 @@ try {
 
     // 2. 正则模式匹配库（针对动态数字、状态卡片、复合时间、拆分节点、单位）
     const patterns = [
+  [/^\s*See\s+(\d+)\s+more\s*$/i, '查看另外 $1 项'],
+  [/^\s*Add\s*$/i, '添加'],
+  [/^\s*Details\s*$/i, '详情'],
+
       // ==========================================
       // 2.28 专属新增与右键菜单极速弹性匹配
       // ==========================================
@@ -10548,8 +10617,11 @@ try {
 
       // 2. 极少数动态数字/状态模式（带严格 ^ 和 $ 边界硬锁）
       for (let i = 0; i < patterns.length; i++) {
-        const p = patterns[i][0];
-        const r = patterns[i][1];
+        const item = patterns[i];
+        if (!item) continue;
+        const p = Array.isArray(item) ? item[0] : item.regex;
+        const r = Array.isArray(item) ? item[1] : item.replace;
+        if (!p || typeof p.test !== 'function') continue;
         if (p.test(core)) {
           const res = core.replace(p, r);
           p.lastIndex = 0;
