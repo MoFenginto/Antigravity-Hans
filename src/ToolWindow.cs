@@ -2506,13 +2506,37 @@ namespace AntigravityHansManager
             Process[] procs = Process.GetProcessesByName("Antigravity");
             if (procs.Length == 0) return true;
 
-            MessageBox.Show(
-                "检测到 Antigravity 客户端正在运行。\n\n为保障您的会话数据安全，请在主窗口中先保存并正常关闭 Antigravity，然后再继续此操作。",
-                "提示",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
+            DialogResult res = MessageBox.Show(
+                "检测到 Antigravity 客户端或其后台服务正在运行。\n\n为确保补丁安全原子冷写入，是否由小工具一键安全退出所有相关进程并立即完成固化？\n\n(点击【是】自动退出并汉化；点击【否】取消)",
+                "确认安全退出",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
             );
-            return false;
+
+            if (res != DialogResult.Yes) return false;
+
+            try
+            {
+                foreach (Process p in procs)
+                {
+                    try
+                    {
+                        if (!p.HasExited)
+                        {
+                            p.Kill();
+                            p.WaitForExit(3000);
+                        }
+                    }
+                    catch {}
+                }
+                Thread.Sleep(500);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("安全退出进程失败: " + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
         }
 
         private static void SafeWriteFileWithRetry(string path, byte[] data, int maxRetry = 10, int delayMs = 300)

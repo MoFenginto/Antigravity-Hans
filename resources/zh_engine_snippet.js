@@ -10948,7 +10948,6 @@ try {
                 for (let j = 0; j < m.addedNodes.length; j++) {
                   const node = m.addedNodes[j];
                   if (!node) continue;
-                  // 入口级光速熔断：若是纯只读正文、代码块、终端、用户输入气泡，0 毫秒丢弃，不进队列！
                   if (node.nodeType === Node.ELEMENT_NODE) {
                     if (node.__zh_scanned === true || node.__zh_skip === true) continue;
                     const tag = node.tagName ? node.tagName.toLowerCase() : '';
@@ -10968,6 +10967,23 @@ try {
                 if (target && target.isConnected) {
                   translateElement(target);
                 }
+              } else if (m.type === 'characterData') {
+                const target = m.target;
+                if (target && target.nodeType === Node.TEXT_NODE) {
+                  const val = target.nodeValue;
+                  if (val && /[A-Za-z]/.test(val) && val !== target.__zh_last_val) {
+                    const p = target.parentElement;
+                    if (p && p.closest && p.closest('.markdown-body, pre, code, .terminal, .xterm, [data-testid="user-input-step"], [contenteditable="true"]')) {
+                      continue;
+                    }
+                    const trVal = translate(val);
+                    if (trVal !== val) {
+                      target.nodeValue = trVal;
+                      target.__zh_last_val = trVal;
+                      target.__zh_done = true;
+                    }
+                  }
+                }
               }
             }
             if (hasAdded && !rafScheduled) {
@@ -10982,6 +10998,7 @@ try {
         }).observe(document.documentElement || document, {
           childList: true,
           subtree: true,
+          characterData: true,
           attributes: true,
           attributeFilter: ['aria-label', 'title', 'placeholder', 'alt'],
         });
