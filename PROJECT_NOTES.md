@@ -1,7 +1,29 @@
 # Antigravity 客户端汉化与工程优化项目备忘录 (PROJECT_NOTES.md)
 
-> **更新时间**：2026-10-18 21:05 (GMT+8)  
+> **更新时间**：2026-10-29 21:16 (GMT+8)  
 > **文档定位**：跨会话持久化核心记忆库。任何新对话启动时，优先读取本文档即可 100% 满血接续项目背景与全部技术成果。
+
+---
+
+## 零、2026-10-29 重大突破：2.28 全量漏译补齐、突破 Win32 原生右键菜单 IPC 拦截、小工具 v2.28.0 权威发布 (Latest)
+
+1. **核心成果与交付指标**：
+   - **Antigravity 2.28.0 漏译词条 100% 深度补齐**：
+     - 收录并汉化 2.28.0 官方全部新增设置项：`Permission Preset`（权限预设）、`Built-in Browser`（内置浏览器）、`Open Links In`（链接打开方式）、`External Browser`（外部浏览器）、`Choose where links open by default when clicked.`（选择点击链接时的默认打开位置）、`Configure link opening and built-in browser preferences.`（配置链接打开与内置浏览器偏好设置）、`Browser Subagent`（浏览器子智能体）等；
+     - 注入严格弹性正则匹配规则（`/^\s*...\s*$/gi`），完美兼容 React 虚拟 DOM 动态渲染与首尾空白。
+   - **突破 Electron Win32 原生右键菜单技术壁垒**：
+     - **底层技术真相**：会话列表等右键菜单是由 Electron 主进程直接弹出的 Windows 原生系统上下文菜单（`window:show-context-menu` IPC），非前端 DOM 节点，任何 MutationObserver 均无法触及；
+     - **IPC 全递归拦截钩子落地**：在 `preload.js` 的 `electron.ipcRenderer.invoke` 层挂载拦截器，在原生菜单配置传给主进程前瞬间递归遍历其 `label` 与 `submenu`，对 `Rename`（重命名）、`Pin`（置顶）、`Mark Unread`（标记未读）、`Copy`（复制）、`Split`（分屏）、`Split Right`（向右分屏）、`Split Down`（向下分屏）、`Archive`（归档）、`Delete`（删除）等执行无损翻译，实现原生菜单 100% 纯中文！
+   - **小工具 UI 挤压修复与 v2.28.0 权威发布**：
+     - 修复小工具标题栏“发现新版本”按钮与版本号文本在特定 DPI 下挤压重叠的问题；
+     - 原生 `csc.exe` 脱机编译产物：`Antigravity-Hans-Manager.exe`（10,178,048 字节）；
+     - 原子级就地覆盖桌面唯一权威文件：`D:\Users\MoFenginto\Desktop\Antigravity汉化管理小工具.exe`；
+     - GitHub Release `v2.28.0` 资产完成原地热更新，Git 仓库 master 与 main 双分支完全对齐（Commit: `98a4c7f`）。
+2. **底层技术真相与避坑排查**：
+   - **`/changelog` 命令归属真相**：官方仅在 Antigravity CLI 命令行终端（`agy`）中实现了 `/changelog` 命令，桌面客户端前端输入框并没有注册该 Slash Command，因此在聊天框输入会提示 `No matching results`；官方更新日志可通过官网文档 `antigravity.google/docs/changelog` 或直接询问当前 AI 查看；
+   - **Win32 原生菜单与 DOM 菜单的隔离机制**：DOM 菜单使用正则词典过滤，原生菜单必须拦截 IPC 调用；两者双管齐下方可达成 100% 全场景零死角汉化。
+3. **工作区纯净度**：
+   - 临时排查与过渡脚本（`.cjs`、`.ps1`）已 100% 随用随毁，工作区保持绝对纯净。
 
 ---
 
