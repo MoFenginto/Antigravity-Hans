@@ -76,6 +76,8 @@ try {
                 const t = copy.label.trim();
                 if (zhNativeMap[t]) {
                   copy.label = copy.label.replace(t, zhNativeMap[t]);
+                } else if (typeof translate === 'function') {
+                  copy.label = translate(copy.label);
                 }
               }
               if (Array.isArray(copy.submenu)) {
@@ -5598,10 +5600,7 @@ try {
     "Open Conversation",
     "打开对话"
   ],
-  [
-    "Permission Preset",
-    "权限预设模式"
-  ],
+  ["Permission Preset", "权限预设"],
   [
     "Previous Pane Tab",
     "上一个窗格标签页"

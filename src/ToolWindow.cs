@@ -1000,16 +1000,29 @@ namespace AntigravityHansManager
                     return false;
                 }
 
-                Match mPreload = Regex.Match(headerJson, @"""preload\.js""\s*:\s*\{[\s\S]*?""offset""\s*:\s*""\d+""[\s\S]*?\}\}");
-                if (!mPreload.Success)
+                MatchCollection matches = Regex.Matches(headerJson, @"""preload\.js""\s*:\s*\{[\s\S]*?""offset""\s*:\s*""\d+""[\s\S]*?\}\}");
+                if (matches.Count == 0)
                 {
-                    error = "未在 ASAR 头部树中找到 dist/preload.js 节点";
+                    error = "未在 ASAR 头部树中找到 preload.js 节点";
                     return false;
                 }
 
+                // 核心修复：精准定位真正的 dist/preload.js (ASAR 文件树末尾项且大小大于 1000 字节)
+                Match mPreload = null;
+                for (int i = matches.Count - 1; i >= 0; i--)
+                {
+                    Match mSz = Regex.Match(matches[i].Value, @"""size""\s*:\s*(\d+)");
+                    if (mSz.Success && int.Parse(mSz.Groups[1].Value) > 1000)
+                    {
+                        mPreload = matches[i];
+                        break;
+                    }
+                }
+                if (mPreload == null) mPreload = matches[matches.Count - 1];
+
                 string preloadBlock = mPreload.Value;
-                Match mSize = Regex.Match(preloadBlock, @"""size""s*:s*(d+)");
-                Match mOffset = Regex.Match(preloadBlock, @"""offset""s*:s*""(d+)""");
+                Match mSize = Regex.Match(preloadBlock, @"""size""\s*:\s*(\d+)");
+                Match mOffset = Regex.Match(preloadBlock, @"""offset""\s*:\s*""(\d+)""");
                 if (!mSize.Success || !mOffset.Success)
                 {
                     error = "未能解析 preload.js 的 size 或 offset";
@@ -2345,9 +2358,11 @@ namespace AntigravityHansManager
                     string headerJson = Encoding.UTF8.GetString(jsonBuf);
 
                     MatchCollection matches = Regex.Matches(headerJson, @"""preload\.js""\s*:\s*\{[\s\S]*?""size""\s*:\s*(\d+)");
-                    foreach (Match m in matches)
+                    if (matches.Count > 0)
                     {
-                        int pSize = int.Parse(m.Groups[1].Value);
+                        // 核心修复：精准校验末尾项 (真正的 dist/preload.js)
+                        Match targetPreload = matches[matches.Count - 1];
+                        int pSize = int.Parse(targetPreload.Groups[1].Value);
                         if (pSize > 50000)
                         {
                             return true;
