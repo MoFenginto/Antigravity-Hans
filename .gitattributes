@@ -1,0 +1,18 @@
+# ==============================================================================
+# Git 跨平台换行符严格规范配置 (.gitattributes)
+# ==============================================================================
+
+# Linux / macOS Shell 脚本强制锁定 LF 换行，绝对杜绝 CRLF 导致 bad interpreter 报错
+*.sh text eol=lf
+install.sh text eol=lf
+
+# Windows 批处理与 PowerShell 脚本锁定 CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# 源码与文本默认自动转换
+*.md text
+*.js text
+*.json text
+*.cs text
