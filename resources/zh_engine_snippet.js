@@ -7,7 +7,10 @@
 try {
   (function() {
     if (typeof window === 'undefined') return;
-    if (window.__antigravityStandaloneZhInstalled) return;
+    if (window.__antigravityStandaloneZhInstalled && !window.__antigravityForceReload) {
+      if (typeof window.reapplyAntigravityZh === 'function') window.reapplyAntigravityZh();
+      return;
+    }
     window.__antigravityStandaloneZhInstalled = true;
 
     // 原生右键上下文菜单全递归深度汉化拦截钩子 (Native Context Menu Hook)
@@ -18,6 +21,19 @@ try {
           electron.ipcRenderer.__zh_hooked = true;
           const rawInvoke = electron.ipcRenderer.invoke;
           const zhNativeMap = {
+            "Download Location": "下载保存路径",
+            "Folder where files downloaded in the built-in browser are saved.": "内置浏览器下载文件的默认保存文件夹。",
+            "Change...": "更改...",
+            "Browsing History": "浏览历史记录",
+            "Clear visited URLs and autocomplete suggestions from the built-in browser.": "清除内置浏览器中访问过的网页链接与自动补全建议。",
+            "Voice mode": "语音模式",
+            "Voice": "音色选择",
+            "The voice used in Voice mode. Powered by Gemini Live.": "语音模式所使用的音色，由 Gemini Live 强劲驱动。",
+            "Change": "更改",
+            "Microphone": "麦克风",
+            "Input device for voice mode and dictation.": "用于语音交互模式与听写的音频输入设备。",
+            "System default": "系统默认设备",
+            "How loud Antigravity's voice is.": "设置 Antigravity 语音回复的音量大小。",
             'Rename': '重命名',
             'Rename This Conversation': '重命名此对话',
             'Rename conversation': '重命名对话',
@@ -100,6 +116,58 @@ try {
 
     // 1. 严格按字符长度降序排序的词典数据占位符
     const rawPhrases = [
+  [
+    "Download Location",
+    "下载保存路径"
+  ],
+  [
+    "Folder where files downloaded in the built-in browser are saved.",
+    "内置浏览器下载文件的默认保存文件夹。"
+  ],
+  [
+    "Change...",
+    "更改..."
+  ],
+  [
+    "Browsing History",
+    "浏览历史记录"
+  ],
+  [
+    "Clear visited URLs and autocomplete suggestions from the built-in browser.",
+    "清除内置浏览器中访问过的网页链接与自动补全建议。"
+  ],
+  [
+    "Voice mode",
+    "语音模式"
+  ],
+  [
+    "Voice",
+    "音色选择"
+  ],
+  [
+    "The voice used in Voice mode. Powered by Gemini Live.",
+    "语音模式所使用的音色，由 Gemini Live 强劲驱动。"
+  ],
+  [
+    "Change",
+    "更改"
+  ],
+  [
+    "Microphone",
+    "麦克风"
+  ],
+  [
+    "Input device for voice mode and dictation.",
+    "用于语音交互模式与听写的音频输入设备。"
+  ],
+  [
+    "System default",
+    "系统默认设备"
+  ],
+  [
+    "How loud Antigravity's voice is.",
+    "设置 Antigravity 语音回复的音量大小。"
+  ],
   [
     "Design, Creative & Media",
     "设计、创意与多媒体"
@@ -9654,6 +9722,86 @@ try {
     "Copy Image Address",
     "复制图片地址"
   ]
+  [
+    "what can we get done today?",
+    "今天有什么我可以协助您的？"
+  ],
+  [
+    "what can we get done today",
+    "今天有什么我可以协助您的？"
+  ],
+  [
+    "Chat",
+    "对话界面"
+  ],
+  [
+    "Conversation Steps",
+    "对话步骤展示粒度"
+  ],
+  [
+    "Choose how much detail is shown during a conversation.",
+    "选择在智能体对话与执行任务期间展示的细节详细程度。"
+  ],
+  [
+    "Verbose",
+    "详细全量模式"
+  ],
+  [
+    "Font",
+    "界面字体"
+  ],
+  [
+    "System UI",
+    "系统默认字体 (System UI)"
+  ],
+  [
+    "Move Conversation Up",
+    "在列表中向上移动对话"
+  ],
+  [
+    "Move Conversation Down",
+    "在列表中向下移动对话"
+  ],
+  [
+    "Previous Side Panel Tab",
+    "切换到上一个侧边栏标签"
+  ],
+  [
+    "Next Side Panel Tab",
+    "切换到下一个侧边栏标签"
+  ],
+  [
+    "Mute Voice Speaker",
+    "静音语音扬声器输出"
+  ],
+  [
+    "切换 Side Panel",
+    "切换侧边栏面板"
+  ],
+  [
+    "切换 Maximize Side Panel",
+    "切换最大化侧边栏面板"
+  ],
+  [
+    "Toggle Side Panel",
+    "切换侧边栏面板"
+  ],
+  [
+    "Toggle Maximize Side Panel",
+    "切换最大化侧边栏面板"
+  ],
+  [
+    "Side Panel",
+    "侧边栏面板"
+  ],
+  [
+    "Maximize Side Panel",
+    "最大化侧边栏面板"
+  ],
+  [
+    "Maximum number of attachments reached",
+    "已达到附件添加数量上限"
+  ],
 ];
     const phrases = Array.isArray(rawPhrases) ? rawPhrases : Object.values(rawPhrases);
     const EXACT_MAP = new Map();
@@ -9704,6 +9852,39 @@ try {
 
     // 2. 正则模式匹配库（针对动态数字、状态卡片、复合时间、拆分节点、单位）
     const patterns = [
+  // ==========================================
+  // 2.29.0 深度补全：主屏动态欢迎、外观、快捷键、附件上限
+  // ==========================================
+      [/^\s*Hi\s+(.+?),\s*what\s+can\s+we\s+get\s+done\s+today\??\s*$/gi, '你好 $1，今天有什么我可以协助您的？'],
+      [/^\s*what\s+can\s+we\s+get\s+done\s+today\??\s*$/gi, '今天有什么我可以协助您的？'],
+      [/^\s*Chat\s*$/gi, '对话界面'],
+      [/^\s*Conversation\s+Steps\s*$/gi, '对话步骤展示粒度'],
+      [/^\s*Choose\s+how\s+much\s+detail\s+is\s+shown\s+during\s+a\s+conversation\.?\s*$/gi, '选择在智能体对话与执行任务期间展示的细节详细程度。'],
+      [/^\s*Verbose\s*$/gi, '详细全量模式'],
+      [/^\s*默认\s+Verbose\s*$/gi, '默认 详细全量模式'],
+      [/^\s*Font\s*$/gi, '界面字体'],
+      [/^\s*System\s+UI\s*$/gi, '系统默认字体 (System UI)'],
+      [/^\s*Move\s+Conversation\s+Up\s*$/gi, '在列表中向上移动对话'],
+      [/^\s*Move\s+Conversation\s+Down\s*$/gi, '在列表中向下移动对话'],
+      [/^\s*Previous\s+Side\s+Panel\s+Tab\s*$/gi, '切换到上一个侧边栏标签'],
+      [/^\s*Next\s+Side\s+Panel\s+Tab\s*$/gi, '切换到下一个侧边栏标签'],
+      [/^\s*Mute\s+Voice\s+Speaker\s*$/gi, '静音语音扬声器输出'],
+      [/^\s*切换\s+Side\s+Panel\s*$/gi, '切换侧边栏面板'],
+      [/^\s*切换\s+Maximize\s+Side\s+Panel\s*$/gi, '切换最大化侧边栏面板'],
+      [/^\s*Toggle\s+Side\s+Panel\s*$/gi, '切换侧边栏面板'],
+      [/^\s*Toggle\s+Maximize\s+Side\s+Panel\s*$/gi, '切换最大化侧边栏面板'],
+      [/^\s*Side\s+Panel\s*$/gi, '侧边栏面板'],
+      [/^\s*Maximize\s+Side\s+Panel\s*$/gi, '最大化侧边栏面板'],
+      [/^\s*Maximum\s+number\s+of\s+attachments\s+reached\.?\s*$/gi, '已达到附件添加数量上限'],
+      [/^\s*Voice\s+mode\s*$/gi, '语音对话模式'],
+      [/^\s*The\s+voice\s+used\s+in\s+Voice\s+mode\.\s*Powered\s+by\s+Gemini\s+Live\.?\s*$/gi, '语音模式下使用的音色。由 Gemini Live 驱动。'],
+      [/^\s*Input\s+device\s+for\s+voice\s+mode\s+and\s+dictation\.?\s*$/gi, '用于语音模式与听写输入的麦克风设备。'],
+      [/^\s*How\s+loud\s+Antigravity's\s+voice\s+is\.?\s*$/gi, '调节 Antigravity 语音播报音量大小。'],
+      [/^\s*Download\s+Location\s*$/gi, '下载保存位置'],
+      [/^\s*Folder\s+where\s+files\s+downloaded\s+in\s+the\s+built-in\s+browser\s+are\s+saved\.?\s*$/gi, '内置浏览器中下载文件保存的目标文件夹。'],
+      [/^\s*Browsing\s+History\s*$/gi, '浏览历史记录'],
+      [/^\s*Clear\s+visited\s+URLs\s+and\s+autocomplete\s+suggestions\s+from\s+the\s+built-in\s+browser\.?\s*$/gi, '清除内置浏览器中访问过的网页链接和自动补全历史建议。']
+
   [/^\s*See\s+(\d+)\s+more\s*$/i, '查看另外 $1 项'],
   [/^\s*Add\s*$/i, '添加'],
   [/^\s*Details\s*$/i, '详情'],

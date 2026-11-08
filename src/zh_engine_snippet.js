@@ -7,7 +7,10 @@
 try {
   (function() {
     if (typeof window === 'undefined') return;
-    if (window.__antigravityStandaloneZhInstalled) return;
+    if (window.__antigravityStandaloneZhInstalled && !window.__antigravityForceReload) {
+      if (typeof window.reapplyAntigravityZh === 'function') window.reapplyAntigravityZh();
+      return;
+    }
     window.__antigravityStandaloneZhInstalled = true;
 
     // 原生右键上下文菜单全递归深度汉化拦截钩子 (Native Context Menu Hook)
@@ -18,6 +21,120 @@ try {
           electron.ipcRenderer.__zh_hooked = true;
           const rawInvoke = electron.ipcRenderer.invoke;
           const zhNativeMap = {
+            "Download Location": "下载保存路径",
+            "Folder where files downloaded in the built-in browser are saved.": "内置浏览器下载文件的默认保存文件夹。",
+            "Change...": "更改...",
+            "Browsing History": "浏览历史记录",
+            "Clear visited URLs and autocomplete suggestions from the built-in browser.": "清除内置浏览器中访问过的网页链接与自动补全建议。",
+            "Voice mode": "语音模式",
+            "Voice": "音色选择",
+            "The voice used in Voice mode. Powered by Gemini Live.": "语音模式所使用的音色，由 Gemini Live 强劲驱动。",
+            "Change": "更改",
+            "Microphone": "麦克风",
+            "Input device for voice mode and dictation.": "用于语音交互模式与听写的音频输入设备。",
+            "System default": "系统默认设备",
+            "How loud Antigravity's voice is.": "设置 Antigravity 语音回复的音量大小。",
+            "Voice mode": "语音模式",
+            "Voice": "音色",
+            "The voice used in Voice mode. Powered by Gemini Live.": "语音模式所使用的音色，由 Gemini Live 强劲驱动。",
+            "Not set": "未设置",
+            "Change": "更改",
+            "Microphone": "麦克风",
+            "Input device for voice mode and dictation.": "用于语音交互模式与语音听写的音频输入设备。",
+            "System default": "系统默认设备",
+            "How loud Antigravity's voice is.": "设置 Antigravity 语音回复的音量大小。",
+            "Voice volume": "语音音量",
+            "Chime volume": "提示声音量",
+            "projects": "个项目",
+            "Chat": "对话界面",
+            "Conversation Steps": "对话步骤展示粒度",
+            "Choose how much detail is shown during a conversation.": "选择在智能体对话与执行任务期间展示的细节详细程度。",
+            "Verbose": "详细全量模式",
+            "Font": "界面字体",
+            "Google Sans": "Google Sans (官方字体)",
+            "Project 4K": "4K 极简沉浸项目视图",
+            "More options": "更多选项",
+            "Conversations": "全部对话",
+            "Projects": "项目空间",
+            "User message": "用户消息",
+            "Message input": "对话消息输入框",
+            "just now": "刚刚",
+            "Describe the bug you encountered...": "请详细描述您遇到的问题、异常现象或改进建议...",
+            "Please list the steps to reproduce the issue": "请列出重现该问题的具体操作步骤",
+            "Search shortcuts...": "搜索快捷键...",
+            "Search shortcuts": "搜索快捷键",
+            "Open Conversation Picker": "打开对话切换器",
+            "Open File Search": "打开文件快速检索",
+            "New Conversation": "新建对话",
+            "Go Back": "返回上一视图",
+            "Go Forward": "前进至下一视图",
+            "Automations": "自动化任务中枢",
+            "New Tab": "新建标签页",
+            "Reopen Closed Tab": "重新打开已关闭标签页",
+            "Select Previous Conversation": "切换到上一个对话",
+            "Select Next Conversation": "切换到下一个对话",
+            "Move Conversation Up": "将对话在列表中上移",
+            "Move Conversation Down": "将对话在列表中下移",
+            "Previous Side Panel Tab": "切换到上一个侧边栏标签",
+            "Next Side Panel Tab": "切换到下一个侧边栏标签",
+            "Open Settings": "打开应用设置",
+            "Open Conversation in New Tab": "在新标签页中打开对话",
+            "Focus Input": "聚焦到输入框",
+            "Toggle Model Selector": "切换模型选择器",
+            "Toggle Voice Recording": "切换语音录制",
+            "Mute Voice Mic": "静音麦克风输入",
+            "Mute Voice Speaker": "静音语音扬声器输出",
+            "Find in Pane": "在当前窗格中查找",
+            "Add to Chat/Quote": "添加至对话 / 引用内容",
+            "Archive This Conversation": "归档此对话",
+            "Toggle Sidebar": "展开 / 折叠侧边栏",
+            "Toggle Side Panel": "展开 / 折叠右侧面板",
+            "Toggle Maximize Side Panel": "最大化 / 还原右侧面板",
+            "Toggle Overview Panel": "切换全局总览面板",
+            "Toggle Terminal": "展开 / 折叠终端控制台",
+            "Plugin:": "扩展插件:",
+            "Execute Commands In Project Folder": "在项目文件夹中执行命令",
+            "Unknown: There was a network issue connecting to the server, please try again.": "未知错误：连接服务器出现网络异常，请重试。",
+            "Error ID:": "错误标识 ID:",
+            "Checked task": "已检查任务",
+            "Conversation turns": "对话轮次",
+            "Scroll turns up": "向上滚动轮次",
+            "Undo to this point": "回滚到此节点",
+            "Start Voice mode": "开启语音模式",
+            "Cancel (Ctrl+D)": "取消 (Ctrl+D)",
+            "Side Panel": "侧边栏面板",
+            "切换 Side Panel": "切换侧边栏面板",
+            "Prompt Draft": "提示词草稿",
+            "Check for Updates": "检查更新",
+            "Checking for Updates...": "正在检查更新...",
+            "Downloading Update...": "正在下载更新...",
+            "Restart to Update": "重启以应用更新",
+            "No updates available": "当前已是最新版本，无可用更新",
+            "Preparing download...": "正在准备下载...",
+            "Downloading the Antigravity binary…": "正在下载 Antigravity 核心组件…",
+            "Exhausted download filename collision attempts": "下载文件名防重命名冲突重试已耗尽",
+            "Connect to WSL": "连接到 WSL (Windows Linux 子系统)",
+            "Reopen Locally": "在本地重新打开",
+            "Cannot open folder": "无法打开文件夹",
+            "Folder is on the Windows filesystem": "文件夹位于 Windows 文件系统中",
+            "Open workspace": "打开工作区",
+            "Open workspaces": "打开工作区列表",
+            "Binary not found": "未找到核心运行程序",
+            "Failed to list WSL distros:": "获取 WSL 发行版列表失败：",
+            "Failed to persist window state:": "保存窗口状态失败：",
+            "Failed to persist WSL distro choice:": "保存 WSL 发行版选择失败：",
+            "Choose a Passkey": "选择通行密钥 (Passkey)",
+            "Select a passkey account to continue:": "选择一个通行密钥账号以继续：",
+            "Passkeys": "通行密钥 (Passkeys)",
+            "Passkey": "通行密钥",
+            "Connecting to your device…": "正在连接到您的设备…",
+            "Verify on your device to continue…": "请在您的设备上确认以继续…",
+            "Passkey sign-in was cancelled": "通行密钥登录已取消",
+            "Passkey sign-in timed out": "通行密钥登录超时",
+            "Passkey sign-in cancelled by user": "用户已取消通行密钥登录",
+            "Empty CTAP2 assertion response": "CTAP2 凭证断言响应为空",
+            "Office URI Schemes": "Office 协议链接方案",
+            "Timed": "计时耗时",
             'Rename': '重命名',
             'Rename This Conversation': '重命名此对话',
             'Rename conversation': '重命名对话',
@@ -100,6 +217,462 @@ try {
 
     // 1. 严格按字符长度降序排序的词典数据占位符
     const rawPhrases = [
+  [
+    "Download Location",
+    "下载保存路径"
+  ],
+  [
+    "Folder where files downloaded in the built-in browser are saved.",
+    "内置浏览器下载文件的默认保存文件夹。"
+  ],
+  [
+    "Change...",
+    "更改..."
+  ],
+  [
+    "Browsing History",
+    "浏览历史记录"
+  ],
+  [
+    "Clear visited URLs and autocomplete suggestions from the built-in browser.",
+    "清除内置浏览器中访问过的网页链接与自动补全建议。"
+  ],
+  [
+    "Voice mode",
+    "语音模式"
+  ],
+  [
+    "Voice",
+    "音色选择"
+  ],
+  [
+    "The voice used in Voice mode. Powered by Gemini Live.",
+    "语音模式所使用的音色，由 Gemini Live 强劲驱动。"
+  ],
+  [
+    "Change",
+    "更改"
+  ],
+  [
+    "Microphone",
+    "麦克风"
+  ],
+  [
+    "Input device for voice mode and dictation.",
+    "用于语音交互模式与听写的音频输入设备。"
+  ],
+  [
+    "System default",
+    "系统默认设备"
+  ],
+  [
+    "How loud Antigravity's voice is.",
+    "设置 Antigravity 语音回复的音量大小。"
+  ],
+  [
+    "Voice mode",
+    "语音模式"
+  ],
+  [
+    "Voice",
+    "音色"
+  ],
+  [
+    "The voice used in Voice mode. Powered by Gemini Live.",
+    "语音模式所使用的音色，由 Gemini Live 强劲驱动。"
+  ],
+  [
+    "Not set",
+    "未设置"
+  ],
+  [
+    "Change",
+    "更改"
+  ],
+  [
+    "Microphone",
+    "麦克风"
+  ],
+  [
+    "Input device for voice mode and dictation.",
+    "用于语音交互模式与语音听写的音频输入设备。"
+  ],
+  [
+    "System default",
+    "系统默认设备"
+  ],
+  [
+    "How loud Antigravity's voice is.",
+    "设置 Antigravity 语音回复的音量大小。"
+  ],
+  [
+    "Voice volume",
+    "语音音量"
+  ],
+  [
+    "Chime volume",
+    "提示声音量"
+  ],
+  [
+    "projects",
+    "个项目"
+  ],
+  [
+    "Chat",
+    "对话界面"
+  ],
+  [
+    "Conversation Steps",
+    "对话步骤展示粒度"
+  ],
+  [
+    "Choose how much detail is shown during a conversation.",
+    "选择在智能体对话与执行任务期间展示的细节详细程度。"
+  ],
+  [
+    "Verbose",
+    "详细全量模式"
+  ],
+  [
+    "Font",
+    "界面字体"
+  ],
+  [
+    "Google Sans",
+    "Google Sans (官方字体)"
+  ],
+  [
+    "Project 4K",
+    "4K 极简沉浸项目视图"
+  ],
+  [
+    "More options",
+    "更多选项"
+  ],
+  [
+    "Conversations",
+    "全部对话"
+  ],
+  [
+    "Projects",
+    "项目空间"
+  ],
+  [
+    "User message",
+    "用户消息"
+  ],
+  [
+    "Message input",
+    "对话消息输入框"
+  ],
+  [
+    "just now",
+    "刚刚"
+  ],
+  [
+    "Describe the bug you encountered...",
+    "请详细描述您遇到的问题、异常现象或改进建议..."
+  ],
+  [
+    "Please list the steps to reproduce the issue",
+    "请列出重现该问题的具体操作步骤"
+  ],
+  [
+    "Search shortcuts...",
+    "搜索快捷键..."
+  ],
+  [
+    "Search shortcuts",
+    "搜索快捷键"
+  ],
+  [
+    "Open Conversation Picker",
+    "打开对话切换器"
+  ],
+  [
+    "Open File Search",
+    "打开文件快速检索"
+  ],
+  [
+    "New Conversation",
+    "新建对话"
+  ],
+  [
+    "Go Back",
+    "返回上一视图"
+  ],
+  [
+    "Go Forward",
+    "前进至下一视图"
+  ],
+  [
+    "Automations",
+    "自动化任务中枢"
+  ],
+  [
+    "New Tab",
+    "新建标签页"
+  ],
+  [
+    "Reopen Closed Tab",
+    "重新打开已关闭标签页"
+  ],
+  [
+    "Select Previous Conversation",
+    "切换到上一个对话"
+  ],
+  [
+    "Select Next Conversation",
+    "切换到下一个对话"
+  ],
+  [
+    "Move Conversation Up",
+    "将对话在列表中上移"
+  ],
+  [
+    "Move Conversation Down",
+    "将对话在列表中下移"
+  ],
+  [
+    "Previous Side Panel Tab",
+    "切换到上一个侧边栏标签"
+  ],
+  [
+    "Next Side Panel Tab",
+    "切换到下一个侧边栏标签"
+  ],
+  [
+    "Open Settings",
+    "打开应用设置"
+  ],
+  [
+    "Open Conversation in New Tab",
+    "在新标签页中打开对话"
+  ],
+  [
+    "Focus Input",
+    "聚焦到输入框"
+  ],
+  [
+    "Toggle Model Selector",
+    "切换模型选择器"
+  ],
+  [
+    "Toggle Voice Recording",
+    "切换语音录制"
+  ],
+  [
+    "Mute Voice Mic",
+    "静音麦克风输入"
+  ],
+  [
+    "Mute Voice Speaker",
+    "静音语音扬声器输出"
+  ],
+  [
+    "Find in Pane",
+    "在当前窗格中查找"
+  ],
+  [
+    "Add to Chat/Quote",
+    "添加至对话 / 引用内容"
+  ],
+  [
+    "Archive This Conversation",
+    "归档此对话"
+  ],
+  [
+    "Toggle Sidebar",
+    "展开 / 折叠侧边栏"
+  ],
+  [
+    "Toggle Side Panel",
+    "展开 / 折叠右侧面板"
+  ],
+  [
+    "Toggle Maximize Side Panel",
+    "最大化 / 还原右侧面板"
+  ],
+  [
+    "Toggle Overview Panel",
+    "切换全局总览面板"
+  ],
+  [
+    "Toggle Terminal",
+    "展开 / 折叠终端控制台"
+  ],
+  [
+    "Plugin:",
+    "扩展插件:"
+  ],
+  [
+    "Execute Commands In Project Folder",
+    "在项目文件夹中执行命令"
+  ],
+  [
+    "Unknown: There was a network issue connecting to the server, please try again.",
+    "未知错误：连接服务器出现网络异常，请重试。"
+  ],
+  [
+    "Error ID:",
+    "错误标识 ID:"
+  ],
+  [
+    "Checked task",
+    "已检查任务"
+  ],
+  [
+    "Conversation turns",
+    "对话轮次"
+  ],
+  [
+    "Scroll turns up",
+    "向上滚动轮次"
+  ],
+  [
+    "Undo to this point",
+    "回滚到此节点"
+  ],
+  [
+    "Start Voice mode",
+    "开启语音模式"
+  ],
+  [
+    "Cancel (Ctrl+D)",
+    "取消 (Ctrl+D)"
+  ],
+  [
+    "Side Panel",
+    "侧边栏面板"
+  ],
+  [
+    "切换 Side Panel",
+    "切换侧边栏面板"
+  ],
+  [
+    "Prompt Draft",
+    "提示词草稿"
+  ],
+  [
+    "Check for Updates",
+    "检查更新"
+  ],
+  [
+    "Checking for Updates...",
+    "正在检查更新..."
+  ],
+  [
+    "Downloading Update...",
+    "正在下载更新..."
+  ],
+  [
+    "Restart to Update",
+    "重启以应用更新"
+  ],
+  [
+    "No updates available",
+    "当前已是最新版本，无可用更新"
+  ],
+  [
+    "Preparing download...",
+    "正在准备下载..."
+  ],
+  [
+    "Downloading the Antigravity binary…",
+    "正在下载 Antigravity 核心组件…"
+  ],
+  [
+    "Exhausted download filename collision attempts",
+    "下载文件名防重命名冲突重试已耗尽"
+  ],
+  [
+    "Connect to WSL",
+    "连接到 WSL (Windows Linux 子系统)"
+  ],
+  [
+    "Reopen Locally",
+    "在本地重新打开"
+  ],
+  [
+    "Cannot open folder",
+    "无法打开文件夹"
+  ],
+  [
+    "Folder is on the Windows filesystem",
+    "文件夹位于 Windows 文件系统中"
+  ],
+  [
+    "Open workspace",
+    "打开工作区"
+  ],
+  [
+    "Open workspaces",
+    "打开工作区列表"
+  ],
+  [
+    "Binary not found",
+    "未找到核心运行程序"
+  ],
+  [
+    "Failed to list WSL distros:",
+    "获取 WSL 发行版列表失败："
+  ],
+  [
+    "Failed to persist window state:",
+    "保存窗口状态失败："
+  ],
+  [
+    "Failed to persist WSL distro choice:",
+    "保存 WSL 发行版选择失败："
+  ],
+  [
+    "Choose a Passkey",
+    "选择通行密钥 (Passkey)"
+  ],
+  [
+    "Select a passkey account to continue:",
+    "选择一个通行密钥账号以继续："
+  ],
+  [
+    "Passkeys",
+    "通行密钥 (Passkeys)"
+  ],
+  [
+    "Passkey",
+    "通行密钥"
+  ],
+  [
+    "Connecting to your device…",
+    "正在连接到您的设备…"
+  ],
+  [
+    "Verify on your device to continue…",
+    "请在您的设备上确认以继续…"
+  ],
+  [
+    "Passkey sign-in was cancelled",
+    "通行密钥登录已取消"
+  ],
+  [
+    "Passkey sign-in timed out",
+    "通行密钥登录超时"
+  ],
+  [
+    "Passkey sign-in cancelled by user",
+    "用户已取消通行密钥登录"
+  ],
+  [
+    "Empty CTAP2 assertion response",
+    "CTAP2 凭证断言响应为空"
+  ],
+  [
+    "Office URI Schemes",
+    "Office 协议链接方案"
+  ],
+  [
+    "Timed",
+    "计时耗时"
+  ],
   [
     "Design, Creative & Media",
     "设计、创意与多媒体"
@@ -9654,6 +10227,30 @@ try {
     "Copy Image Address",
     "复制图片地址"
   ]
+  [
+    "what can we get done today?",
+    "今天有什么我可以协助您的？"
+  ],
+  [
+    "what can we get done today",
+    "今天有什么我可以协助您的？"
+  ],
+  [
+    "System UI",
+    "系统默认字体 (System UI)"
+  ],
+  [
+    "切换 Maximize Side Panel",
+    "切换最大化侧边栏面板"
+  ],
+  [
+    "Maximize Side Panel",
+    "最大化侧边栏面板"
+  ],
+  [
+    "Maximum number of attachments reached",
+    "已达到附件添加数量上限"
+  ],
 ];
     const phrases = Array.isArray(rawPhrases) ? rawPhrases : Object.values(rawPhrases);
     const EXACT_MAP = new Map();
@@ -9704,6 +10301,39 @@ try {
 
     // 2. 正则模式匹配库（针对动态数字、状态卡片、复合时间、拆分节点、单位）
     const patterns = [
+  // ==========================================
+  // 2.29.0 深度补全：主屏动态欢迎、外观、快捷键、附件上限
+  // ==========================================
+      [/^\s*Hi\s+(.+?),\s*what\s+can\s+we\s+get\s+done\s+today\??\s*$/gi, '你好 $1，今天有什么我可以协助您的？'],
+      [/^\s*what\s+can\s+we\s+get\s+done\s+today\??\s*$/gi, '今天有什么我可以协助您的？'],
+      [/^\s*Chat\s*$/gi, '对话界面'],
+      [/^\s*Conversation\s+Steps\s*$/gi, '对话步骤展示粒度'],
+      [/^\s*Choose\s+how\s+much\s+detail\s+is\s+shown\s+during\s+a\s+conversation\.?\s*$/gi, '选择在智能体对话与执行任务期间展示的细节详细程度。'],
+      [/^\s*Verbose\s*$/gi, '详细全量模式'],
+      [/^\s*默认\s+Verbose\s*$/gi, '默认 详细全量模式'],
+      [/^\s*Font\s*$/gi, '界面字体'],
+      [/^\s*System\s+UI\s*$/gi, '系统默认字体 (System UI)'],
+      [/^\s*Move\s+Conversation\s+Up\s*$/gi, '在列表中向上移动对话'],
+      [/^\s*Move\s+Conversation\s+Down\s*$/gi, '在列表中向下移动对话'],
+      [/^\s*Previous\s+Side\s+Panel\s+Tab\s*$/gi, '切换到上一个侧边栏标签'],
+      [/^\s*Next\s+Side\s+Panel\s+Tab\s*$/gi, '切换到下一个侧边栏标签'],
+      [/^\s*Mute\s+Voice\s+Speaker\s*$/gi, '静音语音扬声器输出'],
+      [/^\s*切换\s+Side\s+Panel\s*$/gi, '切换侧边栏面板'],
+      [/^\s*切换\s+Maximize\s+Side\s+Panel\s*$/gi, '切换最大化侧边栏面板'],
+      [/^\s*Toggle\s+Side\s+Panel\s*$/gi, '切换侧边栏面板'],
+      [/^\s*Toggle\s+Maximize\s+Side\s+Panel\s*$/gi, '切换最大化侧边栏面板'],
+      [/^\s*Side\s+Panel\s*$/gi, '侧边栏面板'],
+      [/^\s*Maximize\s+Side\s+Panel\s*$/gi, '最大化侧边栏面板'],
+      [/^\s*Maximum\s+number\s+of\s+attachments\s+reached\.?\s*$/gi, '已达到附件添加数量上限'],
+      [/^\s*Voice\s+mode\s*$/gi, '语音对话模式'],
+      [/^\s*The\s+voice\s+used\s+in\s+Voice\s+mode\.\s*Powered\s+by\s+Gemini\s+Live\.?\s*$/gi, '语音模式下使用的音色。由 Gemini Live 驱动。'],
+      [/^\s*Input\s+device\s+for\s+voice\s+mode\s+and\s+dictation\.?\s*$/gi, '用于语音模式与听写输入的麦克风设备。'],
+      [/^\s*How\s+loud\s+Antigravity's\s+voice\s+is\.?\s*$/gi, '调节 Antigravity 语音播报音量大小。'],
+      [/^\s*Download\s+Location\s*$/gi, '下载保存位置'],
+      [/^\s*Folder\s+where\s+files\s+downloaded\s+in\s+the\s+built-in\s+browser\s+are\s+saved\.?\s*$/gi, '内置浏览器中下载文件保存的目标文件夹。'],
+      [/^\s*Browsing\s+History\s*$/gi, '浏览历史记录'],
+      [/^\s*Clear\s+visited\s+URLs\s+and\s+autocomplete\s+suggestions\s+from\s+the\s+built-in\s+browser\.?\s*$/gi, '清除内置浏览器中访问过的网页链接和自动补全历史建议。']
+
   [/^\s*See\s+(\d+)\s+more\s*$/i, '查看另外 $1 项'],
   [/^\s*Add\s*$/i, '添加'],
   [/^\s*Details\s*$/i, '详情'],
@@ -10433,6 +11063,27 @@ try {
       [/^View\s+Debug\s+Info$/gi, '查看调试信息'],
 
       // 右侧栏 Tabs、状态与条目标签
+      // 新版 2.29.0 动态对话轮次与相对时间正则
+      // 深度交互与快捷键提示动态正则
+      [/^Shortcut\s+(.+?)\s+for\s+(.+)$/gi, '用于“$2”的快捷键: $1'],
+      [/^Remove shortcut\s+(.+?)\s+for\s+(.+)$/gi, '移除用于“$2”的快捷键 $1'],
+      [/^Add shortcut for\s+(.+)$/gi, '为“$1”添加快捷键'],
+      [/(?:已在|在)\s*(\d+)\s*projects/gi, '已在 $1 个项目中'],
+      [/^(\d+)\s*projects$/gi, '$1 个项目'],
+      [/(\d[\d,]*)\s*tokens?\s*\(/gi, '$1 Token ('],
+      [/(\d[\d,]*)\s*tokens?\)/gi, '$1 Token)'],,
+
+      [/^(\d+)\s*turns?$/gi, '$1 轮对话'],
+      [/^Turn\s+(\d+)\s+of\s+(\d+)$/gi, '第 $1 轮（共 $2 轮）'],
+      [/^(\d+)\s*d\s+ago$/gi, '$1 天前'],
+      [/^(\d+)\s*h\s+ago$/gi, '$1 小时前'],
+      [/^(\d+)\s*m\s+ago$/gi, '$1 分钟前'],
+      [/^(\d+)\s*s\s+ago$/gi, '$1 秒前'],
+      [/^(\d+)\s*d$/gi, '$1 天'],
+      [/^(\d+)\s*h$/gi, '$1 小时'],
+      [/^(\d+)\s*m$/gi, '$1 分钟'],
+      [/^(\d+)\s*s$/gi, '$1 秒'],,
+
       [/^Artifacts\s*\(\s*(\d+)\s+Files?\s+for\s+Conversation\s*\)$/gi, '产物文件 (本对话包含 $1 个文件)'],
       [/^Artifacts\s*\(\s*(\d+)\s+Files?\s*\)$/gi, '产物文件 ($1 个文件)'],
       [/^Artifacts\s*\(\s*(\d+)\s*\)$/gi, '产物文件 ($1)'],
