@@ -1302,7 +1302,7 @@ try {
         private System.Windows.Forms.Timer pollTimer;
         private bool memoryZhEnabled = true;
 
-        public const string APP_VERSION = "v2.29.0";
+        public const string APP_VERSION = "v2.30.0";
         private string latestVersion = "";
         private string latestDownloadUrl = "";
         private string latestReleaseNotes = "";

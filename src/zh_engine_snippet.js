@@ -20,7 +20,7 @@ try {
         if (electron && electron.ipcRenderer && !electron.ipcRenderer.__zh_hooked) {
           electron.ipcRenderer.__zh_hooked = true;
           const rawInvoke = electron.ipcRenderer.invoke;
-          const zhNativeMap = {
+          var zhNativeMap = window.__agZhNativeMap = {
             "Download Location": "下载保存路径",
             "Folder where files downloaded in the built-in browser are saved.": "内置浏览器下载文件的默认保存文件夹。",
             "Change...": "更改...",
@@ -10251,6 +10251,2706 @@ try {
     "Maximum number of attachments reached",
     "已达到附件添加数量上限"
   ],
+  [
+    "New Remote Project",
+    "新建远程项目"
+  ],
+  [
+    "Create a project whose conversations run remotely.",
+    "创建一个对话在云端远程环境中运行的项目。"
+  ],
+  [
+    "Select Resource(s)",
+    "选择资源"
+  ],
+  [
+    "+ Add Resource",
+    "+ 添加资源"
+  ],
+  [
+    "Add Resource",
+    "添加资源"
+  ],
+  [
+    "+ Add Folder",
+    "+ 添加文件夹"
+  ],
+  [
+    "Uploaded files and connected resources are mounted in your cloud environment.",
+    "已上传的文件与已连接的资源将挂载到您的云端环境中。"
+  ],
+  [
+    "Stored and mounted in your cloud environment",
+    "存储在云端并挂载至您的云端环境"
+  ],
+  [
+    "Uploaded project files and in-chat attachments are stored on Google servers and mounted into your cloud sandbox so your agent can read and work with them.",
+    "上传的项目文件与对话附件将安全存储在 Google 服务器上，并自动挂载至云端沙箱供智能体读取与处理。"
+  ],
+  [
+    "Connected Google Drive and GitHub resources",
+    "已连接的 Google 云端硬盘与 GitHub 资源"
+  ],
+  [
+    "Files, folders, and repositories you connect are accessible to your agent in this project, including during background or scheduled runs.",
+    "您连接的文件、文件夹与代码仓库可供本项目中的智能体访问，包括在后台任务或定时计划运行期间。"
+  ],
+  [
+    "Manage and delete your data anytime",
+    "随时管理与删除您的数据"
+  ],
+  [
+    "Remove individual uploaded files or connected resources in Project Settings, or delete a project or conversation to remove its stored files.",
+    "您可随时在“项目设置”中移除单个上传文件或已连接资源，或通过删除项目、对话来彻底清除其存储的文件。"
+  ],
+  [
+    "Files and resources in cloud workspaces",
+    "云端工作区中的文件与资源说明"
+  ],
+  [
+    "Here's how uploaded files, attachments, and connected resources work in your cloud environment",
+    "以下为您上传的文件、附件及已连接资源在云端环境中的工作方式说明"
+  ],
+  [
+    "Avoid uploading highly sensitive data and verify actions taken by your agent. Make sure you have the",
+    "请避免上传高度敏感数据，并仔细核实智能体执行的操作。请确保您拥有相应的"
+  ],
+  [
+    "Prohibited Use Policy",
+    "禁止使用政策"
+  ],
+  [
+    "Google Antigravity Terms of Service",
+    "Google Antigravity 服务条款"
+  ],
+  [
+    "Google Privacy Policy",
+    "Google 隐私权政策"
+  ],
+  [
+    "No resources added yet.",
+    "暂未添加任何资源。"
+  ],
+  [
+    "Filter resources...",
+    "筛选资源..."
+  ],
+  [
+    "No matching resources found.",
+    "未找到匹配的资源。"
+  ],
+  [
+    "Loading resources...",
+    "正在加载资源..."
+  ],
+  [
+    "Failed to load resources",
+    "加载资源失败"
+  ],
+  [
+    "Connect your account to browse",
+    "连接您的账号以浏览资源"
+  ],
+  [
+    "Upload Files",
+    "上传文件"
+  ],
+  [
+    "Connect GitHub",
+    "连接 GitHub"
+  ],
+  [
+    "GitHub Repositories",
+    "GitHub 代码仓库"
+  ],
+  [
+    "Loading Repositories…",
+    "正在加载代码仓库..."
+  ],
+  [
+    "Loading Repositories...",
+    "正在加载代码仓库..."
+  ],
+  [
+    "No matching repositories",
+    "未找到匹配的代码仓库"
+  ],
+  [
+    "Select Google Drive files or folders",
+    "选择 Google 云端硬盘文件或文件夹"
+  ],
+  [
+    "Configure what the agent can do in local and remote conversations.",
+    "配置智能体在本地与远程对话中可执行的操作权限。"
+  ],
+  [
+    "This Computer",
+    "当前电脑 (本地)"
+  ],
+  [
+    "This computer",
+    "当前电脑 (本地)"
+  ],
+  [
+    "Remote",
+    "远程环境"
+  ],
+  [
+    "Controls permissions for remote conversations.",
+    "控制远程对话的操作权限范围。"
+  ],
+  [
+    "Change…",
+    "更改..."
+  ],
+  [
+    "Remote Agents Data",
+    "远程智能体数据"
+  ],
+  [
+    "Delete All Remote Agents Data",
+    "删除所有远程智能体数据"
+  ],
+  [
+    "Delete All Remote Agents Data?",
+    "确定要删除所有远程智能体数据吗？"
+  ],
+  [
+    "Delete All Data",
+    "删除所有数据"
+  ],
+  [
+    "your remote conversations, projects, scheduled tasks, connected plugins and settings. Data in the desktop app and your Google account are not affected.",
+    "您的远程对话、项目、定时任务、已连接插件及设置。桌面客户端本地数据与您的 Google 账号不受影响。"
+  ],
+  [
+    "Permanently delete your remote conversations, projects, scheduled tasks, connected plugins and settings. Data in the desktop app and your Google account are not affected.",
+    "永久删除您的远程对话、项目、定时任务、已连接插件及设置。桌面客户端本地数据与您的 Google 账号不受影响。"
+  ],
+  [
+    "Permission Details",
+    "权限详情明细"
+  ],
+  [
+    "Enable Sandbox Mode",
+    "启用沙箱隔离模式"
+  ],
+  [
+    "Terminal sandbox is not supported in this environment",
+    "当前运行环境不支持终端沙箱隔离模式"
+  ],
+  [
+    "Every command requires approval.",
+    "每条命令均需请求批准。"
+  ],
+  [
+    "Ask before sensitive operations.",
+    "在执行敏感操作前询问。"
+  ],
+  [
+    "Run all commands without restrictions.",
+    "无限制运行所有命令。"
+  ],
+  [
+    "Voice engine",
+    "语音引擎"
+  ],
+  [
+    "Whatever the voice-engine-addr flag serves you.",
+    "使用 voice-engine-addr 启动参数所指定的语音引擎服务。"
+  ],
+  [
+    "Default (Mendel)",
+    "默认引擎 (Mendel)"
+  ],
+  [
+    "Save audio recordings",
+    "保存语音录音文件"
+  ],
+  [
+    "Only stored on your machine.",
+    "仅保存在您的本地电脑上。"
+  ],
+  [
+    "Recordings",
+    "录音记录"
+  ],
+  [
+    "No recordings",
+    "暂无录音记录"
+  ],
+  [
+    "Delete all recordings?",
+    "确定要删除所有录音记录吗？"
+  ],
+  [
+    "Manage project folders and settings.",
+    "管理项目文件夹与专属设置。"
+  ],
+  [
+    "Settings for conversations outside of projects.",
+    "管理未归入任何项目的独立对话设置。"
+  ],
+  [
+    "Get started with Remote Control",
+    "开始使用远程控制"
+  ],
+  [
+    "New Conversation Button",
+    "新建对话按钮默认位置"
+  ],
+  [
+    "Which workspace the New Conversation button and keyboard shortcut start you in.",
+    "配置点击“新建对话”按钮或按下快捷键时默认进入的工作区。"
+  ],
+  [
+    "Side Panel Preview",
+    "侧边栏预览"
+  ],
+  [
+    "Clear visited URLs and autocomplete suggestions from side panel preview.",
+    "清除侧边栏预览中访问过的网页链接与自动补全建议。"
+  ],
+  [
+    "Chat Width",
+    "对话区域宽度"
+  ],
+  [
+    "Accessibility",
+    "无障碍辅助功能"
+  ],
+  [
+    "Chat Input",
+    "对话输入框"
+  ],
+  [
+    "Enter to Send",
+    "按 Enter 键发送消息"
+  ],
+  [
+    "Send messages with the keyboard's Enter key instead of starting a new line.",
+    "使用键盘 Enter 键直接发送消息，而非换行。"
+  ],
+  [
+    "Screen Reader Mode",
+    "屏幕阅读器无障碍模式"
+  ],
+  [
+    "Optimize the interface and terminal output for screen readers.",
+    "针对屏幕阅读器优化界面与终端输出。"
+  ],
+  [
+    "Terminal Placement",
+    "终端面板停靠位置"
+  ],
+  [
+    "Choose where terminal sessions appear.",
+    "选择终端会话面板的显示位置。"
+  ],
+  [
+    "Markdown Artifact Width",
+    "Markdown 制品文档宽度"
+  ],
+  [
+    "Configure the default width of markdown artifacts.",
+    "配置 Markdown 制品文档的默认显示宽度。"
+  ],
+  [
+    "Context and Quota Indicator",
+    "上下文与模型配额指示器"
+  ],
+  [
+    "Show how full the context window is next to the send button. Click it for a breakdown and to see your model quota.",
+    "在发送按钮旁显示当前上下文窗口占用比例。点击可查看明细及模型可用配额。"
+  ],
+  [
+    "Unpin conversation",
+    "取消置顶对话"
+  ],
+  [
+    "Scroll turns down",
+    "向下滚动轮次"
+  ],
+  [
+    "Undo to Here",
+    "回退到此处"
+  ],
+  [
+    "Stop Voice mode",
+    "停止语音模式"
+  ],
+  [
+    "Close (Esc)",
+    "关闭 (Esc)"
+  ],
+  [
+    "Close (Escape)",
+    "关闭 (Escape)"
+  ],
+  [
+    "Sort Projects",
+    "项目排序方式"
+  ],
+  [
+    "Sort Workspaces",
+    "工作区排序方式"
+  ],
+  [
+    "Custom Order",
+    "自定义排序"
+  ],
+  [
+    "Display",
+    "显示选项"
+  ],
+  [
+    "Auto Pin",
+    "自动置顶"
+  ],
+  [
+    "Archived Only",
+    "仅显示已归档"
+  ],
+  [
+    "Only Unread",
+    "仅显示未读"
+  ],
+  [
+    "Only Archived",
+    "仅显示已归档"
+  ],
+  [
+    "Only Automations",
+    "仅显示自动化任务"
+  ],
+  [
+    "Sort and filter conversations",
+    "排序与筛选对话"
+  ],
+  [
+    "Mark All as Read",
+    "全部标记为已读"
+  ],
+  [
+    "Mark This Conversation as Read",
+    "将此对话标记为已读"
+  ],
+  [
+    "Mark This Conversation as Unread",
+    "将此对话标记为未读"
+  ],
+  [
+    "Pin This Conversation",
+    "置顶此对话"
+  ],
+  [
+    "Unpin This Conversation",
+    "取消置顶此对话"
+  ],
+  [
+    "Rename This Conversation",
+    "重命名此对话"
+  ],
+  [
+    "Copy Conversation Markdown",
+    "复制对话 Markdown"
+  ],
+  [
+    "Copy Conversation ID",
+    "复制对话 ID"
+  ],
+  [
+    "Copy Trajectory ID",
+    "复制轨迹 ID"
+  ],
+  [
+    "Open Trajectory Debug View",
+    "打开轨迹调试视图"
+  ],
+  [
+    "Move to New Group",
+    "移动到新分组"
+  ],
+  [
+    "Delete Group",
+    "删除分组"
+  ],
+  [
+    "Find in Conversation",
+    "在对话中查找"
+  ],
+  [
+    "Comment on Selection",
+    "对选中内容添加评论"
+  ],
+  [
+    "Copy Message",
+    "复制消息"
+  ],
+  [
+    "Cancel Sending Message",
+    "取消发送消息"
+  ],
+  [
+    "Cancel Generation",
+    "取消生成"
+  ],
+  [
+    "Stop Execution",
+    "停止执行"
+  ],
+  [
+    "Expand message",
+    "展开消息"
+  ],
+  [
+    "Open in Tab",
+    "在标签页中打开"
+  ],
+  [
+    "Open in New Tab",
+    "在新标签页中打开"
+  ],
+  [
+    "Open in New Window",
+    "在新窗口中打开"
+  ],
+  [
+    "Open in Side Panel",
+    "在侧边栏面板中打开"
+  ],
+  [
+    "Open in Side Pane",
+    "在侧边窗格中打开"
+  ],
+  [
+    "Open in side pane",
+    "在侧边窗格中打开"
+  ],
+  [
+    "Open in external browser",
+    "在外部浏览器中打开"
+  ],
+  [
+    "Open Link in New Tab",
+    "在新标签页中打开链接"
+  ],
+  [
+    "Copy Link",
+    "复制链接"
+  ],
+  [
+    "Copy Link Address",
+    "复制链接地址"
+  ],
+  [
+    "Open Image in New Tab",
+    "在新标签页中打开图片"
+  ],
+  [
+    "Export as PDF",
+    "导出为 PDF"
+  ],
+  [
+    "Export Artifact",
+    "导出制品文档"
+  ],
+  [
+    "Upload to Google Drive",
+    "上传至 Google 云端硬盘"
+  ],
+  [
+    "Copy as Markdown",
+    "复制为 Markdown"
+  ],
+  [
+    "Insert in Terminal",
+    "插入到终端"
+  ],
+  [
+    "Maximize Width",
+    "最大化宽度"
+  ],
+  [
+    "Toggle file diff",
+    "切换文件差异对比视图"
+  ],
+  [
+    "Download File",
+    "下载文件"
+  ],
+  [
+    "View File",
+    "查看文件"
+  ],
+  [
+    "Remove from Split",
+    "从拆分视图中移除"
+  ],
+  [
+    "Pin Tab",
+    "固定标签页"
+  ],
+  [
+    "Unpin Tab",
+    "取消固定标签页"
+  ],
+  [
+    "Close Other Tabs",
+    "关闭其他标签页"
+  ],
+  [
+    "Close Tabs to the Left",
+    "关闭左侧标签页"
+  ],
+  [
+    "Close Tabs to the Right",
+    "关闭右侧标签页"
+  ],
+  [
+    "Close Panel",
+    "关闭面板"
+  ],
+  [
+    "Restore Pane",
+    "还原窗格"
+  ],
+  [
+    "Kill Terminal",
+    "终止终端进程"
+  ],
+  [
+    "Toggle Terminal Panel",
+    "切换终端面板"
+  ],
+  [
+    "Toggle sidebar",
+    "切换侧边栏"
+  ],
+  [
+    "Fork in Current Workspace",
+    "在当前工作区中分支对话"
+  ],
+  [
+    "Fork in Shared Workspace",
+    "在共享工作区中分支对话"
+  ],
+  [
+    "Fork in New Workspace",
+    "在新工作区中分支对话"
+  ],
+  [
+    "Fork conversation in this folder",
+    "在此文件夹中分支对话"
+  ],
+  [
+    "Keeps working in this folder. Nothing is copied.",
+    "继续在此文件夹中工作，不复制任何文件。"
+  ],
+  [
+    "Stop Editing",
+    "停止编辑"
+  ],
+  [
+    "Edit Shortcut",
+    "编辑快捷键"
+  ],
+  [
+    "Add Shortcut",
+    "添加快捷键"
+  ],
+  [
+    "Remove Shortcut",
+    "移除快捷键"
+  ],
+  [
+    "Reset All to Defaults",
+    "全部重置为默认值"
+  ],
+  [
+    "Reset all shortcuts to defaults",
+    "将所有快捷键重置为默认设置"
+  ],
+  [
+    "No keyboard shortcuts found matching your filter.",
+    "未找到匹配筛选条件的键盘快捷键。"
+  ],
+  [
+    "Press keys...",
+    "请按下快捷键组合..."
+  ],
+  [
+    "Skills & Rules",
+    "技能与规则"
+  ],
+  [
+    "Agent Hooks Configuration",
+    "智能体钩子 (Hooks) 配置"
+  ],
+  [
+    "+ Add Hook",
+    "+ 添加钩子"
+  ],
+  [
+    "Add Handler",
+    "添加处理器"
+  ],
+  [
+    "Loading hooks...",
+    "正在加载钩子..."
+  ],
+  [
+    "Pre Tool Use",
+    "工具调用前 (Pre Tool Use)"
+  ],
+  [
+    "Post Tool Use",
+    "工具调用后 (Post Tool Use)"
+  ],
+  [
+    "Pre Invocation",
+    "模型调用前 (Pre Invocation)"
+  ],
+  [
+    "Post Invocation",
+    "模型调用后 (Post Invocation)"
+  ],
+  [
+    "Fires before a tool step executes.",
+    "在工具步骤执行前触发。"
+  ],
+  [
+    "Fires after a tool step completes.",
+    "在工具步骤完成后触发。"
+  ],
+  [
+    "Fires before the model is called.",
+    "在调用大模型前触发。"
+  ],
+  [
+    "Fires after tool calls finish.",
+    "在所有工具调用结束后触发。"
+  ],
+  [
+    "Open MCP Config",
+    "打开 MCP 配置文件"
+  ],
+  [
+    "Configure MCP Server",
+    "配置 MCP 服务器"
+  ],
+  [
+    "Loading MCP servers...",
+    "正在加载 MCP 服务器..."
+  ],
+  [
+    "MCP Servers Disabled",
+    "MCP 服务器已禁用"
+  ],
+  [
+    "Delete server",
+    "删除服务器"
+  ],
+  [
+    "Authenticate",
+    "进行身份验证"
+  ],
+  [
+    "Set up authentication",
+    "设置身份验证"
+  ],
+  [
+    "Needs re-auth",
+    "需要重新验证"
+  ],
+  [
+    "Reconnect",
+    "重新连接"
+  ],
+  [
+    "Disconnect",
+    "断开连接"
+  ],
+  [
+    "Connected",
+    "已连接"
+  ],
+  [
+    "Not connected",
+    "未连接"
+  ],
+  [
+    "Accounts",
+    "账号管理"
+  ],
+  [
+    "Signed-in accounts",
+    "已登录账号"
+  ],
+  [
+    "Add account",
+    "添加账号"
+  ],
+  [
+    "Make default",
+    "设为默认"
+  ],
+  [
+    "No sign-in needed",
+    "无需登录"
+  ],
+  [
+    "Enable this plugin to manage its accounts.",
+    "启用此插件以管理其关联账号。"
+  ],
+  [
+    "Enable the plugin to sign in.",
+    "启用插件后即可登录。"
+  ],
+  [
+    "Services this plugin connects to on your behalf. Credentials stay on this machine and are only sent to the domains listed.",
+    "此插件代表您连接的外部服务。凭据仅保存在本地电脑，且仅发送至以下列出的域名。"
+  ],
+  [
+    "Copy Config File Path",
+    "复制配置文件路径"
+  ],
+  [
+    "Delete Skill",
+    "删除技能"
+  ],
+  [
+    "Create a Plugin with the Agent",
+    "使用智能体创建插件"
+  ],
+  [
+    "Create plugin",
+    "创建插件"
+  ],
+  [
+    "Explore other marketplace customizations",
+    "探索插件市场中的更多扩展"
+  ],
+  [
+    "Explore the plugin marketplace",
+    "探索插件市场"
+  ],
+  [
+    "More Plugins",
+    "更多插件"
+  ],
+  [
+    "Bundles",
+    "扩展组合包"
+  ],
+  [
+    "For paid Pro plans, Argon quota is separate. Higher Argon quota (included as part of the larger Gemini quota bucket) is available on Ultra plans.",
+    "在 Pro 付费套餐中，Argon 配额独立计算。升级至 Ultra 套餐可享更高的 Argon 配额（包含在更大的 Gemini 共享配额池中）。"
+  ],
+  [
+    "Models within this group: Gemini Flash, Gemini Pro",
+    "此分组包含的模型：Gemini Flash, Gemini Pro"
+  ],
+  [
+    "Models within this group: Claude Opus, Claude Sonnet, GPT-OSS",
+    "此分组包含的模型：Claude Opus, Claude Sonnet, GPT-OSS"
+  ],
+  [
+    "Too many requests, please try again in a bit!",
+    "请求过于频繁，请稍后再试！"
+  ],
+  [
+    "See plans",
+    "查看套餐方案"
+  ],
+  [
+    "To continue using this model now, enable AI Credit overages.",
+    "若要立即继续使用此模型，请开启“允许超额使用 AI 点数”。"
+  ],
+  [
+    "// Greet a user by name",
+    "// 按名称向用户问好"
+  ],
+  [
+    "Uses Chrome DevTools MCP for accessibility (a11y) debugging and auditing based on web.dev guidelines. Use when testing semantic HTML, ARIA labels, focus states, keyboard navigation, tap targets, and color contrast.",
+    "基于 web.dev 指南使用 Chrome DevTools MCP 进行无障碍 (a11y) 调试与审查，适用于测试语义化 HTML、ARIA 标签、焦点状态、键盘导航、触控目标及色彩对比度。"
+  ],
+  [
+    "Instructions for working with the Android Device Hub sidecar, which lists, starts, stops, creates and removes Android Virtual Devices (AVDs), lists physical devices connected to adb, and lets the user mirror and control any of them (video, touch, keyboard, mouse wheel) in the Device Hub pane. Also explains how to inspect and interact with the screen the user is mirroring, with `android layout`, `android screen` and `adb`.",
+    "Android 设备中心 (Device Hub) 侧边栏使用指南：支持列出、启动、停止、创建和移除 Android 虚拟设备 (AVD) 及已连接 adb 的物理设备，并在设备中心面板中进行屏幕镜像与交互控制。"
+  ],
+  [
+    "Interactive guide to design and create a scheduled background automation. Use this skill when the user wants to create an automated or recurring scheduled task (e.g. \"summarize my emails every morning\", \"every Monday send me a to-do list\"). Also triggered by the /automation slash command.",
+    "设计与创建后台定时自动化任务的交互式指南。适用于创建自动或周期性定时任务（也可通过 /automation 斜杠命令触发）。"
+  ],
+  [
+    "Instructions for the Android Compose Preview sidecar, which renders Jetpack Compose @Preview functions with `android preview render` and shows them in the Android Compose Preview pane. Use it when the user wants to see a Compose preview, or to review the result of UI changes — re-render after changing the code so that the pane shows the result.",
+    "Android Compose 预览侧边栏使用指南：使用 android preview render 渲染 Jetpack Compose @Preview 函数并在预览面板中实时展示 UI 更改效果。"
+  ],
+  [
+    "Uses Chrome DevTools MCP for inspecting, debugging, and testing cookies, session state, authentication issues, and cookie consent compliance. Use when diagnosing 401/403 errors, authentication redirects, session expiration, Cookie/Set-Cookie header issues, cookie banner consent conformance, or third-party cookie/SameSite/Partitioned cookie warnings.",
+    "使用 Chrome DevTools MCP 检查、调试与测试 Cookie、会话状态、身份验证问题及 Cookie 合规性（适用于排查 401/403 错误、重定向、会话过期与第三方 Cookie 警告）。"
+  ],
+  [
+    "Guides debugging and optimizing Largest Contentful Paint (LCP) using Chrome DevTools MCP tools. Use this skill whenever the user asks about LCP performance, slow page loads, Core Web Vitals optimization, or wants to understand why their page's main content takes too long to appear. Also use when the user mentions \"largest contentful paint\", \"page load speed\", \"CWV\", or wants to improve how fast their hero image or main content renders.",
+    "使用 Chrome DevTools MCP 工具调试与优化最大内容绘制 (LCP) 及核心网页指标 (Core Web Vitals)，提升页面主内容与首屏加载速度。"
+  ],
+  [
+    "Read, create, and manage Google Calendar events. Use when the user shares a calendar.google.com URL, asks what is on their schedule, wants an event found, created, updated, deleted, or moved, wants to RSVP, wants free/busy or scheduling conflicts checked before proposing a time, wants focus time or an out-of-office block created, wants an event quick-added from a phrase or imported from an ICS file, or wants to know where someone is working from and which timezone they are in. Don't use for Gmail, Chat, or Tasks.",
+    "读取、创建和管理 Google 日历日程：支持查询日程安排、创建/更新/删除活动、回复邀请、检查忙闲冲突、设置专注时间及导入 ICS 日历文件。"
+  ],
+  [
+    "Read, create, edit, and manage Google Docs. Use when the user shares a docs.google.com URL, asks to summarize or extract content from a doc, wants a doc drafted, edited, formatted, or commented on, wants tables, images, or smart chips inserted, wants markdown imported or synchronized with a doc, or wants a doc exported. Requires a known document ID — to find documents, use the gdrive skill from the Google Drive plugin; if it isn't installed, ask the user for the doc link. Don't use for Google Sheets, Slides, or Drive file management.",
+    "读取、创建、编辑和管理 Google 文档 (Google Docs)：支持提取或总结文档内容、起草与排版、插入表格/图片、导入同步 Markdown 及导出文档。"
+  ],
+  [
+    "Browse, search, and manage Google Drive files and folders. Use when the user shares a drive.google.com URL, asks what is in a folder, wants a file found, downloaded, uploaded, updated in place, moved, copied, or renamed, wants a Google file exported to PDF, Markdown, or CSV, wants comments read or added, wants sharing and permissions checked or changed, or wants Drive activity watched. Don't use for editing the contents of a Doc, Sheet, or Slides deck.",
+    "浏览、搜索和管理 Google 云端硬盘 (Google Drive) 文件与文件夹：支持上传、下载、移动、复制、重命名文件、导出 PDF/Markdown/CSV 以及管理共享权限。"
+  ],
+  [
+    "Use this skill when building real-time, bidirectional streaming applications with the Gemini Live API, or migrating legacy Live models (2.0/2.5/3.1) to Gemini 3.8 Live. Covers WebSocket-based audio/video/text streaming, voice activity detection (VAD), background reasoning (extended thinking), asynchronous function calling, session management, ephemeral tokens, live transcription, and live translation. SDKs covered - google-genai (Python), @google/genai (JavaScript/TypeScript).",
+    "使用 Gemini Live API 构建实时双向音视频流应用，或将旧版 Live 模型迁移至 Gemini 3.8 Live（涵盖 WebSocket 音视频流、语音活动检测 VAD、后台推理与实时转录翻译）。"
+  ],
+  [
+    "Design, implement, and debug autonomous AI agents and multi-agent systems using the Google Antigravity (AGY) SDK. ACTIVATE this skill when the user wants to create, configure, or orchestrate Google Antigravity agents.",
+    "使用 Google Antigravity (AGY) SDK 设计、实现和调试自主 AI 智能体与多智能体协同系统。"
+  ],
+  [
+    "Read, write, format, and manage Google Sheets. Use when the user shares a sheets.google.com or docs.google.com/spreadsheets URL, asks to read or summarize spreadsheet data, wants cells written, formatted, sorted, merged, or validated, wants rows/columns inserted or deleted, wants charts, pivot tables, or tables added, wants CSV imported, or wants a spreadsheet created, copied, shared, or exported. Don't use for Google Docs, Slides, or Drive file management.",
+    "读取、写入、格式化和管理 Google 表格 (Google Sheets)：支持读写汇总表格数据、单元格排版、排序合并、添加图表与数据透视表、导入 CSV 及导出表格。"
+  ],
+  [
+    "Read, create, and edit Google Slides presentations. Use when creating presentations, when the user shares a slides.google.com URL, asks to summarize or extract content from a deck, wants slides drafted or updated, or wants a presentation exported. Don't use for Google Docs, Sheets, or Drive file management.",
+    "读取、创建和编辑 Google 幻灯片 (Google Slides) 演示文稿：支持提取演示文稿内容、起草或更新幻灯片页面及导出文件。"
+  ],
+  [
+    "Diagnoses and resolves memory leaks in JavaScript/Node.js applications. Use when a user reports high memory usage, OOM errors, or wants to capture, compare, or inspect heap snapshots with Chrome DevTools MCP memory tools.",
+    "诊断并解决 JavaScript/Node.js 应用程序中的内存泄漏问题：支持通过 Chrome DevTools MCP 内存工具捕获、对比和检查堆快照以排查高内存占用与 OOM 错误。"
+  ],
+  [
+    "How to manage and create plugins — namespaced bundles of skills, agents, rules, MCP servers and hooks that install, enable and disable as a single unit. Use this skill when the user wants to enable, disable, install or uninstall a plugin, when they want to create a new plugin, or when a new customization should be packaged into a plugin rather than left loose. Also triggered by the /plugin slash command. Don't use for the underlying customization system itself — discovery roots, loading priority, or authoring a standalone skill, agent, rule, hook or MCP server outside a plugin; see the customizations guide skill for those.",
+    "管理与创建插件指南：将技能、智能体、规则、MCP 服务器和钩子打包为独立命名空间单元进行安装、启用或禁用（也可通过 /plugin 斜杠命令触发）。"
+  ],
+  [
+    "How to write and run a dynamic workflow script with the `run_workflow` tool: a Python script that orchestrates many agents with `agent`, `parallel`, `pipeline`, and `phase`. Use when a task splits into many independent or staged pieces of agent work (fan out over files, modules, bugs, or review angles, then aggregate), or when the user asks for a workflow. Don't use for a single delegated task (use a subagent) or for legacy workflow files (see migrate-workflows).",
+    "使用 run_workflow 工具编写和运行动态多智能体编排工作流脚本：通过 Python 脚本实现并行、流水线与分阶段多智能体任务协同。"
+  ],
+  [
+    "Uses Chrome DevTools MCP and documentation to troubleshoot connection and target issues. Trigger this skill when list_pages, new_page, or navigate_page fail, or when the server initialization fails.",
+    "使用 Chrome DevTools MCP 排查浏览器连接、页面目标与服务初始化故障。"
+  ],
+  [
+    "Discover UI plugin panels relevant to the current task and surface a one-click pill in chat to open (toggle) them in the side pane. Use when a running UI plugin's panel would help with what the user is doing, or right after the user enables a new UI plugin pane and a shortcut to open it is handy.",
+    "发现与当前任务相关的 UI 插件面板，并在聊天流中提供一键快捷按钮以在侧边栏中打开或切换面板。"
+  ],
+  [
+    "Toggle Between Light/Dark Themes",
+    "切换浅色/深色主题"
+  ],
+  [
+    "Seek",
+    "跳转进度"
+  ],
+  [
+    "Back 5s (←)",
+    "后退 5 秒 (←)"
+  ],
+  [
+    "Forward 5s (→)",
+    "前进 5 秒 (→)"
+  ],
+  [
+    "Playback speed (< / >)",
+    "播放倍速 (< / >)"
+  ],
+  [
+    "Reset zoom (0)",
+    "重置缩放 (0)"
+  ],
+  [
+    "Members",
+    "成员"
+  ],
+  [
+    "Owner",
+    "所有者"
+  ],
+  [
+    "You should not enter any sensitive information on this site (for example, passwords or credit cards), because it could be stolen by attackers.",
+    "请勿在此网站上输入任何敏感信息（例如密码或信用卡号），因为这些信息可能会被攻击者窃取。"
+  ],
+  [
+    "Attackers might be able to see the images you're looking at on this site and trick you by modifying them.",
+    "攻击者可能会看到您在此网站上浏览的图片，并通过篡改图片来欺骗您。"
+  ],
+  [
+    "Your information (for example, passwords or credit card numbers) is private when it is sent to this site.",
+    "您发送至此网站的信息（例如密码或信用卡号）处于私密保护状态。"
+  ],
+  [
+    "Remove from history (Shift+Delete)",
+    "从历史记录中移除 (Shift+Delete)"
+  ],
+  [
+    "Click to view or edit comment",
+    "点击查看或编辑评论"
+  ],
+  [
+    "View site information",
+    "查看网站信息"
+  ],
+  [
+    "Downloads",
+    "下载内容"
+  ],
+  [
+    "Show in folder",
+    "在文件夹中显示"
+  ],
+  [
+    "Cancel download",
+    "取消下载"
+  ],
+  [
+    "Remove from list",
+    "从列表中移除"
+  ],
+  [
+    "Add screenshot to conversation",
+    "将截图添加到对话"
+  ],
+  [
+    "This page isn’t working",
+    "此页面无法正常工作"
+  ],
+  [
+    "This site can’t be reached",
+    "无法访问此网站"
+  ],
+  [
+    "Subscription",
+    "订阅套餐"
+  ],
+  [
+    "Managed by Enterprise Gateway",
+    "由企业网关托管"
+  ],
+  [
+    "Local Windows environment",
+    "本地 Windows 环境"
+  ],
+  [
+    "Agent never asks for review. This maximizes the autonomy of the Agent, but also has the highest risk of the Agent operating over unsafe or injected Artifact content.",
+    "智能体从不请求审核。这能最大化智能体的自主性，但也存在智能体处理不安全或注入的产物内容的最高风险。"
+  ],
+  [
+    "Allow the agent to automatically view and edit files outside the current workspace. Use with caution: this gives the agent access to additional potentially-relevant information, but also allows the agent to access credential files, secrets, and other files outside of the workspace that could be targeted in prompt injection attacks or other exploits by malicious actors.",
+    "允许智能体自动查看和编辑当前工作区以外的文件。请谨慎使用：这会让智能体访问更多潜在相关信息，但也允许其访问工作区外的凭据、密钥和其他敏感文件。"
+  ],
+  [
+    "Controls whether terminal commands require your approval before running.\n\nNote: A change to this setting will only apply to new messages sent to the agent. In-progress responses will use the previous setting value.",
+    "控制终端命令在运行前是否需要您的批准。\n\n注意：对此设置的更改仅适用于发送给智能体的新消息，正在进行的回复仍使用之前的设置。"
+  ],
+  [
+    "Specifies the agent's behavior when asking for review on artifacts, which are documents it creates to enable a richer conversation experience.",
+    "指定智能体在请求审核产物文档（为提供更丰富的对话体验而创建的文档）时的行为策略。"
+  ],
+  [
+    "Let the agent use browser tools to open URLs, read web pages, and interact with browser content. This gives the agent access to important (and often critical) knowledge and methods of validation, but any browser integration does increase exposure to external malicious parties for security exploits.",
+    "允许智能体使用浏览器工具打开网址、读取网页并与网页内容交互。这为智能体提供了重要的知识获取与验证手段，但开启浏览器集成也会增加潜在的外部安全风险。"
+  ],
+  [
+    "Default Workspace VCS",
+    "默认工作区版本控制 (VCS)"
+  ],
+  [
+    "VCS used when creating a new workspace, including workspaces generated based off your initial prompt.",
+    "创建新工作区（包括根据初始提示词生成的工作区）时使用的版本控制系统。"
+  ],
+  [
+    "Default Cog Repository",
+    "默认 Cog 代码仓库"
+  ],
+  [
+    "Git-on-Borg repository used when creating a new Cog workspace from your initial prompt (e.g., chromium/src or android/platform/superproject).",
+    "根据初始提示词创建新 Cog 工作区时使用的 Git-on-Borg 仓库（例如 chromium/src）。"
+  ],
+  [
+    "Default Cog Branch / Ref",
+    "默认 Cog 分支 / 引用"
+  ],
+  [
+    "Optional branch or ref used when creating a new Cog workspace (defaults to main if unset).",
+    "创建新 Cog 工作区时使用的可选分支或引用（未设置时默认为 main）。"
+  ],
+  [
+    "Sync JJ Worktrees to Head",
+    "将 JJ 工作树同步至最新提交 (Head)"
+  ],
+  [
+    "Sync newly created JJ worktrees to head when starting a conversation.",
+    "在开始对话时将新创建的 JJ 工作树同步至最新提交。"
+  ],
+  [
+    "Print telemetry to the console",
+    "将遥测日志打印到控制台"
+  ],
+  [
+    "Logs each telemetry event to the browser's DevTools console as it fires, with the click or key that caused it. Stays on across reloads until you turn it off.",
+    "当遥测事件触发时将其记录到浏览器的 DevTools 控制台中（包含触发它的点击或按键），重新加载后保持开启直至手动关闭。"
+  ],
+  [
+    "Electron (Android Desktop)",
+    "Electron (Android 桌面端)"
+  ],
+  [
+    "Web (desktop, PWA)",
+    "Web 端 (桌面 PWA)"
+  ],
+  [
+    "Web (desktop, remote control, PWA)",
+    "Web 端 (桌面远程控制 PWA)"
+  ],
+  [
+    "Web (mobile, PWA)",
+    "Web 端 (移动 PWA)"
+  ],
+  [
+    "Web (mobile, remote control, PWA)",
+    "Web 端 (移动远程控制 PWA)"
+  ],
+  [
+    "Extension (Antigravity IDE)",
+    "扩展插件 (Antigravity IDE)"
+  ],
+  [
+    "Extension (Eclipse)",
+    "扩展插件 (Eclipse)"
+  ],
+  [
+    "When enabled, the values below replace the auto-detected OS, host, and user type used for feature gating.",
+    "启用后，下方的值将替换用于功能门控的自动检测操作系统、宿主环境和用户类型。"
+  ],
+  [
+    "Simulate a different host (Electron, desktop or mobile Web, Extension, remote control, or installed PWA).",
+    "模拟不同的宿主环境（Electron、桌面或移动 Web、扩展插件、远程控制或已安装的 PWA）。"
+  ],
+  [
+    "Custom…",
+    "自定义..."
+  ],
+  [
+    "Type a voice variant name, such as rev27.",
+    "输入音色变体名称，例如 rev27。"
+  ],
+  [
+    "Sets the `workspaceUri` URL parameter and reloads, repointing the active workspace. Pick a folder from an existing project or enter a custom URI (e.g. file:///path/to/workspace).",
+    "设置 workspaceUri URL 参数并重新加载以重新指向活动工作区。可从现有项目中选择文件夹或输入自定义 URI。"
+  ],
+  [
+    "Developer-only tools. These settings are stored locally in this browser and do not affect other users.",
+    "仅供开发者使用的工具。这些设置仅保存在本地浏览器中，不会影响其他用户。"
+  ],
+  [
+    "Background tasks and terminals agents left running, across all conversations.",
+    "智能体在所有对话中保持后台运行的任务与终端。"
+  ],
+  [
+    "Try out early-stage features before they ship. These may be changed or removed at any time. These features are experimental, and we make no guarantees about performance or functionality.",
+    "抢先体验尚未正式发布的早期实验性功能。这些功能随时可能变更或移除，我们不对其性能或稳定性作任何保证。"
+  ],
+  [
+    "Settings Unavailable",
+    "设置暂不可用"
+  ],
+  [
+    "Failed to revert conversation",
+    "还原对话失败"
+  ],
+  [
+    "Amend succeeded",
+    "修改上次提交成功"
+  ],
+  [
+    "Chief of Staff canvas",
+    "智能幕僚画布"
+  ],
+  [
+    "Revert file changes",
+    "还原文件更改"
+  ],
+  [
+    "Could not create Cog workspace",
+    "无法创建 Cog 工作区"
+  ],
+  [
+    "Remote agents are busy",
+    "远程智能体繁忙"
+  ],
+  [
+    "Daily environment time used",
+    "每日环境运行时长已用完"
+  ],
+  [
+    "Too many environments running",
+    "正在运行的环境数量过多"
+  ],
+  [
+    "Daily conversation limit reached",
+    "已达到每日对话数量上限"
+  ],
+  [
+    "Conversation limit reached",
+    "已达到对话数量上限"
+  ],
+  [
+    "Failed to send side question",
+    "发送旁路提问失败"
+  ],
+  [
+    "Failed to start side question",
+    "发起旁路提问失败"
+  ],
+  [
+    "Workspace setup warning",
+    "工作区配置警告"
+  ],
+  [
+    "Conversation Unarchived",
+    "对话已取消归档"
+  ],
+  [
+    "Fork warning",
+    "分支警告"
+  ],
+  [
+    "Unsandboxed commands",
+    "非沙箱命令"
+  ],
+  [
+    "Admin escalation",
+    "管理员权限提权"
+  ],
+  [
+    "Folders these agents can access.",
+    "这些智能体可以访问的文件夹。"
+  ],
+  [
+    "Commands and files these agents can use.",
+    "这些智能体可以使用的命令和文件。"
+  ],
+  [
+    "Search file contents...",
+    "搜索文件内容..."
+  ],
+  [
+    "Couldn't mark conversations as read",
+    "无法将对话标记为已读"
+  ],
+  [
+    "Build with one agent or a team",
+    "使用单个智能体或团队进行构建"
+  ],
+  [
+    "Describe what you want. Your agent plans and builds it, and brings in other agents when needed.",
+    "描述您的需求，智能体将为您规划并构建，并在需要时引入其他子智能体协同工作。"
+  ],
+  [
+    "Review plans and walkthroughs",
+    "审核方案与演练总结"
+  ],
+  [
+    "Comment on the plan before your agent starts, and get a walkthrough when it finishes.",
+    "在智能体开始执行前对方案发表评论，并在完成后获取详细的演练报告。"
+  ],
+  [
+    "Set the rules, define the boundaries.",
+    "设定规则，明确边界。"
+  ],
+  [
+    "By default, agents work in folders you choose and ask before sensitive changes. Adjust this anytime in Settings.",
+    "默认情况下，智能体仅在您选择的文件夹中工作，并在执行敏感更改前询问您。您可以随时在“设置”中调整。"
+  ],
+  [
+    "Getting started with Google Antigravity",
+    "Google Antigravity 入门指南"
+  ],
+  [
+    "Uploading to Google Drive…",
+    "正在上传至 Google 云端硬盘..."
+  ],
+  [
+    "Uploaded to Google Drive",
+    "已上传至 Google 云端硬盘"
+  ],
+  [
+    "Failed to upload HTML artifact to Drive",
+    "将 HTML 产物上传至云端硬盘失败"
+  ],
+  [
+    "No documents",
+    "暂无文档"
+  ],
+  [
+    "Currently installed",
+    "当前已安装"
+  ],
+  [
+    "No plugin loads from this folder.",
+    "此文件夹中未加载任何插件。"
+  ],
+  [
+    "Sign in to finish setting up this plugin.",
+    "请登录以完成此插件的配置。"
+  ],
+  [
+    "Disabled. Open the plugin page to finish setup.",
+    "已禁用。请打开插件页面以完成设置。"
+  ],
+  [
+    "Ask the agent to diagnose and fix this server",
+    "让智能体诊断并修复此服务器"
+  ],
+  [
+    "Sign-in required",
+    "需要登录"
+  ],
+  [
+    "Sign in required",
+    "需要登录"
+  ],
+  [
+    "Enter authorization code...",
+    "输入授权码..."
+  ],
+  [
+    "Unauthenticated",
+    "未通过身份验证"
+  ],
+  [
+    "App update required",
+    "需要更新应用程序"
+  ],
+  [
+    "Plugin update required",
+    "需要更新插件"
+  ],
+  [
+    "Context Providers",
+    "上下文提供程序"
+  ],
+  [
+    "Themes",
+    "主题背景"
+  ],
+  [
+    "MCP Authentication Error:",
+    "MCP 身份验证错误："
+  ],
+  [
+    "MCP Restart Error:",
+    "MCP 重启错误："
+  ],
+  [
+    "Go to Accounts",
+    "前往账号管理"
+  ],
+  [
+    "Setup required",
+    "需要完成初始设置"
+  ],
+  [
+    "Enter the configuration values this MCP server needs. Saving restarts the server with them.",
+    "输入此 MCP 服务器所需的配置参数，保存后将使用新配置重启服务器。"
+  ],
+  [
+    "Search Google Drive",
+    "搜索 Google 云端硬盘"
+  ],
+  [
+    "Install or enable the Google Drive plugin in Customizations to search files with @drive: or paste Drive links",
+    "在“自定义”中安装或启用 Google 云端硬盘插件，即可使用 @drive: 搜索文件或直接粘贴云端硬盘链接"
+  ],
+  [
+    "Resume it to load this file.",
+    "恢复环境以加载此文件。"
+  ],
+  [
+    "Telemetry is disabled in Settings",
+    "已在设置中禁用遥测功能"
+  ],
+  [
+    "More cloud environments",
+    "更多云端环境"
+  ],
+  [
+    "Failed to create remote project",
+    "创建远程项目失败"
+  ],
+  [
+    "Instructions and tools",
+    "指令与工具"
+  ],
+  [
+    "Previous question",
+    "上一个问题"
+  ],
+  [
+    "Next question",
+    "下一个问题"
+  ],
+  [
+    "Connectors",
+    "连接器"
+  ],
+  [
+    "Search connectors",
+    "搜索连接器"
+  ],
+  [
+    "Authentication expired",
+    "身份验证已过期"
+  ],
+  [
+    "Log back in",
+    "重新登录"
+  ],
+  [
+    "Search branches",
+    "搜索分支"
+  ],
+  [
+    "Local Checkout",
+    "本地检出 (Local Checkout)"
+  ],
+  [
+    "Chief of Staff voice mode is active",
+    "智能幕僚语音模式已激活"
+  ],
+  [
+    "Couldn't edit queued message",
+    "无法编辑排队中的消息"
+  ],
+  [
+    "Couldn't load Google Drive link title",
+    "无法加载 Google 云端硬盘链接标题"
+  ],
+  [
+    "The full developer experience with code and tooling.",
+    "包含代码编写与开发工具的完整开发者体验。"
+  ],
+  [
+    "General work",
+    "日常综合办公"
+  ],
+  [
+    "Research, writing, and everyday tasks, without code.",
+    "面向调研、写作与日常办公任务（无需编写代码）。"
+  ],
+  [
+    "Continue with Google Cloud",
+    "通过 Google Cloud 继续"
+  ],
+  [
+    "Build new features",
+    "构建新功能"
+  ],
+  [
+    "Hand off a feature and come back to working code.",
+    "交代功能需求，直接获取可运行的代码成果。"
+  ],
+  [
+    "Debug and fix",
+    "调试与修复"
+  ],
+  [
+    "Automatically reproduce bugs, trace causes, test fixes.",
+    "自动复现缺陷、追踪根因并验证修复方案。"
+  ],
+  [
+    "Research anything",
+    "深度调研任何课题"
+  ],
+  [
+    "Ask about your code or any topic, get clear answers.",
+    "询问关于代码或任何主题的问题，获取清晰的解答。"
+  ],
+  [
+    "Write and edit docs",
+    "撰写与编辑文档"
+  ],
+  [
+    "Draft documents, emails, and notes that sound like you.",
+    "起草符合您个人风格的文档、邮件和笔记。"
+  ],
+  [
+    "Runs remotely",
+    "在远程环境中运行"
+  ],
+  [
+    "Runs on this computer",
+    "在当前电脑上运行"
+  ],
+  [
+    "Custom Agent Error:",
+    "自定义智能体错误："
+  ],
+  [
+    "Loading installed plugins...",
+    "正在加载已安装的插件..."
+  ],
+  [
+    "Disabled. Open Details to finish setup or enable.",
+    "已禁用。请打开“详情”以完成配置或启用。"
+  ],
+  [
+    "See more results",
+    "查看更多结果"
+  ],
+  [
+    "Loading apps...",
+    "正在加载应用..."
+  ],
+  [
+    "Modified Files",
+    "已修改的文件"
+  ],
+  [
+    "Chief of Staff Dashboard",
+    "智能幕僚仪表盘"
+  ],
+  [
+    "No links",
+    "暂无链接"
+  ],
+  [
+    "Dismiss service announcement",
+    "关闭服务公告"
+  ],
+  [
+    "Refreshed credentials for all automations.",
+    "已刷新所有自动化任务的凭据。"
+  ],
+  [
+    "Failed to refresh credentials",
+    "刷新凭据失败"
+  ],
+  [
+    "New models have been enabled for you!",
+    "已为您启用新模型！"
+  ],
+  [
+    "Announcements and tips",
+    "公告与使用技巧"
+  ],
+  [
+    "Search GoB repositories...",
+    "搜索 GoB 代码仓库..."
+  ],
+  [
+    "Unmount workspace",
+    "卸载工作区"
+  ],
+  [
+    "Remount workspace",
+    "重新挂载工作区"
+  ],
+  [
+    "Delete ABFS Workspace",
+    "删除 ABFS 工作区"
+  ],
+  [
+    "Sort By",
+    "排序方式"
+  ],
+  [
+    "Resume it to open a new terminal. Anything that was running in this one has stopped.",
+    "恢复环境以打开新终端。此前在此终端中运行的所有进程均已停止。"
+  ],
+  [
+    "Sent to Chief of Staff",
+    "已发送至智能幕僚"
+  ],
+  [
+    "Chief of Staff voice message failed",
+    "智能幕僚语音消息发送失败"
+  ],
+  [
+    "Chief of Staff voice mode stopped",
+    "智能幕僚语音模式已停止"
+  ],
+  [
+    "Every hour",
+    "每小时"
+  ],
+  [
+    "Every day",
+    "每天"
+  ],
+  [
+    "Every weekday",
+    "每个工作日"
+  ],
+  [
+    "Every week",
+    "每周"
+  ],
+  [
+    "Change schedule",
+    "更改执行计划"
+  ],
+  [
+    "Change model",
+    "更改模型"
+  ],
+  [
+    "What should the agent do on each run?",
+    "智能体在每次运行时应该执行什么任务？"
+  ],
+  [
+    "Search filters…",
+    "搜索筛选条件..."
+  ],
+  [
+    "On a schedule",
+    "按计划定时运行"
+  ],
+  [
+    "When something happens",
+    "当特定事件发生时"
+  ],
+  [
+    "Prompt to run when triggered...",
+    "触发时要运行的提示词..."
+  ],
+  [
+    "Untitled",
+    "未命名"
+  ],
+  [
+    "Search triggers…",
+    "搜索触发器..."
+  ],
+  [
+    "What should the agent do on each run? For example: summarize new bugs assigned to me and anything that changed overnight.",
+    "智能体在每次运行时应执行什么操作？例如：汇总分配给我的新缺陷以及昨晚发生的所有变更。"
+  ],
+  [
+    "What should it do?",
+    "它应该执行什么任务？"
+  ],
+  [
+    "For example: every morning, summarize new bugs assigned to me and anything that changed overnight.",
+    "例如：每天早上汇总分配给我的新缺陷以及昨晚发生的所有变更。"
+  ],
+  [
+    "For example: Morning bug summary",
+    "例如：早间缺陷汇总"
+  ],
+  [
+    "(empty)",
+    "(空)"
+  ],
+  [
+    "Enable fine-grained GitHub permissions and define the org, repository, and resource-level access the agent is allowed to use.",
+    "启用细粒度 GitHub 权限，并定义允许智能体使用的组织、仓库和资源级访问权限。"
+  ],
+  [
+    "Online",
+    "在线"
+  ],
+  [
+    "Offline",
+    "离线"
+  ],
+  [
+    "Toggle Thumbnails",
+    "切换缩略图"
+  ],
+  [
+    "Previous Page",
+    "上一页"
+  ],
+  [
+    "Next Page",
+    "下一页"
+  ],
+  [
+    "Thumbnails",
+    "缩略图"
+  ],
+  [
+    "Fit Mode",
+    "自适应缩放"
+  ],
+  [
+    "Target text in PDF...",
+    "PDF 中的目标文本..."
+  ],
+  [
+    "Write a comment...",
+    "撰写评论..."
+  ],
+  [
+    "Download PDF",
+    "下载 PDF"
+  ],
+  [
+    "Open Search",
+    "打开搜索"
+  ],
+  [
+    "Loading media...",
+    "正在加载媒体文件..."
+  ],
+  [
+    "in a terminal",
+    "（在终端中）"
+  ],
+  [
+    "Source:",
+    "来源："
+  ],
+  [
+    "Title:",
+    "标题："
+  ],
+  [
+    "License:",
+    "许可证："
+  ],
+  [
+    "Embedding Limitations",
+    "内嵌视图限制"
+  ],
+  [
+    "Taking longer than usual to load",
+    "加载时间比平时更长"
+  ],
+  [
+    "This page is taking longer than expected to load, or it may be blocking embedded views (via X-Frame-Options or CSP). We'll keep waiting, or you can open it directly in a new tab.",
+    "此页面加载时间超出预期，或者可能阻止了内嵌视图（通过 X-Frame-Options 或 CSP）。我们将继续等待，或者您也可以直接在系统浏览器新标签页中打开它。"
+  ],
+  [
+    "Open the page in system browser",
+    "在系统默认浏览器中打开页面"
+  ],
+  [
+    "Searching…",
+    "正在搜索..."
+  ],
+  [
+    "Searching...",
+    "正在搜索..."
+  ],
+  [
+    "to exit",
+    "以退出"
+  ],
+  [
+    "No recent downloads",
+    "暂无最近下载记录"
+  ],
+  [
+    "Failed to parse settings. Fix and restart.",
+    "解析设置失败，请修复后重启。"
+  ],
+  [
+    "Provide Google Cloud Project",
+    "提供 Google Cloud 项目"
+  ],
+  [
+    "Choose Region",
+    "选择区域"
+  ],
+  [
+    "Verify that these licenses were provided by your administrator and that you trust the project ID before proceeding. Account activity and data may be logged by your organization.",
+    "在继续之前，请确认这些许可证由您的管理员提供，并且您信任该项目 ID。您的账号活动和数据可能会被您的组织记录。"
+  ],
+  [
+    "Your Antigravity use will be associated with provided project. Make sure you trust the project ID before proceeding. Account activity and data may be logged by your organization.",
+    "您的 Antigravity 使用情况将与所提供的项目关联。在继续之前请确保您信任该项目 ID，账号活动和数据可能会被您的组织记录。"
+  ],
+  [
+    "Select Billing Model",
+    "选择计费模式"
+  ],
+  [
+    "Choose a Subscription",
+    "选择订阅套餐"
+  ],
+  [
+    "Other License",
+    "其他许可证"
+  ],
+  [
+    "Loading licenses...",
+    "正在加载许可证..."
+  ],
+  [
+    "This permanently deletes all of your Remote Agents conversations, projects, scheduled tasks, connected plugins and settings, and stops any running remote agents. It can't be undone. Data in the desktop app and your Google account are not affected, and you can keep using Remote Agents afterwards.",
+    "这将永久删除您的所有远程智能体对话、项目、定时任务、已连接插件和设置，并停止所有正在运行的远程智能体（此操作无法撤销）。桌面应用中的数据和您的 Google 账号不受影响，之后您仍可继续使用远程智能体。"
+  ],
+  [
+    "Couldn't delete your data. Try again.",
+    "无法删除您的数据，请重试。"
+  ],
+  [
+    "Windows Subsystem for Linux",
+    "适用于 Linux 的 Windows 子系统 (WSL)"
+  ],
+  [
+    "Run the app against a Linux environment. Connecting relaunches the app into the selected WSL distro.",
+    "在 Linux 环境中运行应用。连接后将重新启动应用并进入所选的 WSL 发行版。"
+  ],
+  [
+    "The app is currently connected to a WSL distro. Reopening locally relaunches it directly on Windows.",
+    "当前应用已连接到 WSL 发行版。在本地重新打开将直接在 Windows 上重启应用。"
+  ],
+  [
+    "Validating setup script…",
+    "正在验证初始化脚本..."
+  ],
+  [
+    "Setup script ran successfully.",
+    "初始化脚本运行成功。"
+  ],
+  [
+    "Setup script failed.",
+    "初始化脚本运行失败。"
+  ],
+  [
+    "Console Telemetry",
+    "控制台遥测日志"
+  ],
+  [
+    "Flags come from Mendel experiments and from the host app. Overrides are local to this browser and change how every feature gated on the flag resolves. Some features are only read at startup — reload the window if a change does not take effect.",
+    "实验标记来自 Mendel 实验和宿主应用。覆盖设置仅保存在当前本地窗口中，部分功能仅在启动时读取——若更改未生效请重新加载窗口。"
+  ],
+  [
+    "Feature Environment Override",
+    "特性运行环境覆盖"
+  ],
+  [
+    "Workspace URI Switcher",
+    "工作区 URI 切换器"
+  ],
+  [
+    "Join the Google Chat space",
+    "加入 Google Chat 讨论空间"
+  ],
+  [
+    "Ask questions, report issues, and discuss features",
+    "提问交流、反馈问题与探讨功能"
+  ],
+  [
+    "Screenshot must be under 10 MB",
+    "截图文件大小必须小于 10 MB"
+  ],
+  [
+    "Attaching logs requires an email address",
+    "附带运行日志需要填写电子邮件地址"
+  ],
+  [
+    "Submitting...",
+    "正在提交..."
+  ],
+  [
+    "Running (Dev only)",
+    "正在运行 (仅限开发模式)"
+  ],
+  [
+    "Nothing is running right now",
+    "当前没有正在运行的任务"
+  ],
+  [
+    "Running processes are killed. This cannot be undone.",
+    "正在运行的进程将被终止，此操作无法撤销。"
+  ],
+  [
+    "Path copied!",
+    "路径已复制！"
+  ],
+  [
+    "These allowed domain rules are set by your organization's administrator and cannot be removed.",
+    "这些允许的域名规则由您所属组织的管理员设置，无法移除。"
+  ],
+  [
+    "Timeout:",
+    "超时时间："
+  ],
+  [
+    "Matcher:",
+    "匹配器："
+  ],
+  [
+    "Command:",
+    "命令："
+  ],
+  [
+    "by Google",
+    "由 Google 提供"
+  ],
+  [
+    "Restart sign-in",
+    "重新开始登录"
+  ],
+  [
+    "Connections",
+    "连接管理"
+  ],
+  [
+    "Upload Debug Bundle",
+    "上传调试日志包"
+  ],
+  [
+    "Nothing said yet",
+    "尚无语音对话记录"
+  ],
+  [
+    "Creating projects for your conversations",
+    "正在为您的对话创建项目"
+  ],
+  [
+    "This may take a few minutes",
+    "这可能需要几分钟时间"
+  ],
+  [
+    "This link wants to open an app on your device.",
+    "此链接请求打开您设备上的外部应用。"
+  ],
+  [
+    "Alt text:",
+    "替代文本 (Alt)："
+  ],
+  [
+    "Image URL:",
+    "图片链接 (URL)："
+  ],
+  [
+    "Preview unavailable",
+    "预览暂不可用"
+  ],
+  [
+    "Image preview not available",
+    "图片预览不可用"
+  ],
+  [
+    "Preview disabled (experiment off)",
+    "预览已禁用（实验功能已关闭）"
+  ],
+  [
+    "Fetched network request for page.",
+    "已获取页面的网络请求。"
+  ],
+  [
+    "Fetched network requests for page.",
+    "已获取页面的网络请求列表。"
+  ],
+  [
+    "Rendering playback",
+    "正在渲染回放"
+  ],
+  [
+    "Error rendering playback",
+    "渲染回放时出错"
+  ],
+  [
+    "Playback available",
+    "回放已就绪"
+  ],
+  [
+    "Denied Sites",
+    "已拒绝的网站"
+  ],
+  [
+    "Add them to allow future interactions",
+    "将其添加至允许列表以便后续交互"
+  ],
+  [
+    "Open allowlist",
+    "打开允许列表"
+  ],
+  [
+    "When Turbo mode is on, the agent will automatically capture screenshots in the Browser without explicit user input. You can toggle this setting in Antigravity's settings.",
+    "开启极速模式 (Turbo) 后，智能体将在浏览器中自动捕获屏幕截图而无需用户手动确认。您可以在 Antigravity 设置中切换此选项。"
+  ],
+  [
+    "Multi-select",
+    "多选"
+  ],
+  [
+    "Unknown Notebook",
+    "未知笔记本 (Notebook)"
+  ],
+  [
+    "Decline",
+    "拒绝"
+  ],
+  [
+    "No browser pages open",
+    "未打开任何浏览器页面"
+  ],
+  [
+    "Full output written to",
+    "完整输出已写入至"
+  ],
+  [
+    "Models Tab",
+    "模型标签页"
+  ],
+  [
+    "Page contents",
+    "页面内容"
+  ],
+  [
+    "Read URL rejected",
+    "读取 URL 请求已被拒绝"
+  ],
+  [
+    "Document Answers",
+    "文档回答"
+  ],
+  [
+    "Image Answers",
+    "图片回答"
+  ],
+  [
+    "Error Details:",
+    "错误详情："
+  ],
+  [
+    "A chunk is a section of the page. Long pages are chunked so that only the sections that are relevant to your query are read.",
+    "文本块是页面的一个分段。长页面会被自动分块，以便仅读取与您的查询相关的部分。"
+  ],
+  [
+    "Read resource: ",
+    "读取资源："
+  ],
+  [
+    "No content available for this resource",
+    "此资源暂无可用内容"
+  ],
+  [
+    "List resources: ",
+    "列出资源："
+  ],
+  [
+    "No resources available",
+    "暂无可用资源"
+  ],
+  [
+    "Found references to",
+    "找到相关引用："
+  ],
+  [
+    "Files to edit:",
+    "待编辑的文件："
+  ],
+  [
+    "Model Summarization Failed",
+    "模型生成摘要失败"
+  ],
+  [
+    "Fallback Summary Used",
+    "已使用备用摘要"
+  ],
+  [
+    "User Intent",
+    "用户意图"
+  ],
+  [
+    "Session Summary",
+    "会话摘要"
+  ],
+  [
+    "Code Change Summary",
+    "代码变更摘要"
+  ],
+  [
+    "Open extracted DOM in editor",
+    "在编辑器中打开提取的 DOM"
+  ],
+  [
+    "View network requests",
+    "查看网络请求列表"
+  ],
+  [
+    "View network request",
+    "查看网络请求"
+  ],
+  [
+    "Knowledge Generation",
+    "知识提炼与生成"
+  ],
+  [
+    " · estimated",
+    " · 预估"
+  ],
+  [
+    "Input:",
+    "输入："
+  ],
+  [
+    "/ 1M tokens",
+    "/ 百万 Token"
+  ],
+  [
+    "Cache:",
+    "缓存："
+  ],
+  [
+    "• Aggregate cost across all subagents",
+    "• 汇总所有子智能体的总消耗"
+  ],
+  [
+    "• Includes nested subagent costs",
+    "• 包含嵌套子智能体的消耗"
+  ],
+  [
+    "Pricing is based on public API pricing",
+    "价格基于公开 API 定价标准计算"
+  ],
+  [
+    "Click to view more",
+    "点击查看更多"
+  ],
+  [
+    "(Specific to this client's truncation and pagination)",
+    "（特定于当前客户端的截断与分页设置）"
+  ],
+  [
+    "Resolving permissions...",
+    "正在解析权限..."
+  ],
+  [
+    "Not scheduled",
+    "未设置定时计划"
+  ],
+  [
+    "Terms of Service & Data Use",
+    "服务条款与数据使用"
+  ],
+  [
+    "AI coding agents are known to have certain security risks, including autonomous code execution, data exfiltration, prompt injection and supply chain risks. Ensure that you monitor and verify all actions taken by the agent.",
+    "AI 编程智能体存在一定的已知安全风险，包括自主代码执行、数据外泄、提示词注入与供应链风险。请确保您监督并核实智能体执行的所有操作。"
+  ],
+  [
+    "Terms and Privacy:",
+    "条款与隐私政策："
+  ],
+  [
+    "Security Notice & Data Use",
+    "安全须知与数据使用"
+  ],
+  [
+    "AI coding agents are known to have certain security limitations. Users should be aware of potential risks, including data exfiltration and possible code execution. Avoid processing highly sensitive data and verify all the actions taken by the agent.",
+    "AI 编程智能体存在一定的安全局限性。用户应当留意潜在的数据外泄与代码执行风险，避免处理高度敏感的数据，并仔细核实智能体执行的所有操作。"
+  ],
+  [
+    "Here's how you and your agents work together",
+    "了解您与智能体的协作方式"
+  ],
+  [
+    "Authentication Required",
+    "需要身份验证"
+  ],
+  [
+    "Artifact updated by agent",
+    "产物已由智能体更新"
+  ],
+  [
+    "Failed to load image",
+    "加载图片失败"
+  ],
+  [
+    "Drag to select a region to comment",
+    "拖动鼠标框选区域以添加评论"
+  ],
+  [
+    "Error loading Browser recording",
+    "加载浏览器录屏失败"
+  ],
+  [
+    "Loading Browser recording...",
+    "正在加载浏览器录屏..."
+  ],
+  [
+    "View could not be opened",
+    "无法打开视图"
+  ],
+  [
+    "For Turn",
+    "所属轮次"
+  ],
+  [
+    "Don't enter corp passwords",
+    "请勿输入企业内部密码"
+  ],
+  [
+    "Empty directory",
+    "空目录"
+  ],
+  [
+    "No workspaces open.",
+    "未打开任何工作区。"
+  ],
+  [
+    "File Tree Component is not loaded.",
+    "文件树组件未加载。"
+  ],
+  [
+    "Artifacts like Google Docs, PDFs, Office documents (Word, Excel, PowerPoint), etc. Everything else the agent creates is under Artifacts.",
+    "如 Google 文档、PDF、Office 文档（Word、Excel、PowerPoint）等文件。智能体创建的所有其他内容均归类在“产物文件”下。"
+  ],
+  [
+    "Needs attention",
+    "需要关注"
+  ],
+  [
+    "Needs Attention",
+    "需要关注"
+  ],
+  [
+    "Empty log",
+    "日志为空"
+  ],
+  [
+    "Task not found",
+    "未找到任务"
+  ],
+  [
+    "This conversation grew too large, so the history before this point may be missing or incomplete.",
+    "此对话体积过大，因此该时间点之前的历史记录可能缺失或不完整。"
+  ],
+  [
+    "Replacing removes the currently installed plugin and installs the new one in its place.",
+    "替换操作将移除当前已安装的插件，并在原位置安装新插件。"
+  ],
+  [
+    "Accounts tab",
+    "账号管理标签页"
+  ],
+  [
+    "Needs reconnect",
+    "需要重新连接"
+  ],
+  [
+    "Event:",
+    "事件："
+  ],
+  [
+    "Target Tools:",
+    "目标工具："
+  ],
+  [
+    "Definition:",
+    "定义："
+  ],
+  [
+    "Sent Message",
+    "已发送消息"
+  ],
+  [
+    "Loading logs...",
+    "正在加载日志..."
+  ],
+  [
+    "Side Pane UI Available",
+    "侧边栏面板 UI 可用"
+  ],
+  [
+    "Host Endpoint",
+    "宿主端点 (Host Endpoint)"
+  ],
+  [
+    "Recent Events",
+    "最近事件"
+  ],
+  [
+    "Loading events...",
+    "正在加载事件..."
+  ],
+  [
+    "No events recorded",
+    "暂无事件记录"
+  ],
+  [
+    "No events recorded.",
+    "暂无事件记录。"
+  ],
+  [
+    "Configured servers",
+    "已配置的服务器"
+  ],
+  [
+    "No files or folders found",
+    "未找到文件或文件夹"
+  ],
+  [
+    "This chat's environment is paused",
+    "此对话的运行环境已暂停"
+  ],
+  [
+    "File not found",
+    "未找到文件"
+  ],
+  [
+    "Failed to read file content",
+    "读取文件内容失败"
+  ],
+  [
+    "Loading Notebook View...",
+    "正在加载笔记本视图..."
+  ],
+  [
+    "Merge Conflict",
+    "合并冲突 (Merge Conflict)"
+  ],
+  [
+    "Password Prompt Blocked",
+    "密码输入提示已拦截"
+  ],
+  [
+    "Entering your corp password in the web terminal triggers a Chrome Password Alert (Watchword) forced password reset, so this prompt was automatically cancelled.",
+    "在网页终端中输入企业密码会触发 Chrome 密码警报并强制重置密码，因此该提示已被自动取消。"
+  ],
+  [
+    "Allow Next Non-Corp Prompt",
+    "允许下一次非企业密码提示"
+  ],
+  [
+    "Terminal Disabled on Non-Corp Domains",
+    "非企业域名下已禁用终端"
+  ],
+  [
+    "You are accessing Jetski terminal on a non-corp domain, which may trigger a Chrome Password Alert. To use the terminal, visit the Jetski Corp domain instead.",
+    "您正在非企业域名下访问终端，这可能会触发 Chrome 密码警报。若要使用终端，请改用企业域名访问。"
+  ],
+  [
+    "Open Jetski Corp",
+    "打开企业版页面"
+  ],
+  [
+    "UI view does not exist.",
+    "UI 视图不存在。"
+  ],
+  [
+    "No extensions available",
+    "暂无可用扩展插件"
+  ],
+  [
+    "Something went wrong",
+    "出错了，请稍后重试"
+  ],
+  [
+    "Change VCS in General settings, under Advanced",
+    "可在“常规设置 -> 高级”中更改版本控制系统 (VCS)"
+  ],
+  [
+    "Enable Best-of-2",
+    "启用双路优选 (Best-of-2)"
+  ],
+  [
+    "Migrate with Agent",
+    "使用智能体辅助迁移"
+  ],
+  [
+    "Work in a New Worktree",
+    "在新的工作树 (Worktree) 中工作"
+  ],
+  [
+    "Keeps your checkout untouched",
+    "保持您当前的检出目录不受影响"
+  ],
+  [
+    "New Fig Share?",
+    "新建 Fig 共享工作区？"
+  ],
+  [
+    "Start in a new Fig share (go/fig-shares)",
+    "在新的 Fig 共享工作区中开始 (go/fig-shares)"
+  ],
+  [
+    "New Fig Workspace",
+    "新建 Fig 工作区"
+  ],
+  [
+    "Custom models are only supported on Linux machines.",
+    "自定义模型仅在 Linux 主机上受支持。"
+  ],
+  [
+    "Loading models...",
+    "正在加载模型列表..."
+  ],
+  [
+    "View Usage",
+    "查看用量"
+  ],
+  [
+    "Switch mic",
+    "切换麦克风"
+  ],
+  [
+    "Voice speed",
+    "语速设置"
+  ],
+  [
+    "Pick order sets the harness for each response; the rest run control.",
+    "选择顺序将决定每个回复的运行框架，其余项运行对照组。"
+  ],
+  [
+    "Pairs (arm order may be shuffled)",
+    "配对比较（顺序可能随机打乱）"
+  ],
+  [
+    "Number of responses",
+    "生成回复数量"
+  ],
+  [
+    "Sends after agent finishes working",
+    "在智能体完成当前工作后发送"
+  ],
+  [
+    "Google3 projects are deprecated",
+    "Google3 项目已弃用"
+  ],
+  [
+    "Chat anyways",
+    "仍然继续对话"
+  ],
+  [
+    "Last Used",
+    "上次使用"
+  ],
+  [
+    "Other sign-in options",
+    "其他登录方式"
+  ],
+  [
+    "Business Account Sign In",
+    "企业账号登录"
+  ],
+  [
+    "Use Advanced SSO Config",
+    "使用高级单点登录 (SSO) 配置"
+  ],
+  [
+    "Use this if your admin gave you a WIF config. Paste it below to sign in.",
+    "如果您的管理员向您提供了 WIF 配置，请将其粘贴到下方进行登录。"
+  ],
+  [
+    "WIF Config",
+    "WIF 配置"
+  ],
+  [
+    "Enter Google Cloud Project Details",
+    "输入 Google Cloud 项目详情"
+  ],
+  [
+    "What best describes you?",
+    "以下哪项最符合您的身份？"
+  ],
+  [
+    "We'll tailor the experience to you.",
+    "我们将为您量身定制使用体验。"
+  ],
+  [
+    "What's in this bundle",
+    "此扩展包内含项目"
+  ],
+  [
+    "Each plugin can be managed on its own.",
+    "每个插件均支持独立管理。"
+  ],
+  [
+    "This bundle has no plugins yet.",
+    "此扩展包暂未包含任何插件。"
+  ],
+  [
+    "This skill came from the marketplace, so you can add it again whenever you need it.",
+    "此技能来自插件市场，您可以随时根据需要重新添加。"
+  ],
+  [
+    "Enable Recommended Skills",
+    "启用推荐技能"
+  ],
+  [
+    "Loading customizations...",
+    "正在加载自定义项..."
+  ],
+  [
+    "No customizations match your search.",
+    "没有匹配您搜索条件的自定义项。"
+  ],
+  [
+    "No matching plugins found.",
+    "未找到匹配的插件。"
+  ],
+  [
+    "Loading available plugins...",
+    "正在加载可用插件..."
+  ],
+  [
+    "Apps connected to your account",
+    "已关联至您账号的外部应用"
+  ],
+  [
+    "Sign in to an app once and your agent can use it on any device. Open an app to see the account it uses or to disconnect it.",
+    "只需登录一次应用，您的智能体即可在任何设备上调用它。点击应用可查看其使用的账号或断开连接。"
+  ],
+  [
+    "Customize Sections",
+    "自定义展示分区"
+  ],
+  [
+    "Open in Hub",
+    "在控制中心 (Hub) 中打开"
+  ],
+  [
+    "Open Antigravity IDE",
+    "打开 Antigravity IDE"
+  ],
+  [
+    "Open in Cider",
+    "在 Cider 中打开"
+  ],
+  [
+    "Error: Artifacts from remote conversations are not available here.",
+    "错误：远程对话生成的产物文件在此处不可用。"
+  ],
+  [
+    "Best of N mode is not available",
+    "多路优选 (Best of N) 模式暂不可用"
+  ],
+  [
+    "Loading…",
+    "正在加载..."
+  ],
+  [
+    "Connect an account so the agent can run automations.",
+    "关联账号以便智能体运行自动化任务。"
+  ],
+  [
+    "Welcome to your Chief of Staff",
+    "欢迎使用您的智能幕僚"
+  ],
+  [
+    "Show details",
+    "显示详情"
+  ],
+  [
+    "Find plugins - bundles of skills, agents, MCP servers, UI extensions and more, and install them in one click.",
+    "发现并一键安装插件（包含技能、智能体、MCP 服务器与 UI 扩展等合集）。"
+  ],
+  [
+    "Show or Hide Extensions",
+    "显示或隐藏扩展"
+  ],
+  [
+    "Loading conversations...",
+    "正在加载对话列表..."
+  ],
+  [
+    "(Optional, defaults to main)",
+    "（可选，默认为 main）"
+  ],
+  [
+    "Need help? Reach out in the",
+    "需要帮助？请访问"
+  ],
+  [
+    "GoB Repository",
+    "GoB 代码仓库"
+  ],
+  [
+    "No repositories found. Type to enter a custom path.",
+    "未找到代码仓库，可直接输入自定义路径。"
+  ],
+  [
+    "Use Existing",
+    "使用现有项"
+  ],
+  [
+    "Creating...",
+    "正在创建..."
+  ],
+  [
+    "A project with this name already exists.",
+    "已存在同名的项目。"
+  ],
+  [
+    "No workspaces found",
+    "未找到工作区"
+  ],
+  [
+    "Show temporary and forked workspaces",
+    "显示临时与分支工作区"
+  ],
+  [
+    "Sent!",
+    "已发送！"
+  ],
+  [
+    "Connecting to terminal...",
+    "正在连接终端..."
+  ],
+  [
+    "Full View",
+    "完整视图"
+  ],
+  [
+    "Ask a side question without interrupting the main conversation",
+    "在不打断主对话的情况下发起旁路提问"
+  ],
+  [
+    "Stop Side Question",
+    "停止旁路提问"
+  ],
+  [
+    "Starting terminal…",
+    "正在启动终端..."
+  ],
+  [
+    "Browser is currently being operated by this conversation in another Hub window",
+    "当前对话正在另一个控制中心窗口中操作浏览器"
+  ],
+  [
+    "Chief of Staff",
+    "智能幕僚"
+  ],
+  [
+    "Drag to move",
+    "按住拖动以移动位置"
+  ],
+  [
+    "No internet. Agent features may not work.",
+    "无网络连接，智能体功能可能无法正常工作。"
+  ],
+  [
+    "Repeat every",
+    "重复周期：每"
+  ],
+  [
+    "No instructions.",
+    "暂无指令说明。"
+  ],
+  [
+    "All runs",
+    "全部运行记录"
+  ],
+  [
+    "Execution Identity",
+    "执行身份"
+  ],
+  [
+    "Sidecar feature is not available.",
+    "侧边栏辅助服务 (Sidecar) 功能暂不可用。"
+  ],
+  [
+    "No runs yet",
+    "暂无运行记录"
+  ],
+  [
+    "No projects created",
+    "尚未创建任何项目"
+  ],
+  [
+    "Create a project first.",
+    "请先创建一个项目。"
+  ],
+  [
+    "Runs as",
+    "运行身份："
+  ],
+  [
+    "Where should it run?",
+    "应在何处运行？"
+  ],
+  [
+    "When should it run?",
+    "应在何时运行？"
+  ],
+  [
+    "Run a prompt on a schedule, like a morning summary of yesterday's changes. Runs show up here.",
+    "按计划定时运行提示词（例如每天早间汇总昨天的代码变更），运行记录将显示在此处。"
+  ],
+  [
+    "Loading trajectory...",
+    "正在加载执行轨迹..."
+  ],
+  [
+    "Loading skills…",
+    "正在加载技能..."
+  ],
+  [
+    "No skills available",
+    "暂无可用技能"
+  ],
+  [
+    "To update:",
+    "更新方式："
+  ],
+  [
+    "at ref",
+    "位于引用 (ref)"
+  ],
+  [
+    "Allow creating issues and grant access to specific issues.",
+    "允许创建议题 (Issue) 并授予对特定议题的访问权限。"
+  ],
+  [
+    "Issue creation",
+    "议题 (Issue) 创建"
+  ],
+  [
+    "Pull request creation",
+    "拉取请求 (PR) 创建"
+  ],
+  [
+    "Grant the selected actions on the listed branch names — a comma-separated list like main, dev, prod (glob patterns like fix-* allowed), or * for all.",
+    "对列出的分支名称授予所选操作权限——使用逗号分隔（如 main, dev，支持 fix-* 通配符），或输入 * 代表全部。"
+  ],
+  [
+    "Run visibility",
+    "工作流运行记录可见性"
+  ],
+  [
+    "Allow reading workflow runs (list, view, watch) across the whole repository.",
+    "允许读取整个代码仓库的工作流运行记录（列出、查看、监控）。"
+  ],
+  [
+    "Each rule lets the agent run the listed workflow files on the listed refs — each a comma-separated list like ci.yml, deploy.yml and main, dev (glob patterns like fix-* allowed), or * for all. Both fields must be set for a rule to grant anything.",
+    "每条规则允许智能体在指定的分支/引用上运行列出的工作流文件（用逗号分隔，如 ci.yml, deploy.yml 与 main, dev，或用 * 代表全部）。两个字段必须同时填写方可生效。"
+  ],
+  [
+    "Organizations",
+    "所属组织 (Organizations)"
+  ],
+  [
+    "+ Add Organization policy",
+    "+ 添加组织权限策略"
+  ],
+  [
+    "No instances yet.",
+    "暂无实例。"
+  ],
+  [
+    "Remote Control Instances",
+    "远程控制实例"
+  ],
+  [
+    "Running command",
+    "正在运行命令"
+  ],
+  [
+    "Created",
+    "已创建"
+  ],
+  [
+    "finished",
+    "已完成"
+  ],
 ];
     const phrases = Array.isArray(rawPhrases) ? rawPhrases : Object.values(rawPhrases);
     const EXACT_MAP = new Map();
@@ -10260,6 +12960,16 @@ try {
         EXACT_MAP.set(p[0].trim(), p[1]);
       }
     }
+    try {
+      const nm = window.__agZhNativeMap;
+      if (nm && typeof nm === 'object') {
+        for (const nk in nm) {
+          if (Object.prototype.hasOwnProperty.call(nm, nk) && !EXACT_MAP.has(nk.trim())) {
+            EXACT_MAP.set(nk.trim(), nm[nk]);
+          }
+        }
+      }
+    } catch (e) {}
 
     // 1.1 用户个性化自定义词典支持 (User Custom Dictionary - 最高优先级)
     const USER_CUSTOM_MAP = new Map();
@@ -10301,6 +13011,112 @@ try {
 
     // 2. 正则模式匹配库（针对动态数字、状态卡片、复合时间、拆分节点、单位）
     const patterns = [
+      [/^\s*(\S.*?)\s+finished\s*$/gi, '$1 已完成'],
+      [/^\s*·\s*Exited\s+with\s+code\s+(-?\d+)\s*$/gi, '· 退出代码：$1'],
+      [/^\s*Exited\s+with\s+code\s+(-?\d+)\s*$/gi, '退出代码：$1'],
+
+      // 2.29.1 模型与用量动态限额、悬浮气泡、对比度警告与全量模板正则
+      [/^\s*For\s+paid\s+Pro\s+plans,\s*(.+?)\s+quota\s+is\s+separate\.\s*Higher\s+(.+?)\s+quota\s*\(included\s+as\s+part\s+of\s+the\s+larger\s+Gemini\s+quota\s+bucket\)\s+is\s+available\s+on\s+Ultra\s+plans\.?\s*$/gi, '在 Pro 付费套餐中，$1 配额独立计算。升级至 Ultra 套餐可享更高的 $2 配额（包含在更大的 Gemini 共享配额池中）。'],
+      [/^\s*Models\s+within\s+this\s+group:\s*(.+)$/gi, '此分组包含的模型：$1'],
+      [/^\s*You\s+have\s+hit\s+your\s+(?:5-hour\s+limit|5\s*小时限额|5\s*小时配额上限),\s*so\s+the\s+(?:weekly\s+limit|每周限额|每周配额)\s+does\s+not\s+currently\s+apply\.\s*Your\s+(?:5-hour\s+limit|5\s*小时限额|5\s*小时配额上限)\s+will\s+refresh\s+in\s+(.+?)\.?\s*$/gi, (m, t) => {
+        const zhT = t.replace(/(\d+)\s*days?,?\s*/gi, '$1 天 ').replace(/(\d+)\s*hours?,?\s*/gi, '$1 小时 ').replace(/(\d+)\s*minutes?,?\s*/gi, '$1 分钟 ').replace(/(\d+)\s*seconds?,?\s*/gi, '$1 秒 ').replace(/\s+/g, ' ').trim();
+        return '您已达到 5 小时配额上限，因此每周配额当前暂不生效。您的 5 小时配额将在 ' + zhT + '后刷新。';
+      }],
+      [/^\s*You\s+have\s+hit\s+your\s+(?:5-hour\s+limit|5\s*小时限额|5\s*小时配额上限),\s*it\s+will\s+refresh\s+in\s+(.+?)\.\s*If\s+on\s+a\s+supported\s+paid\s+plan,\s*you\s+can\s+use\s+AI\s+credits\s+in\s+the\s+interim\.?\s*$/gi, (m, t) => {
+        const zhT = t.replace(/(\d+)\s*days?,?\s*/gi, '$1 天 ').replace(/(\d+)\s*hours?,?\s*/gi, '$1 小时 ').replace(/(\d+)\s*minutes?,?\s*/gi, '$1 分钟 ').replace(/(\d+)\s*seconds?,?\s*/gi, '$1 秒 ').replace(/\s+/g, ' ').trim();
+        return '您已达到 5 小时配额上限，将在 ' + zhT + '后刷新。若您使用的是支持此功能的付费套餐，在此期间可使用 AI 点数继续对话。';
+      }],
+      [/^\s*You\s+have\s+hit\s+your\s+(?:weekly\s+limit|每周限额|每周配额上限),\s*so\s+the\s+(?:5-hour\s+limit|5\s*小时限额|5\s*小时配额)\s+does\s+not\s+currently\s+apply\.\s*Your\s+(?:weekly\s+limit|每周限额|每周配额上限)\s+will\s+refresh\s+in\s+(.+?)\.?\s*$/gi, (m, t) => {
+        const zhT = t.replace(/(\d+)\s*days?,?\s*/gi, '$1 天 ').replace(/(\d+)\s*hours?,?\s*/gi, '$1 小时 ').replace(/(\d+)\s*minutes?,?\s*/gi, '$1 分钟 ').replace(/(\d+)\s*seconds?,?\s*/gi, '$1 秒 ').replace(/\s+/g, ' ').trim();
+        return '您已达到每周配额上限，因此 5 小时配额当前暂不生效。您的每周配额将在 ' + zhT + '后刷新。';
+      }],
+      [/^\s*You\s+have\s+hit\s+your\s+(?:weekly\s+limit|每周限额|每周配额上限),\s*it\s+will\s+refresh\s+in\s+(.+?)\.\s*If\s+on\s+a\s+supported\s+paid\s+plan,\s*you\s+can\s+use\s+AI\s+credits\s+in\s+the\s+interim\.?\s*$/gi, (m, t) => {
+        const zhT = t.replace(/(\d+)\s*days?,?\s*/gi, '$1 天 ').replace(/(\d+)\s*hours?,?\s*/gi, '$1 小时 ').replace(/(\d+)\s*minutes?,?\s*/gi, '$1 分钟 ').replace(/(\d+)\s*seconds?,?\s*/gi, '$1 秒 ').replace(/\s+/g, ' ').trim();
+        return '您已达到每周配额上限，将在 ' + zhT + '后刷新。若您使用的是支持此功能的付费套餐，在此期间可使用 AI 点数继续对话。';
+      }],
+      [/^\s*You\s+have\s+used\s+some\s+of\s+your\s+(?:weekly\s+limit|每周限额),?\s*it\s+will\s+fully\s+refresh\s+in\s+(.+?)\.?\s*$/gi, (m, t) => {
+        const zhT = t.replace(/(\d+)\s*days?,?\s*/gi, '$1 天 ').replace(/(\d+)\s*hours?,?\s*/gi, '$1 小时 ').replace(/(\d+)\s*minutes?,?\s*/gi, '$1 分钟 ').replace(/(\d+)\s*seconds?,?\s*/gi, '$1 秒 ').replace(/\s+/g, ' ').trim();
+        return '您已使用部分每周额度，将在 ' + zhT + '后完全刷新。';
+      }],
+      [/^\s*You\s+have\s+used\s+some\s+of\s+your\s+(?:5-hour\s+limit|5\s+hour\s+limit|5\s*小时限额),?\s*it\s+will\s+fully\s+refresh\s+in\s+(.+?)\.?\s*$/gi, (m, t) => {
+        const zhT = t.replace(/(\d+)\s*days?,?\s*/gi, '$1 天 ').replace(/(\d+)\s*hours?,?\s*/gi, '$1 小时 ').replace(/(\d+)\s*minutes?,?\s*/gi, '$1 分钟 ').replace(/(\d+)\s*seconds?,?\s*/gi, '$1 秒 ').replace(/\s+/g, ' ').trim();
+        return '您已使用部分 5 小时额度，将在 ' + zhT + '后完全刷新。';
+      }],
+      [/^\s*Individual\s+quota\s+reached\.\s*Please\s+upgrade\s+your\s+subscription\s+to\s+increase\s+your\s+limits\.\s*Resets\s+in\s+(.+?)\.?\s*$/gi, (m, t) => {
+        const zhT = t.replace(/(\d+)\s*d(?:ays?)?\s*/gi, '$1 天 ').replace(/(\d+)\s*h(?:ours?)?\s*/gi, '$1 小时 ').replace(/(\d+)\s*m(?:inutes?|ins?)?\s*/gi, '$1 分钟 ').replace(/(\d+)\s*s(?:econds?|ecs?)?\s*/gi, '$1 秒 ').replace(/\s+/g, ' ').trim();
+        return '已达到个人配额上限。请升级您的订阅套餐以提升额度上限。将在 ' + zhT + '后重置。';
+      }],
+      [/^\s*You\s+haven't\s+used\s+any\s+of\s+your\s+weekly\s+limit\.?\s*$/gi, '您尚未使用任何每周配额。'],
+      [/^\s*You\s+have\s+not\s+used\s+any\s+of\s+your\s+weekly\s+limit\.?\s*$/gi, '您尚未使用任何每周配额。'],
+      [/^\s*You\s+haven't\s+used\s+any\s+of\s+your\s+5-hour\s+limit\.?\s*$/gi, '您尚未使用任何 5 小时配额。'],
+      [/^\s*You\s+have\s+not\s+used\s+any\s+of\s+your\s+5-hour\s+limit\.?\s*$/gi, '您尚未使用任何 5 小时配额。'],
+      [/^\s*Low\s+contrast\s+ratio\s*\((.+?)\)\.\s*Text\s+may\s+be\s+hard\s+to\s+read\.?\s*$/gi, '对比度过低 ($1)，文字可能难以辨认。'],
+      [/^\s*Available\s+AI\s+Credits:\s*(.+)$/gi, '可用 AI 点数：$1'],
+      [/^\s*Your\s+quota\s+for\s+(.+?)\s+has\s+been\s+reached\.\s*Switch\s+to\s+another\s+available\s+model\s+to\s+continue\.?\s*$/gi, '您的 $1 模型配额已用尽，请切换至其他可用模型继续对话。'],
+      [/^\s*Your\s+plan's\s+baseline\s+quota\s+will\s+refresh\s+on\s+(.+?)\.?\s*$/gi, '您套餐的基础配额将于 $1 刷新。'],
+      [/^\s*Open\s+(.+?)\s+skill\s*$/gi, '打开 $1 技能'],
+      [/^\s*Open\s+the\s+(.+?)\s+plugin\s*$/gi, '打开 $1 插件'],
+      [/^\s*(.+?)\s+\(Experimental\)\s*$/gi, '$1 (实验性)'],
+      [/^\s*(.+?)\s+on\s+this\s+computer\s*$/gi, '当前电脑上的 $1'],
+      [/^\s*(.+?)\s+\(Remote\)\s*$/gi, '$1 (远程)'],
+      [/^\s*Move\s+to\s+Group:\s*(.+)$/gi, '移动到分组：$1'],
+      [/^\s*System\s+default\s*\((.+?)\)\s*$/gi, '系统默认 ($1)'],
+      [/^\s*Search\s+Google\s+for\s+"(.+)"\s*$/gi, '使用 Google 搜索“$1”'],
+      [/^\s*Agent\s+needs\s+permission\s+to\s+act\s+on\s+(.+)$/gi, '智能体需要权限才能操作 $1'],
+      [/^\s*Unfold\s+lines\s+(\d+)-(\d+)\s*$/gi, '展开第 $1-$2 行'],
+
+  // 2.29.0 全量深度爬虫补全：远程项目、云端资源、权限、悬浮提示与右键菜单
+      [/^\s*New\s+Remote\s+Project\s*$/gi, '新建远程项目'],
+      [/^\s*Select\s+Resource\(s\)\s*$/gi, '选择资源'],
+      [/^\s*\+\s*Add\s+Resource\s*$/gi, '+ 添加资源'],
+      [/^\s*Add\s+Resource\s*$/gi, '添加资源'],
+      [/^\s*\+\s*Add\s+Folder\s*$/gi, '+ 添加文件夹'],
+      [/^\s*Add\s+Folder\s*$/gi, '添加文件夹'],
+      [/^\s*Uploaded\s+files\s+and\s+connected\s+resources\s+are\s+mounted\s+in\s+your\s+cloud\s+environment\.?\s*$/gi, '已上传的文件与已连接的资源将挂载到您的云端环境中。'],
+      [/^\s*Configure\s+what\s+the\s+agent\s+can\s+do\s+in\s+local\s+and\s+remote\s+conversations\.?\s*$/gi, '配置智能体在本地与远程对话中可执行的操作权限。'],
+      [/^\s*This\s+Computer\s*$/gi, '当前电脑 (本地)'],
+      [/^\s*This\s+computer\s*$/gi, '当前电脑 (本地)'],
+      [/^\s*Remote\s*$/gi, '远程环境'],
+      [/^\s*Controls\s+permissions\s+for\s+remote\s+conversations\.?\s*$/gi, '控制远程对话的操作权限范围。'],
+      [/^\s*Change(?:\.\.\.|…)\s*$/gi, '更改...'],
+      [/^\s*已在\s+(\d+)\s+projects?\s*$/gi, '已在 $1 个项目中'],
+      [/^\s*(\d+)\s+projects?\s*$/gi, '$1 个项目'],
+      [/^\s*projects\s*$/gi, '个项目'],
+      [/^\s*Remote\s+Agents\s+Data\s*$/gi, '远程智能体数据'],
+      [/^\s*Delete\s+All\s+Remote\s+Agents\s+Data\??\s*$/gi, '删除所有远程智能体数据'],
+      [/^\s*Delete\s+All\s+Data\s*$/gi, '删除所有数据'],
+      [/^\s*(?:Permanently\s+delete\s+|永久删除\s*)?your\s+remote\s+conversations,\s*projects,\s*scheduled\s+tasks,\s*connected\s+plugins\s+and\s+settings\.\s*Data\s+in\s+the\s+desktop\s+app\s+and\s+your\s+Google\s+account\s+are\s+not\s+affected\.?\s*$/gi, '您的远程对话、项目、定时任务、已连接插件及设置。桌面客户端本地数据与您的 Google 账号不受影响。'],
+      [/^\s*(\d+)\s*(?:active\s+conversations?|个?活动对话)\s+and\s+(\d+)\s*(?:archived\s+conversations?|个?已归档对话)\s*$/gi, '$1 个活动对话与 $2 个已归档对话'],
+      [/^\s*and\s+(\d+)\s*archived\s+conversations?\s*$/gi, '与 $1 个已归档对话'],
+      [/^\s*(\d+)\s*active\s+conversations?\s*$/gi, '$1 个活动对话'],
+      [/^\s*(\d+)\s*archived\s+conversations?\s*$/gi, '$1 个已归档对话'],
+      [/^\s*Weekly\s+Limit\s*剩余\s*$/gi, '每周配额剩余'],
+      [/^\s*Five\s+Hour\s+Limit\s*剩余\s*$/gi, '5 小时配额剩余'],
+      [/^\s*(.+?)\s+Weekly\s+Limit\s*$/gi, '$1 每周配额上限'],
+      [/^\s*(.+?)\s+Five\s+Hour\s+Limit\s*$/gi, '$1 5 小时配额上限'],
+      [/^\s*(\d+)%\s*left\s*$/gi, '剩余 $1%'],
+      [/^\s*%\s*left\s*$/gi, '% 剩余'],
+      [/^\s*(\d+)h\s+limit\s*$/gi, '$1 小时配额'],
+      [/^([\s\S]+?),\s*(\d+)\s+turns?$/i, '$1，$2 轮对话'],
+      [/^Turn\s+(\d+)\s+of\s+(\d+)$/i, '第 $1 / $2 轮'],
+      [/^Go\s+to\s+turn\s+(\d+)\s+of\s+(\d+)$/i, '跳转到第 $1 / $2 轮'],
+      [/^Shortcut\s+(.+?)\s+for\s+(.+)$/i, '“$2”的快捷键：$1'],
+      [/^Remove\s+shortcut\s+(.+?)\s+for\s+(.+)$/i, '移除“$2”的快捷键 $1'],
+      [/^Add\s+shortcut\s+for\s+(.+)$/i, '为“$1”添加快捷键'],
+      [/^Reset\s+(.+?)\s+to\s+default$/i, '将“$1”重置为默认值'],
+      [/^选择模型，当前：(.+?)\s+Medium$/i, '选择模型，当前：$1 (中)'],
+      [/^选择模型，当前：(.+?)\s+High$/i, '选择模型，当前：$1 (高)'],
+      [/^选择模型，当前：(.+?)\s+Low$/i, '选择模型，当前：$1 (低)'],
+      [/^智能体权限预设选择器，当前：Turbo$/i, '智能体权限预设选择器，当前：极速模式'],
+      [/^Updated\s+(\d+:\d+)$/i, '更新于 $1'],
+      [/^Version\s+([0-9.]+.*)$/i, '版本 $1'],
+      [/^(\d+)\s+File(s)?\s+With\s+Changes$/i, '$1 个文件有更改'],
+      [/^(\d+)\s+task(s)?\s+running$/i, '$1 个任务正在运行'],
+      [/^Show\s+(\d+)\s+earlier\s+steps?$/i, '显示更早的 $1 个步骤'],
+      [/^(\d+)\s+browser\s+steps?$/i, '$1 个浏览器操作步骤'],
+      [/^Context\s+window\s+about\s+(\d+)%\s+full,\s*compacted\s+since\s+the\s+last\s+response$/i, '上下文窗口已使用约 $1%（自上次回复后已自动压缩）'],
+      [/^Context\s+window\s+(\d+)%\s+full$/i, '上下文窗口已使用 $1%'],
+
   // ==========================================
   // 2.29.0 深度补全：主屏动态欢迎、外观、快捷键、附件上限
   // ==========================================
@@ -10332,7 +13148,7 @@ try {
       [/^\s*Download\s+Location\s*$/gi, '下载保存位置'],
       [/^\s*Folder\s+where\s+files\s+downloaded\s+in\s+the\s+built-in\s+browser\s+are\s+saved\.?\s*$/gi, '内置浏览器中下载文件保存的目标文件夹。'],
       [/^\s*Browsing\s+History\s*$/gi, '浏览历史记录'],
-      [/^\s*Clear\s+visited\s+URLs\s+and\s+autocomplete\s+suggestions\s+from\s+the\s+built-in\s+browser\.?\s*$/gi, '清除内置浏览器中访问过的网页链接和自动补全历史建议。']
+      [/^\s*Clear\s+visited\s+URLs\s+and\s+autocomplete\s+suggestions\s+from\s+the\s+built-in\s+browser\.?\s*$/gi, '清除内置浏览器中访问过的网页链接和自动补全历史建议。'],
 
   [/^\s*See\s+(\d+)\s+more\s*$/i, '查看另外 $1 项'],
   [/^\s*Add\s*$/i, '添加'],
@@ -11071,7 +13887,7 @@ try {
       [/(?:已在|在)\s*(\d+)\s*projects/gi, '已在 $1 个项目中'],
       [/^(\d+)\s*projects$/gi, '$1 个项目'],
       [/(\d[\d,]*)\s*tokens?\s*\(/gi, '$1 Token ('],
-      [/(\d[\d,]*)\s*tokens?\)/gi, '$1 Token)'],,
+      [/(\d[\d,]*)\s*tokens?\)/gi, '$1 Token)'],
 
       [/^(\d+)\s*turns?$/gi, '$1 轮对话'],
       [/^Turn\s+(\d+)\s+of\s+(\d+)$/gi, '第 $1 轮（共 $2 轮）'],
@@ -11082,7 +13898,7 @@ try {
       [/^(\d+)\s*d$/gi, '$1 天'],
       [/^(\d+)\s*h$/gi, '$1 小时'],
       [/^(\d+)\s*m$/gi, '$1 分钟'],
-      [/^(\d+)\s*s$/gi, '$1 秒'],,
+      [/^(\d+)\s*s$/gi, '$1 秒'],
 
       [/^Artifacts\s*\(\s*(\d+)\s+Files?\s+for\s+Conversation\s*\)$/gi, '产物文件 (本对话包含 $1 个文件)'],
       [/^Artifacts\s*\(\s*(\d+)\s+Files?\s*\)$/gi, '产物文件 ($1 个文件)'],
@@ -11274,7 +14090,8 @@ try {
         const r = Array.isArray(item) ? item[1] : item.replace;
         if (!p || typeof p.test !== 'function') continue;
         if (p.test(core)) {
-          const res = core.replace(p, r);
+          p.lastIndex = 0;
+          const res = core.replace(p, r).replace(/“([A-Za-z][^”]*)”/g, function(_, inner) { return '“' + (EXACT_MAP.get(inner.trim()) || inner) + '”'; });
           p.lastIndex = 0;
           return leading + res + trailing;
         }
@@ -11395,12 +14212,12 @@ try {
           if (!element.hasAttribute(attr)) continue;
           const value = element.getAttribute(attr);
           if (!value || !/[A-Za-z]/.test(value)) continue;
-          if (element.__zh_last_attr_val && element.__zh_last_attr_val[attr] === value) continue;
+          if (element.__zh_last_attr_val_v4 && element.__zh_last_attr_val_v4[attr] === value) continue;
           const translated = translate(value);
           if (translated !== value) {
             element.setAttribute(attr, translated);
-            if (!element.__zh_last_attr_val) element.__zh_last_attr_val = {};
-            element.__zh_last_attr_val[attr] = translated;
+            if (!element.__zh_last_attr_val_v4) element.__zh_last_attr_val_v4 = {};
+            element.__zh_last_attr_val_v4[attr] = translated;
           }
         }
       } catch (e) {}
@@ -11428,15 +14245,15 @@ try {
         if (root.nodeType === Node.TEXT_NODE) {
           const val = root.nodeValue;
           if (val && /[A-Za-z]/.test(val)) {
-            if (root.__zh_done && root.__zh_last_val === val) {
+            if (root.__zh_done_v4 && root.__zh_last_val_v4 === val) {
               return;
             }
             const translated = translate(val);
             if (translated !== val) {
               root.nodeValue = translated;
-              root.__zh_last_val = translated;
+              root.__zh_last_val_v4 = translated;
               if (!/[A-Za-z]/.test(translated)) {
-                root.__zh_done = true;
+                root.__zh_done_v4 = true;
               }
             }
           }
@@ -11447,8 +14264,8 @@ try {
 
         // 元素节点染色防重搜
         if (root.nodeType === Node.ELEMENT_NODE) {
-          if (root.__zh_scanned === true) return;
-          root.__zh_scanned = true;
+          if (root.__zh_scanned_v4 === true) return;
+          root.__zh_scanned_v4 = true;
           translateElement(root);
           checkCompositeElement(root);
         }
@@ -11468,20 +14285,20 @@ try {
           if (node.nodeType === Node.TEXT_NODE) {
             const val = node.nodeValue;
             if (val && /[A-Za-z]/.test(val)) {
-              if (!(node.__zh_done && node.__zh_last_val === val)) {
+              if (!(node.__zh_done_v4 && node.__zh_last_val_v4 === val)) {
                 const translated = translate(val);
                 if (translated !== val) {
                   node.nodeValue = translated;
-                  node.__zh_last_val = translated;
+                  node.__zh_last_val_v4 = translated;
                   if (!/[A-Za-z]/.test(translated)) {
-                    node.__zh_done = true;
+                    node.__zh_done_v4 = true;
                   }
                 }
               }
             }
           } else if (node.nodeType === Node.ELEMENT_NODE) {
-            if (!node.__zh_scanned) {
-              node.__zh_scanned = true;
+            if (!node.__zh_scanned_v4) {
+              node.__zh_scanned_v4 = true;
               translateElement(node);
               checkCompositeElement(node);
             }
@@ -11560,7 +14377,7 @@ try {
       for (let i = 0; i < rawBatch.length; i++) {
         const target = rawBatch[i];
         if (!target || !target.isConnected) continue;
-        if (target.__zh_scanned === true) continue;
+        if (target.__zh_scanned_v4 === true) continue;
         
         let isContained = false;
         for (let j = 0; j < uniqueRoots.length; j++) {
@@ -11578,7 +14395,7 @@ try {
       let processedIndex = 0;
       for (let i = 0; i < uniqueRoots.length; i++) {
         const target = uniqueRoots[i];
-        if (target && target.isConnected && !target.__zh_scanned) {
+        if (target && target.isConnected && !target.__zh_scanned_v4) {
           translateNode(target);
         }
         processedIndex = i + 1;
@@ -11641,20 +14458,25 @@ try {
           window.__antigravityTranslateText = translate;
           window.reapplyAntigravityZh = () => {
             try {
-              const walker = document.createTreeWalker(document.body || document.documentElement, NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT, null, false);
+              const rootEl = document.body || document.documentElement;
+              if (!rootEl) return;
+              delete rootEl.__zh_last_attr_val_v4;
+              delete rootEl.__zh_scanned_v4;
+              delete rootEl.__zh_skip;
+              const walker = document.createTreeWalker(rootEl, NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT, null, false);
               let n = walker.nextNode();
               while (n) {
                 if (n.nodeType === Node.TEXT_NODE) {
-                  delete n.__zh_last_val;
-                  delete n.__zh_done;
+                  delete n.__zh_last_val_v4;
+                  delete n.__zh_done_v4;
                 } else if (n.nodeType === Node.ELEMENT_NODE) {
-                  delete n.__zh_last_attr_val;
-                  delete n.__zh_scanned;
+                  delete n.__zh_last_attr_val_v4;
+                  delete n.__zh_scanned_v4;
                   delete n.__zh_skip;
                 }
                 n = walker.nextNode();
               }
-              translateNode(document.body || document.documentElement);
+              translateNode(rootEl);
             } catch(e) {}
           };
         }
@@ -11662,7 +14484,8 @@ try {
         initSelectionTranslationBubble();
 
         // 纯净高性能防抖观察器：完全剔除 characterData 监听
-        new MutationObserver((mutations) => {
+        if (typeof window !== "undefined" && window.__antigravityZhObserver) { try { window.__antigravityZhObserver.disconnect(); } catch (e) {} }
+        const zhObserver = new MutationObserver((mutations) => {
           try {
             let hasAdded = false;
             for (let i = 0; i < mutations.length; i++) {
@@ -11672,7 +14495,7 @@ try {
                   const node = m.addedNodes[j];
                   if (!node) continue;
                   if (node.nodeType === Node.ELEMENT_NODE) {
-                    if (node.__zh_scanned === true || node.__zh_skip === true) continue;
+                    if (node.__zh_scanned_v4 === true || node.__zh_skip === true) continue;
                     const tag = node.tagName ? node.tagName.toLowerCase() : '';
                     if (tag === 'svg' || tag === 'path' || tag === 'code' || tag === 'pre' || tag === 'script' || tag === 'style') {
                       continue;
@@ -11694,7 +14517,7 @@ try {
                 const target = m.target;
                 if (target && target.nodeType === Node.TEXT_NODE) {
                   const val = target.nodeValue;
-                  if (val && /[A-Za-z]/.test(val) && val !== target.__zh_last_val) {
+                  if (val && /[A-Za-z]/.test(val) && val !== target.__zh_last_val_v4) {
                     const p = target.parentElement;
                     if (p && p.closest && p.closest('.markdown-body, pre, code, .terminal, .xterm, [data-testid="user-input-step"], [contenteditable="true"]')) {
                       continue;
@@ -11702,8 +14525,8 @@ try {
                     const trVal = translate(val);
                     if (trVal !== val) {
                       target.nodeValue = trVal;
-                      target.__zh_last_val = trVal;
-                      target.__zh_done = true;
+                      target.__zh_last_val_v4 = trVal;
+                      target.__zh_done_v4 = true;
                     }
                   }
                 }
@@ -11718,7 +14541,9 @@ try {
               }
             }
           } catch (e) {}
-        }).observe(document.documentElement || document, {
+        });
+        if (typeof window !== "undefined") { window.__antigravityZhObserver = zhObserver; }
+        zhObserver.observe(document.documentElement || document, {
           childList: true,
           subtree: true,
           characterData: true,
